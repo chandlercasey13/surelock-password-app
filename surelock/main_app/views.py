@@ -4,7 +4,7 @@ from django.views.generic.edit import UpdateView, DeleteView
 from .models import Login
  
 def home(request):
-    return render(request, 'index.html')
+    return render(request, 'passwords/index.html')
 
 
 def password_index(request):
