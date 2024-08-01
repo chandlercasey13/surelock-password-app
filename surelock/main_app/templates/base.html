@@ -1,25 +1,51 @@
-
-
 {% load static %}
- 
+
 <!DOCTYPE html>
 <html lang="en">
- 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content=
-        "width=device-width, initial-scale=1.0">
-    <title>Django + Tailwind CSS</title>
- 
-    
-</head>
- 
-<body >
-    <div >
-        {% block content %}
-        {% endblock content %}
-    </div>
-</body>
- 
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="shortcut icon"
+			type="image/png"
+			href="{% static 'images/splash.svg' %}"
+		/>
+		<title>password Collector</title>
+		<link rel="stylesheet" href="{% static 'css/base.css' %}" />
+		{% block head %} {% endblock %}
+	</head>
+	<body>
+		<header>
+			<div class="header-logo-container">
+				<a href="/">
+					{% comment %}
+					<img
+						src="{% static 'images/header-logo.svg' %}"
+						alt="The Surelock Password Manager logo"
+					/>
+					{% endcomment %}
+				</a>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="{% url 'password-index' %}">Vault</a></li>
+					{% comment %}
+					<!--
+          <li><a href="{% url 'password-create' %}">Add a Password</a></li>
+           password- create comes from url.py 
+
+           *If we want to add many-to-many navbar links, they will be here
+          <li><a href="{% url 'variable-index' %}">All Variables</a></li>
+          <li><a href="{% url 'variable-create' %}">Add a Variable</a></li>
+          
+
+          <li><a href="{% url 'about' %}">About</a></li>
+          -->
+					{% endcomment %}
+				</ul>
+			</nav>
+		</header>
+		<main>{% block content %} {% endblock %}</main>
+	</body>
 </html>
