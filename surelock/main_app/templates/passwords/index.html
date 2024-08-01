@@ -1,0 +1,21 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/passwords/password-index.css' %}"/>
+{% endblock %} 
+{% block content %}
+
+<section class="page-header">
+  <h1>Password List</h1>
+  
+</section>
+
+<section class="card-container">
+  {% for password in passwords %}
+    <div class="card">
+    <a href = '{% url 'password-detail' password.id %}'>{{password.appname}}</a>
+    </div>
+  {% endfor %}
+</section> 
+
+{% endblock %}
