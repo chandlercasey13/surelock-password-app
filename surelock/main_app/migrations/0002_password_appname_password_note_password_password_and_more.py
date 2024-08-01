@@ -11,22 +11,22 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='password',
+            model_name='login',
             name='appname',
             field=models.CharField(default='No App Name', max_length=100),
         ),
         migrations.AddField(
-            model_name='password',
+            model_name='login',
             name='note',
             field=models.TextField(default='Nothing Here', max_length=250),
         ),
         migrations.AddField(
-            model_name='password',
+            model_name='login',
             name='password',
             field=models.CharField(default='No Password', max_length=100),
         ),
         migrations.AddField(
-            model_name='password',
+            model_name='login',
             name='username',
             field=models.CharField(default='No Username', max_length=100),
         ),

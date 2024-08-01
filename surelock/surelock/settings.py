@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'surelock.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'passwordDB',
+        'NAME': 'loginDB',
     }
 }
 
