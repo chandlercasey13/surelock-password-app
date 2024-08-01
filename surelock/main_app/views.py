@@ -1,6 +1,6 @@
 
 from django.shortcuts import render
-
+from django.views.generic.edit import UpdateView
 from .models import Login
  
 def home(request):
@@ -18,5 +18,7 @@ def password_detail(request, password_id):
     return render(request, 'passwords/detail.html', {'password': password})
 
 
-
+class PasswordUpdate(UpdateView):
+    model = Login
+    fields = ["appname", "username", "password", "note"]
 
