@@ -7,15 +7,55 @@
 
 <section class="page-header">
   <h1>Login/Password List</h1>
-  
-</section>
-
-<section class="card-container">
   {% for password in passwords %}
     <div class="card">
     <a href = '{% url 'password-detail' password.id %}'>{{password.appname}}</a>
     </div>
   {% endfor %}
+
+  <button class = 'open-button'>New Password</button>
+</section>
+
+
+
+
+
+<section>
+  
+
+
+  
+
+<dialog class = 'modal' id = 'modal'>
+
+    <form action = '' id="LoginForm" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    
+    </form>
+    <button class = 'close-button'>x</button>
+</dialog>  
+
+
+<script>
+    const modal = document.querySelector('#modal');
+    
+    const openModal = document.querySelector('.open-button');
+    
+    const closeModal = document.querySelector('.close-button');
+    
+    
+    openModal.addEventListener('click', function () {
+        modal.showModal();
+    })
+    
+    closeModal.addEventListener('click', function () {
+        modal.close();
+    })
+</script>
+    
+
 </section> 
 
 {% endblock %}

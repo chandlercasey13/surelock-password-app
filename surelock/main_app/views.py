@@ -1,7 +1,10 @@
 
 from django.shortcuts import render
-from django.views.generic.edit import UpdateView, DeleteView
+
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
 from .models import Login
+from .forms import LoginForm
  
 def home(request):
     return render(request, 'passwords/index.html')
@@ -18,6 +21,19 @@ def password_detail(request, password_id):
     return render(request, 'passwords/detail.html', {'password': password})
 
 
+
+class PassCreate(CreateView):
+    model = Login
+    form_class = LoginForm
+    template_name = 'passwords/index.html'
+    success_url = '/passwords'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['passwords'] = Login.objects.all()
+        return context
+    
+
 class PasswordUpdate(UpdateView):
     model = Login
     fields = ["appname", "username", "password", "note"]
@@ -25,3 +41,4 @@ class PasswordUpdate(UpdateView):
 class PasswordDelete(DeleteView):
     model = Login
     success_url = "/passwords/"
+
