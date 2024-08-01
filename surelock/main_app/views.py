@@ -1,6 +1,6 @@
 
 from django.shortcuts import render
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 from .models import Login
  
 def home(request):
@@ -22,3 +22,6 @@ class PasswordUpdate(UpdateView):
     model = Login
     fields = ["appname", "username", "password", "note"]
 
+class PasswordDelete(DeleteView):
+    model = Login
+    success_url = "/passwords/"
