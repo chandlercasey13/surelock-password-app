@@ -2,8 +2,15 @@
 <link rel="stylesheet" href="{% static 'css/passwords/password-detail.css' %}" />
 {% endblock %} {% block content %}
 <section>
-  {{password.appname}}
-  <a href="{% url 'password-update' password.id %}">Edit</a>
-  <a href="{% url 'password-delete' password.id %}">Delete</a>
+  <h1>{{password.appname}}</h1>
+  <br />
+  <h3>Username:</h3>
+  {{password.username}}
+  <h3>Password:</h3>
+  {{password.password}}
+  <h3>Notes:</h3>
+  {{password.note}} <br />
+  <a href="{% url 'password-update' password.id %}" class="btn">Edit</a>
+  <a href="{% url 'password-delete' password.id %}" class="btn">Delete</a>
 </section>
 {% endblock %}
