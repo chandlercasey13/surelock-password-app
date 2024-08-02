@@ -18,4 +18,6 @@ urlpatterns = [
         views.PasswordDelete.as_view(),
         name="password-delete",
     ),
+    path('accounts/signup/', views.signup, name='signup'),
+
 ]
