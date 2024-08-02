@@ -8,16 +8,38 @@
   <h3>Username:</h3>
   {{password.username}}
   <h3>Password:</h3>
-  {{password.password}}
-  <h3>Notes:</h3>
+
   <div class="password-container">
-    <span id="password-text" class="hidden-password">{{password.note}}</span>
+    <span id="password-text" class="hidden-password">{{'*'|repeat:password.password|length}}</span>
     <button id="toggle-password" class="toggle-btn">
       <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
     </button>
   </div>
+  <h3>Notes:</h3>
+  {{password.note}}
+  <br />
 
   <a href="{% url 'password-update' password.id %}" class="btn">Edit</a>
   <a href="{% url 'password-delete' password.id %}" class="btn">Delete</a>
 </section>
+
+<script>
+  const passwordText = document.getElementById("password-text");
+  const togglePasswordBtn = document.getElementById("toggle-password");
+  const eyeIcon = document.getElementById("img");
+
+  togglePasswordBtn.addEventListener("click", function () {
+    if (passwordText.classList.contains("hidden-password")) {
+      passwordText.classList.remove("hidden-password");
+      passwordText.textContent = "{{password.password}}";
+      eyeIcon.src = "{% static 'images/eye-icon.png' %}";
+      eyeIcon.alt = "Hide";
+    } else {
+      passwordText.classList.add("hidden-password");
+      passwordText.textContent = "{{'*'|repeat:password.password|length}}";
+      eyeIcon.src = "{% static 'images/eye-icon.png' %}";
+      eyeIcon.alt = "Reveal";
+    }
+  });
+</script>
 {% endblock %}
