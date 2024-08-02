@@ -3,6 +3,7 @@
 {% endblock %} {% block content %}
 <section>
   {{password.appname}}
+  <a href="{% url 'password-update' password.id %}">Edit</a>
   <a href="{% url 'password-delete' password.id %}">Delete</a>
 </section>
 {% endblock %}
