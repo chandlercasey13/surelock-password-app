@@ -1,5 +1,6 @@
 {% extends 'main_app/base.html' %} {% load static %} {% block head %}
 <link rel="stylesheet" href="{% static 'css/passwords/password-detail.css' %}" />
+
 {% endblock %} {% block content %}
 <section>
   <h1>{{password.appname}}</h1>
@@ -9,7 +10,13 @@
   <h3>Password:</h3>
   {{password.password}}
   <h3>Notes:</h3>
-  {{password.note}} <br />
+  <div class="password-container">
+    <span id="password-text" class="hidden-password">{{password.note}}</span>
+    <button id="toggle-password" class="toggle-btn">
+      <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
+    </button>
+  </div>
+
   <a href="{% url 'password-update' password.id %}" class="btn">Edit</a>
   <a href="{% url 'password-delete' password.id %}" class="btn">Delete</a>
 </section>
