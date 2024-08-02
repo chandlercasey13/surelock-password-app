@@ -6,14 +6,17 @@
 {% block content %}
 
 <section class="page-header">
+    <button class = 'open-button'>New Password</button>
   <h1>Login/Password List</h1>
   {% for password in passwords %}
     <div class="card">
+        {{password.id}}
     <a href = '{% url 'password-detail' password.id %}'>{{password.appname}}</a>
     </div>
+    
   {% endfor %}
 
-  <button class = 'open-button'>New Password</button>
+  
 </section>
 
 
