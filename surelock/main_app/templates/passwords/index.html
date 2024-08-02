@@ -34,41 +34,76 @@
   
 
 <dialog class = 'modal' id = 'createmodal'>
-
+    <button class = 'close-create-button'>x</button>
     <form action = '' id="LoginForm" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Submit</button>
     
     </form>
-    <button class = 'close-button'>x</button>
+    
 </dialog>  
 
 
+<dialog class = 'modal' id = 'updatemodal'>
+    
+    <button class = 'close-update-button'><a href = '/passwords'>x<a/></button>
+    <form action = '' id="LoginForm" method="post">
+        {% csrf_token %}
+        {{ updateform.as_p }}
+        <button type="submit">Save</button>
+    
+    </form>
+    
+</dialog>  
+
+
+
 <script>
-    const allPasswordElements = document.querySelectorAll('.card')
+    
 
 
 
 
 
-    const modal = document.querySelector('#createmodal');
+    const createModal = document.querySelector('#createmodal');
     
     const openCreateModal = document.querySelector('.open-button');
     
-    const closeCreateModal = document.querySelector('.close-button');
+    const closeCreateModal = document.querySelector('.close-create-button');
     
     
     openCreateModal.addEventListener('click', function () {
-        modal.showModal();
+        createModal.showModal();
     })
     
     closeCreateModal.addEventListener('click', function () {
-        modal.close();
+        createModal.close();
     })
+
+
+    const updateModal = document.querySelector('#updatemodal');
+
+    const allPasswords = document.querySelectorAll('.card')
+
+    
+    {%if password_id%}
+    updateModal.showModal()
+    {%endif%}
+
+
+
+    const closeUpdateModal = document.querySelector('.close-update-button')
+
+    closeUpdateModal.addEventListener('click', function () {
+        updateModal.close();
+    })
+
+
+
+
 </script>
     
 
-</section> 
 
-{% endblock %}
+{% endblock %} 

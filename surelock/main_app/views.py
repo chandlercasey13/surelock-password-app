@@ -13,6 +13,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Login #imports Login model from models.py
+from django.urls import reverse_lazy
  
 class Home(LoginView):
     template_name = 'home.html'
@@ -80,7 +81,25 @@ class PassCreate(CreateView):
 
 class PasswordUpdate(UpdateView):
     model = Login
-    fields = ["appname", "username", "password", "note"]
+    form_class = LoginForm
+    template_name = 'passwords/index.html'
+    success_url = "/passwords/"
+    
+    
+
+    def get (self, request, *args, **kwargs):
+        password_id = kwargs.get('pk')
+
+        form = LoginForm
+        passwords = Login.objects.all().order_by('id')
+
+        if password_id:
+            login_instance = get_object_or_404(self.model, id=password_id)
+            form = self.form_class(instance=login_instance)  # Populate the form with the specific Login object
+        else:
+            form = self.form_class()
+        return render(request,'passwords/index.html', {'passwords': passwords, 'updateform': form, 'password_id': password_id}  )
+
 
 class PasswordDelete(DeleteView):
     model = Login
@@ -95,9 +114,17 @@ class CrudView(View):
     success_url = '/passwords'
     
     def get(self, request, *args, **kwargs):
+        password_id = kwargs.get('id')
+
         form = LoginForm
-        passwords = Login.objects.all()
-        return render(request,'passwords/index.html', {'passwords': passwords, 'form': form}  )
+        passwords = Login.objects.all().order_by('id')
+
+        if password_id:
+            login_instance = get_object_or_404(self.model, id=password_id)
+            form = self.form_class(instance=login_instance)  # Populate the form with the specific Login object
+        else:
+            form = self.form_class()
+        return render(request,'passwords/index.html', {'passwords': passwords, 'form': form, 'password_id': password_id}  )
     
 
     def post(self,request, *args, **kwargs):
@@ -107,17 +134,17 @@ class CrudView(View):
         
         return render(request, self.template_name, {'passwords': passwords, 'form': form})
     
-    # def put(self, request, *args, **kwargs):
-    #     login_id = kwargs.get('id')
-    #     login = get_object_or_404(Login, id=login_id)
+    def put(self, request, *args, **kwargs):
+        login_id = kwargs.get('id')
+        login = get_object_or_404(Login, id=login_id)
 
-    #     form = LoginForm(request.PUT, instance= login)
+        form = LoginForm(request.PUT, instance= login)
 
-    #     passwords = Login.objects.all()
-    #     return render(request, self.template_name, {'form': form, 'passwords': passwords})
+        passwords = Login.objects.all()
+        return render(request, self.template_name, {'form': form, 'passwords': passwords})
 
 
-    
+
 
     
 
