@@ -1,17 +1,22 @@
 {% extends 'main_app/base.html' %} 
-{% load static %} 
+{% load static %}
+    
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/passwords/password-index.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/passwords/password-index.css' %}" />
 {% endblock %} 
 {% block content %}
 
-<section class="page-header">
+
+<section class = "password-index-body">
+
+<section class="passwords-container">
     <button class = 'open-button'>New Password</button>
   <h1>Login/Password List</h1>
   {% for password in passwords %}
     <div class="card">
         {{password.id}}
-    <a href = '{% url 'password-detail' password.id %}'>{{password.appname}}</a>
+    {% comment %} <a href = '{% url 'password-detail' password.id %}'></a> {% endcomment %}
+    <a href = '{% url 'password-detail' password.id %}' >{{password.appname}}</a>
     </div>
     
   {% endfor %}
@@ -19,7 +24,7 @@
   
 </section>
 
-
+</section>
 
 
 
@@ -29,7 +34,7 @@
 
   
 
-<dialog class = 'modal' id = 'modal'>
+<dialog class = 'modal' id = 'createmodal'>
 
     <form action = '' id="LoginForm" method="post">
         {% csrf_token %}
@@ -42,18 +47,24 @@
 
 
 <script>
-    const modal = document.querySelector('#modal');
+    const allPasswordElements = document.querySelectorAll('.card')
+
+
+
+
+
+    const modal = document.querySelector('#createmodal');
     
-    const openModal = document.querySelector('.open-button');
+    const openCreateModal = document.querySelector('.open-button');
     
-    const closeModal = document.querySelector('.close-button');
+    const closeCreateModal = document.querySelector('.close-button');
     
     
-    openModal.addEventListener('click', function () {
+    openCreateModal.addEventListener('click', function () {
         modal.showModal();
     })
     
-    closeModal.addEventListener('click', function () {
+    closeCreateModal.addEventListener('click', function () {
         modal.close();
     })
 </script>
