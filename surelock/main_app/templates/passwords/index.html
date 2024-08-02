@@ -47,7 +47,7 @@
 
 <dialog class = 'modal' id = 'updatemodal'>
     
-    <button class = 'close-update-button'>x</button>
+    <button class = 'close-update-button'><a href = '/passwords'>x<a/></button>
     <form action = '' id="LoginForm" method="post">
         {% csrf_token %}
         {{ updateform.as_p }}

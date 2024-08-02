@@ -91,7 +91,7 @@ class PasswordUpdate(UpdateView):
         password_id = kwargs.get('pk')
 
         form = LoginForm
-        passwords = Login.objects.all()
+        passwords = Login.objects.all().order_by('id')
 
         if password_id:
             login_instance = get_object_or_404(self.model, id=password_id)
@@ -117,7 +117,7 @@ class CrudView(View):
         password_id = kwargs.get('id')
 
         form = LoginForm
-        passwords = Login.objects.all()
+        passwords = Login.objects.all().order_by('id')
 
         if password_id:
             login_instance = get_object_or_404(self.model, id=password_id)
