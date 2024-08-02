@@ -1,0 +1,14 @@
+{% extends "main_app/base.html" %} {% load static %} {%block content%}
+
+<div class="delete-header">
+  <h1>Delete Password?</h1>
+</div>
+
+<h2>Are you sure you want to delete {{login.appname}}?</h2>
+
+<form action="" method="post" class="form">
+  {% csrf_token %}
+  <a href="{ url 'password-detail' login.id }" class="btn">Cancel</a>
+  <button type="submit" class="btn danger">Delete</button>
+</form>
+{% endblock %}
