@@ -103,7 +103,24 @@
 
     closeUpdateModal.addEventListener('click', function () {
         updateModal.close();
-    })
+    });
+
+    // Password reveal functionality for update modal
+    const updatePasswordInput = document.getElementById('update-password');
+    const toggleUpdatePasswordBtn = document.getElementById('toggle-update-password');
+    const updateEyeIcon = toggleUpdatePasswordBtn.querySelector('img');
+
+    toggleUpdatePasswordBtn.addEventListener('click', function () {
+        if (updatePasswordInput.type === 'password') {
+            updatePasswordInput.type = 'text';
+            updateEyeIcon.src = "{% static 'images/eye-icon.png' %}";
+            updateEyeIcon.alt = "Hide";
+        } else {
+            updatePasswordInput.type = 'password';
+            updateEyeIcon.src = "{% static 'images/eye-icon.png' %}";
+            updateEyeIcon.alt = "Reveal";
+        }
+    });
 
 
 
