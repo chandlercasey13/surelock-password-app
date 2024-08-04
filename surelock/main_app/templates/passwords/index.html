@@ -51,6 +51,12 @@
     <form action = '' id="LoginForm" method="post">
         {% csrf_token %}
         {{ updateform.as_p }}
+        <div class="password-reveal-container">
+            <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
+            <button type="button" id="toggle-update-password" class="toggle-btn">
+                <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
+            </button>
+        </div>
         <button type="submit">Save</button>
     
     </form>
