@@ -35,7 +35,7 @@
 
 <dialog class = 'modal' id = 'createmodal'>
     <button class = 'close-create-button'>x</button>
-    <form action = '' id="LoginForm" method="post">
+    <form action = '' id="CreateForm" method="post">
         {% csrf_token %}
 
         <label for="appname">Appname:</label>
@@ -53,6 +53,7 @@
             <button type="button" id="toggle-create-password" class="toggle-btn">
                 <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
             </button>
+            <button type="button" id="copy-password" class="copy-btn">Copy</button>
         </div>
         <br />
         
@@ -70,7 +71,7 @@
 <dialog class = 'modal' id = 'updatemodal'>
     
     <button class = 'close-update-button'><a href = '/passwords'>x<a/></button>
-    <form action = '' id="LoginForm" method="post">
+    <form action = '' id="UpdateForm" method="post">
         {% csrf_token %}
         {% comment %} {{ updateform.as_p }} {% endcomment %}
         <label for="appname">Name:</label>
