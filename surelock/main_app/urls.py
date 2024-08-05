@@ -22,4 +22,5 @@ urlpatterns = [
         name="password-delete",
     ),
     path("accounts/signup/", views.signup, name="signup"),
+    path('passwords/create/', views.simple_password_create, name='simple_password_create'),
 ]

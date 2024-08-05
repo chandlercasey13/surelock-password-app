@@ -11,6 +11,7 @@ class Login(models.Model):
     username =  models.CharField(max_length=100)
     password =  models.CharField(max_length=100)
     note = models.TextField(max_length=250)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.appname    
