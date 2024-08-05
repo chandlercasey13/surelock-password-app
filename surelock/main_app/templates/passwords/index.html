@@ -37,7 +37,29 @@
     <button class = 'close-create-button'>x</button>
     <form action = '' id="LoginForm" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+
+        <label for="appname">Appname:</label>
+        <input type="text" id="appname" name="appname">
+        <br />
+        
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <br />
+        
+        <label for="password">Password:</label>
+        <div class="password-reveal-container">
+            <input type="password" id="create-password" name="password">
+            <button type="button" id="generate-password" class="generate-btn">Generate Password</button>
+            <button type="button" id="toggle-create-password" class="toggle-btn">
+                <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
+            </button>
+        </div>
+        <br />
+        
+        <label for="note">Note:</label>
+        <textarea id="note" name="note"></textarea>
+        <br />
+
         <button type="submit">Submit</button>
     
     </form>
@@ -137,7 +159,40 @@
         }
     });
 
+    // Function to generate a random strong password
+    function generateRandomPassword(length) {
+        const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
+        let password = "";
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * charset.length);
+            password += charset[randomIndex];
+        }
+        return password;
+    }
 
+    const createPasswordInput = document.getElementById('create-password');
+    const toggleCreatePasswordBtn = document.getElementById('toggle-create-password');
+    const generatePasswordBtn = document.getElementById('generate-password');
+    const createEyeIcon = toggleCreatePasswordBtn.querySelector('img');
+
+    // Toggle password visibility
+    toggleCreatePasswordBtn.addEventListener('click', function () {
+        if (createPasswordInput.type === 'password') {
+            createPasswordInput.type = 'text';
+            createEyeIcon.src = "{% static 'images/eye-icon.png' %}";
+            createEyeIcon.alt = "Hide";
+        } else {
+            createPasswordInput.type = 'password';
+            createEyeIcon.src = "{% static 'images/eye-icon.png' %}";
+            createEyeIcon.alt = "Reveal";
+        }
+    });
+
+    // Generate and set random password
+    generatePasswordBtn.addEventListener('click', function () {
+        const randomPassword = generateRandomPassword(12); // You can change the length as desired
+        createPasswordInput.value = randomPassword;
+});
 
 
 </script>
