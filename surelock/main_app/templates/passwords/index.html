@@ -193,8 +193,21 @@
     generatePasswordBtn.addEventListener('click', function () {
         const randomPassword = generateRandomPassword(12); // You can change the length as desired
         createPasswordInput.value = randomPassword;
-});
-
+        
+        // Copy password to clipboard
+        const copyPasswordBtn = document.getElementById("copy-password");
+        
+        copyPasswordBtn.addEventListener('click', function() {
+            createPasswordInput.select();
+            createPasswordInput.setSelectionRange(0, 99999); // For mobile devices
+            
+            // Copy the text inside the password input field
+            navigator.clipboard.writeText(createPasswordInput.value).then(() => {
+                alert("Password copied to clipboard!"); // gives feedback to the user
+            }).catch(err => {
+                console.error("Failed to copy password: ", err);
+            });
+    });
 
 </script>
     
