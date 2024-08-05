@@ -37,7 +37,29 @@
     <button class = 'close-create-button'>x</button>
     <form action = '' id="LoginForm" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+
+        <label for="appname">Appname:</label>
+        <input type="text" id="appname" name="appname">
+        <br />
+        
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <br />
+        
+        <label for="password">Password:</label>
+        <div class="password-reveal-container">
+            <input type="password" id="create-password" name="password">
+            <button type="button" id="generate-password" class="generate-btn">Generate Password</button>
+            <button type="button" id="toggle-create-password" class="toggle-btn">
+                <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
+            </button>
+        </div>
+        <br />
+        
+        <label for="note">Note:</label>
+        <textarea id="note" name="note"></textarea>
+        <br />
+
         <button type="submit">Submit</button>
     
     </form>
