@@ -33,40 +33,39 @@
 
   
 
-<dialog class = 'modal' id = 'createmodal'>
-    <button class = 'close-create-button'>x</button>
-    <form action = '' id="CreateForm" method="post">
-        {% csrf_token %}
-
-        <label for="appname">Appname:</label>
-        <input type="text" id="appname" name="appname">
-        <br />
-        
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username">
-        <br />
-        
-        <label for="password">Password:</label>
-        <div class="password-reveal-container">
-            <input type="password" id="create-password" name="password">
-            <button type="button" id="generate-password" class="generate-btn">Generate Password</button>
-            <button type="button" id="toggle-create-password" class="toggle-btn">
-                <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
-            </button>
-            <button type="button" id="copy-password" class="copy-btn">Copy</button>
-        </div>
-        <br />
-        
-        <label for="note">Note:</label>
-        <textarea id="note" name="note"></textarea>
-        <br />
-
-        <button type="submit">Submit</button>
+    <dialog class = 'modal' id = 'createmodal'>
+        <button class = 'close-create-button'>x</button>
+        <form action = '' id="CreateForm" method="post">
+            {% csrf_token %}
     
-    </form>
+            <label for="appname">Appname:</label>
+            <input type="text" id="appname" name="appname">
+            <br />
+            
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+            <br />
+            
+            <label for="password">Password:</label>
+            <div class="password-reveal-container">
+                <input type="password" id="create-password" name="password">
+                <button type="button" id="generate-password" class="generate-btn">Generate Password</button>
+                <button type="button" id="toggle-create-password" class="toggle-btn">
+                    <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
+                </button>
+                <button type="button" id="copy-password" name="cpy-btn">Copy</button>
+            </div>
+            <br />
+            
+            <label for="note">Note:</label>
+            <textarea id="note" name="note"></textarea>
+            <br />
     
-</dialog>  
-
+            <button type="submit">Submit</button>
+        
+        </form>
+        
+    </dialog>      
 
 <dialog class = 'modal' id = 'updatemodal'>
     
@@ -189,24 +188,26 @@
         }
     });
 
-    // Generate and set random password
-    generatePasswordBtn.addEventListener('click', function () {
+     // Generate and set random password
+     generatePasswordBtn.addEventListener('click', function () {
         const randomPassword = generateRandomPassword(12); // You can change the length as desired
         createPasswordInput.value = randomPassword;
-        
-        // Copy password to clipboard
-        const copyPasswordBtn = document.getElementById("copy-password");
-        
-        copyPasswordBtn.addEventListener('click', function() {
-            createPasswordInput.select();
-            createPasswordInput.setSelectionRange(0, 99999); // For mobile devices
-            
-            // Copy the text inside the password input field
-            navigator.clipboard.writeText(createPasswordInput.value).then(() => {
-                alert("Password copied to clipboard!"); // gives feedback to the user
-            }).catch(err => {
-                console.error("Failed to copy password: ", err);
-            });
+});
+
+
+    // Copy password to clipboard
+    const copyPasswordBtn = document.getElementById('copy-password');
+
+    copyPasswordBtn.addEventListener('click', function() {
+        createPasswordInput.select();
+        createPasswordInput.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the password input field
+        navigator.clipboard.writeText(createPasswordInput.value).then(() => {
+            alert("Password copied to clipboard!"); // Optional: give feedback to the user
+        }).catch(err => {
+            console.error("Failed to copy password: ", err);
+        });
     });
 
 </script>
