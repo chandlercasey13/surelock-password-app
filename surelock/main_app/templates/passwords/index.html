@@ -170,6 +170,30 @@
         return password;
     }
 
+    const createPasswordInput = document.getElementById('create-password');
+    const toggleCreatePasswordBtn = document.getElementById('toggle-create-password');
+    const generatePasswordBtn = document.getElementById('generate-password');
+    const createEyeIcon = toggleCreatePasswordBtn.querySelector('img');
+
+    // Toggle password visibility
+    toggleCreatePasswordBtn.addEventListener('click', function () {
+        if (createPasswordInput.type === 'password') {
+            createPasswordInput.type = 'text';
+            createEyeIcon.src = "{% static 'images/eye-icon.png' %}";
+            createEyeIcon.alt = "Hide";
+        } else {
+            createPasswordInput.type = 'password';
+            createEyeIcon.src = "{% static 'images/eye-icon.png' %}";
+            createEyeIcon.alt = "Reveal";
+        }
+    });
+
+    // Generate and set random password
+    generatePasswordBtn.addEventListener('click', function () {
+        const randomPassword = generateRandomPassword(12); // You can change the length as desired
+        createPasswordInput.value = randomPassword;
+});
+
 
 </script>
     
