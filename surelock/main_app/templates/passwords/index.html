@@ -5,7 +5,6 @@
 {% endblock %} 
 {% block content %}
 
-
 <section class = "password-index-body">
 
 <section class="passwords-container">
@@ -13,26 +12,14 @@
   <h1>Login/Password List</h1>
   {% for password in passwords %}
     <div class="card">
-        {{password.id}}
     {% comment %} <a href = '{% url 'password-detail' password.id %}'></a> {% endcomment %}
     <a href = '{% url 'password-detail' password.id %}' >{{password.appname}}</a>
     </div>
     
-  {% endfor %}
-
-  
-</section>
-
-</section>
-
-
-
+         {% endfor %}
+    </section>
+</div>
 <section>
-  
-
-
-  
-
     <dialog class = 'modal' id = 'createmodal'>
         <button class = 'close-create-button'>x</button>
         <form action = '' id="CreateForm" method="post">
@@ -53,7 +40,7 @@
                 <button type="button" id="toggle-create-password" class="toggle-btn">
                     <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
                 </button>
-                <button type="button" id="copy-password" name="cpy-btn">Copy</button>
+                <button type="button" id="copy-create-password" name="cpy-btn">Copy</button>
             </div>
             <br />
             
@@ -64,19 +51,16 @@
             <button type="submit">Submit</button>
         
         </form>
-        
     </dialog>      
 
-<dialog class = 'modal' id = 'updatemodal'>
+
+<dialog class = 'modal' id = 'updatemodal' data-appname = "{{ updateform.appname.value}}">
     <div class= 'modal-close-button-container'>
         <h1>Edit Item</h1>
-    <button class = 'close-update-button'><a href = '/passwords'>x<a/></button>
+        <button class = 'close-update-button'><a href = '/passwords'>x<a/></button>
     </div>
-        <form action = '' id="UpdateForm" method="post">
-
-    
-    
-
+      
+    <form action = '' id="UpdateForm" method="post" data-id="{{ updateform.instance.id }}">
         {% csrf_token %}
         {% comment %} {{ updateform.as_p }} {% endcomment %}
         <label for="appname">Name:</label>
@@ -93,6 +77,7 @@
             <button type="button" id="toggle-update-password" class="toggle-btn">
                 <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
             </button>
+            <button type="button" id="copy-update-password" name="cpy-btn">Copy</button>
         </div>
         <br />
 
@@ -101,26 +86,34 @@
         <br />    
 
         <button type="submit">Save</button>
+        <button type="submit" id="delete-button" class="delete-btn">Delete</button>
+
     
     </form>
     
 </dialog>  
 
+            <label for="password">Password:</label>
+            <div class="password-reveal-container">
+                <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
+                <button type="button" id="toggle-update-password" class="toggle-btn">
+                    <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
+                </button>
+            </div>
+            <br />
 
+            <label for="note">Notes:</label>
+            <textarea name="note" id="note" name="note">{{ updateform.note.value }}</textarea>
+            <br />    
 
+            <button type="submit">Save</button>
+        
+        </form>
+    </dialog>  
 <script>
-    
-
-
-
-
-
     const createModal = document.querySelector('#createmodal');
-    
-    const openCreateModal = document.querySelector('.open-button');
-    
+    const openCreateModal = document.querySelector('.open-button'); 
     const closeCreateModal = document.querySelector('.close-create-button');
-    
     
     openCreateModal.addEventListener('click', function () {
         createModal.showModal();
@@ -130,17 +123,12 @@
         createModal.close();
     })
 
-
     const updateModal = document.querySelector('#updatemodal');
-
     const allPasswords = document.querySelectorAll('.card')
-
     
     {%if password_id%}
     updateModal.showModal()
     {%endif%}
-
-
 
     const closeUpdateModal = document.querySelector('.close-update-button')
 
@@ -195,18 +183,18 @@
     });
 
      // Generate and set random password
-     generatePasswordBtn.addEventListener('click', function () {
+    generatePasswordBtn.addEventListener('click', function () {
         const randomPassword = generateRandomPassword(12); // You can change the length as desired
         createPasswordInput.value = randomPassword;
-});
+    });
+
+    // copy-create-password to clipboard
+    const copyCreatePasswordBtn = document.getElementById('copy-create-password');
 
 
-    // Copy password to clipboard
-    const copyPasswordBtn = document.getElementById('copy-password');
-
-    copyPasswordBtn.addEventListener('click', function() {
-        createPasswordInput.select();
-        createPasswordInput.setSelectionRange(0, 99999); // For mobile devices
+    copyCreatePasswordBtn.addEventListener('click', function() {
+        createPasswordInput.select(); // Selects the text inside this input field
+        createPasswordInput.setSelectionRange(0, 99999);
 
         // Copy the text inside the password input field
         navigator.clipboard.writeText(createPasswordInput.value).then(() => {
@@ -216,8 +204,55 @@
         });
     });
 
+    // copy-update-password
+    const copyUpdatePasswordBtn = document.getElementById("copy-update-password");
+
+    copyUpdatePasswordBtn.addEventListener("click", function() {
+        updatePasswordInput.select();
+        updatePasswordInput.setSelectionRange(0, 99999);
+
+        navigator.clipboard.writeText(updatePasswordInput.value).then(() => {
+            alert("Password copied to clipboard!");
+        }).catch(err => {
+            console.error("Failed to copy password: ", err)
+        });
+    });
+
+    // delete-button functionality
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        const deleteButton = document.getElementById("delete-button");
+    
+        deleteButton.addEventListener("click", function(event) {
+            event.preventDefault();
+    
+            const form = document.getElementById("UpdateForm");
+            const passwordId = form.getAttribute("data-id");
+            const appName = document.getElementById("updatemodal").getAttribute("data-appname");
+    
+            if (confirm(`Are you sure you want to delete ${appName}?`)) {
+                fetch(`/passwords/${passwordId}/delete/`, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}",  // Django's CSRF token for security
+                        "Content-Type": "application/json"
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = "/passwords/"
+                    } else {
+                        alert("Failed to delete the password.");
+                    }
+                })
+                .catch(err => {
+                    console.error("Error:", err);
+                });
+            }
+        });
+    });
+                
+        
 </script>
     
-
-
 {% endblock %} 
