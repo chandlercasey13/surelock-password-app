@@ -17,11 +17,11 @@ urlpatterns = [
 
 
 
-    path(
-        "password/<int:pk>/update/",
-        views.PasswordUpdate.as_view(),
-        name="password-update",
-    ),
+    # path(
+    #     "password/<int:pk>/update/",
+    #     views.PasswordUpdate.as_view(),
+    #     name="password-update",
+    # ),
     # path(
     #     "passwords/<int:pk>/",
     #     views.PasswordDelete.as_view(),

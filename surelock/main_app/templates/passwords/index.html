@@ -238,7 +238,7 @@
             const form = document.getElementById("UpdateForm");
             const passwordId = form.getAttribute("data-id");
     
-            if (confirm("Are you sure you want to delete this password?")) {
+            if (confirm(`Are you sure you want to delete this ${password.appname}?`)) {
                 fetch(`/passwords/${passwordId}/delete/`, {
                     method: "DELETE",
                     headers: {
@@ -249,7 +249,7 @@
                 .then(response => {
                     if (response.ok) {
                         alert("Password deleted successfully!");
-                        location.reload();  // Refresh the page or update the UI
+                        window.location.href = "/passwords/"
                     } else {
                         alert("Failed to delete the password.");
                     }
