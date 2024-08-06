@@ -11,13 +11,12 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Login  # imports Login model from models.py
 from django.urls import reverse_lazy
 
-
 class Home(LoginView):
     template_name = "home.html"
-
 
 class PassCreate(CreateView):
     model = Login
@@ -31,18 +30,16 @@ class PassCreate(CreateView):
         # Let the CreateView do its job as usual
         return super().form_valid(form)
 
-
 @login_required
 def password_index(request):
     passwords = Login.objects.filter(user=request.user)
 
     return render(request, "passwords/index.html", {"passwords": passwords})
 
-
+@login_required
 def password_detail(request, password_id):
     password = Login.objects.get(id=password_id)
     return render(request, "passwords/detail.html", {"password": password})
-
 
 def signup(request):
     error_message = ""
@@ -55,9 +52,9 @@ def signup(request):
             user = form.save()
             # This is how we log a user in
             login(request, user)
-            return redirect("cat-index")
+            return redirect("password-index")
         else:
-            error_message = "Invalid sign up - try again"
+            error_message = "Invalid Signup - Try again"
     # A bad POST or a GET request, so render signup.html with an empty form
     form = UserCreationForm()
     context = {"form": form, "error_message": error_message}
@@ -69,8 +66,7 @@ def signup(request):
     #     {'form': form, 'error_message': error_message}
     # )
 
-
-class PassCreate(CreateView):
+class PassCreate(LoginRequiredMixin, CreateView):
     model = Login
     form_class = LoginForm
     template_name = "passwords/index.html"
@@ -81,18 +77,18 @@ class PassCreate(CreateView):
         context["passwords"] = Login.objects.all()
         return context
 
-
-class PasswordUpdate(UpdateView):
+class PasswordUpdate(LoginRequiredMixin, UpdateView):
     model = Login
     form_class = LoginForm
     template_name = "passwords/index.html"
     success_url = "/passwords/"
 
+    
     def get(self, request, *args, **kwargs):
         password_id = kwargs.get("pk")
 
         form = LoginForm
-        passwords = Login.objects.all().order_by("id")
+        passwords = Login.objects.filter(user=request.user).order_by("id")
 
         if password_id:
             login_instance = get_object_or_404(self.model, id=password_id)
@@ -107,23 +103,25 @@ class PasswordUpdate(UpdateView):
             {"passwords": passwords, "updateform": form, "password_id": password_id},
         )
 
-
-class PasswordDelete(DeleteView):
+class PasswordDelete(LoginRequiredMixin, DeleteView):
     model = Login
     success_url = "/passwords/"
 
 
-class CrudView(View):
+class CrudView(LoginRequiredMixin, View):
     model = Login
     form_class = LoginForm
     template_name = "passwords/index.html"
     success_url = "/passwords"
 
+
     def get(self, request, *args, **kwargs):
         password_id = kwargs.get("id")
 
         form = LoginForm
-        passwords = Login.objects.all().order_by("id")
+        passwords = Login.objects.filter(user=request.user).order_by("id")
+
+      
 
         if password_id:
             login_instance = get_object_or_404(self.model, id=password_id)
@@ -162,7 +160,6 @@ class CrudView(View):
         return render(
             request, self.template_name, {"form": form, "passwords": passwords}
         )
-
 
 def simple_password_create(request):
     if request.method == "POST":
