@@ -53,7 +53,7 @@
                 <button type="button" id="toggle-create-password" class="toggle-btn">
                     <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
                 </button>
-                <button type="button" id="copy-password" name="cpy-btn">Copy</button>
+                <button type="button" id="copy-create-password" name="cpy-btn">Copy</button>
             </div>
             <br />
             
@@ -87,6 +87,7 @@
             <button type="button" id="toggle-update-password" class="toggle-btn">
                 <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
             </button>
+            <button type="button" id="copy-update-password" name="cpy-btn">Copy</button>
         </div>
         <br />
 
@@ -196,7 +197,7 @@
 
 
     // Copy password to clipboard
-    const copyPasswordBtn = document.getElementById('copy-password');
+    const copyPasswordBtn = document.getElementById('copy-create-password');
 
     copyPasswordBtn.addEventListener('click', function() {
         createPasswordInput.select();
