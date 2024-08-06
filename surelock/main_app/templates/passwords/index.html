@@ -196,10 +196,10 @@
 });
 
 
-    // Copy password to clipboard
-    const copyPasswordBtn = document.getElementById('copy-create-password');
+    // copy-create-password to clipboard
+    const copyCreatePasswordBtn = document.getElementById('copy-create-password');
 
-    copyPasswordBtn.addEventListener('click', function() {
+    copyCreatePasswordBtn.addEventListener('click', function() {
         createPasswordInput.select();
         createPasswordInput.setSelectionRange(0, 99999); // For mobile devices
 
@@ -210,6 +210,10 @@
             console.error("Failed to copy password: ", err);
         });
     });
+
+    // copy-update-password
+    const copyUpdatePasswordBtn = document.getElementById("copy-update-password");
+
 
 </script>
     
