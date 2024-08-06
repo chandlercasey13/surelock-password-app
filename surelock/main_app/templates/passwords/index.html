@@ -91,25 +91,6 @@
     
     </form>
     
-</dialog>  
-
-            <label for="password">Password:</label>
-            <div class="password-reveal-container">
-                <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
-                <button type="button" id="toggle-update-password" class="toggle-btn">
-                    <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
-                </button>
-            </div>
-            <br />
-
-            <label for="note">Notes:</label>
-            <textarea name="note" id="note" name="note">{{ updateform.note.value }}</textarea>
-            <br />    
-
-            <button type="submit">Save</button>
-        
-        </form>
-    </dialog>  
 <script>
     const createModal = document.querySelector('#createmodal');
     const openCreateModal = document.querySelector('.open-button'); 
