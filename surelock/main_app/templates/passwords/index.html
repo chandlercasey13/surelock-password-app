@@ -70,7 +70,7 @@
 <dialog class = 'modal' id = 'updatemodal'>
     
     <button class = 'close-update-button'><a href = '/passwords'>x<a/></button>
-    <form action = '' id="UpdateForm" method="post">
+    <form action = '' id="UpdateForm" method="post" data-id="{{ updateform.instance.id }}">
         {% csrf_token %}
         {% comment %} {{ updateform.as_p }} {% endcomment %}
         <label for="appname">Name:</label>
@@ -229,7 +229,13 @@
 
     // delete-button functionality
     const deleteButton = document.getElementById("delete-button");
-    
+
+    deleteButton.addEventListener("click", function() {
+    if (confirm(`Are you sure you want to delete ${password.appname}`)) {
+        document.getElementById("UpdateForm").reset();
+        updateModal.close();
+        }
+    });
 
 </script>
     
