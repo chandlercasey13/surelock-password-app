@@ -53,9 +53,13 @@
         </form>
     </dialog>      
 
+
 <dialog class = 'modal' id = 'updatemodal' data-appname = "{{ updateform.appname.value}}">
-    
-    <button class = 'close-update-button'><a href = '/passwords'>x<a/></button>
+    <div class= 'modal-close-button-container'>
+        <h1>Edit Item</h1>
+        <button class = 'close-update-button'><a href = '/passwords'>x<a/></button>
+    </div>
+      
     <form action = '' id="UpdateForm" method="post" data-id="{{ updateform.instance.id }}">
         {% csrf_token %}
         {% comment %} {{ updateform.as_p }} {% endcomment %}
