@@ -6,33 +6,22 @@
 {% block content %}
 
 
-<section class = "password-index-body">
+<div class = "password-index-body">
 
-<section class="passwords-container">
-    <button class = 'open-button'>New Password</button>
-  <h1>Login/Password List</h1>
-  {% for password in passwords %}
-    <div class="card">
-        {{password.id}}
-    {% comment %} <a href = '{% url 'password-detail' password.id %}'></a> {% endcomment %}
-    <a href = '{% url 'password-detail' password.id %}' >{{password.appname}}</a>
-    </div>
+    <section class="passwords-container">
+        <button class = 'open-button'>New Password</button>
+        <h1>Login/Password List</h1>
+        {% for password in passwords %}
+            <div class="card">
+            {{password.id}}
+                {% comment %} <a href = '{% url 'password-detail' password.id %}'></a> {% endcomment %}
+            <a href = '{% url 'password-detail' password.id %}' >{{password.appname}}</a>
+            </div>
     
-  {% endfor %}
-
-  
-</section>
-
-</section>
-
-
-
+         {% endfor %}
+    </section>
+</div>
 <section>
-  
-
-
-  
-
     <dialog class = 'modal' id = 'createmodal'>
         <button class = 'close-create-button'>x</button>
         <form action = '' id="CreateForm" method="post">
@@ -64,57 +53,42 @@
             <button type="submit">Submit</button>
         
         </form>
-        
     </dialog>      
+    <dialog class = 'modal' id = 'updatemodal'>
+        
+        <button class = 'close-update-button'><a href = '/passwords'>x<a/></button>
+        <form action = '' id="UpdateForm" method="post">
+            {% csrf_token %}
+            {% comment %} {{ updateform.as_p }} {% endcomment %}
+            <label for="appname">Name:</label>
+            <input type="text" id="appname" name="appname" value="{{ updateform.appname.value }}">
+            <br />
 
-<dialog class = 'modal' id = 'updatemodal'>
-    
-    <button class = 'close-update-button'><a href = '/passwords'>x<a/></button>
-    <form action = '' id="UpdateForm" method="post">
-        {% csrf_token %}
-        {% comment %} {{ updateform.as_p }} {% endcomment %}
-        <label for="appname">Name:</label>
-        <input type="text" id="appname" name="appname" value="{{ updateform.appname.value }}">
-        <br />
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" value="{{ updateform.username.value}}">
+            <br />
 
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" value="{{ updateform.username.value}}">
-        <br />
+            <label for="password">Password:</label>
+            <div class="password-reveal-container">
+                <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
+                <button type="button" id="toggle-update-password" class="toggle-btn">
+                    <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
+                </button>
+            </div>
+            <br />
 
-        <label for="password">Password:</label>
-        <div class="password-reveal-container">
-            <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
-            <button type="button" id="toggle-update-password" class="toggle-btn">
-                <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
-            </button>
-        </div>
-        <br />
+            <label for="note">Notes:</label>
+            <textarea name="note" id="note" name="note">{{ updateform.note.value }}</textarea>
+            <br />    
 
-        <label for="note">Notes:</label>
-        <textarea name="note" id="note" name="note">{{ updateform.note.value }}</textarea>
-        <br />    
-
-        <button type="submit">Save</button>
-    
-    </form>
-    
-</dialog>  
-
-
-
+            <button type="submit">Save</button>
+        
+        </form>
+    </dialog>  
 <script>
-    
-
-
-
-
-
     const createModal = document.querySelector('#createmodal');
-    
-    const openCreateModal = document.querySelector('.open-button');
-    
+    const openCreateModal = document.querySelector('.open-button'); 
     const closeCreateModal = document.querySelector('.close-create-button');
-    
     
     openCreateModal.addEventListener('click', function () {
         createModal.showModal();
@@ -124,17 +98,12 @@
         createModal.close();
     })
 
-
     const updateModal = document.querySelector('#updatemodal');
-
     const allPasswords = document.querySelectorAll('.card')
-
     
     {%if password_id%}
     updateModal.showModal()
     {%endif%}
-
-
 
     const closeUpdateModal = document.querySelector('.close-update-button')
 
@@ -194,7 +163,6 @@
         createPasswordInput.value = randomPassword;
 });
 
-
     // Copy password to clipboard
     const copyPasswordBtn = document.getElementById('copy-password');
 
@@ -212,6 +180,4 @@
 
 </script>
     
-
-
 {% endblock %} 
