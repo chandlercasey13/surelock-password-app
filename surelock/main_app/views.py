@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -103,9 +103,11 @@ class PasswordUpdate(LoginRequiredMixin, UpdateView):
             {"passwords": passwords, "updateform": form, "password_id": password_id},
         )
 
-class PasswordDelete(LoginRequiredMixin, DeleteView):
-    model = Login
-    success_url = "/passwords/"
+
+# class PasswordDelete(DeleteView):
+#     model = Login
+#     success_url = "/passwords/"
+
 
 
 class CrudView(LoginRequiredMixin, View):
@@ -160,8 +162,13 @@ class CrudView(LoginRequiredMixin, View):
         return render(
             request, self.template_name, {"form": form, "passwords": passwords}
         )
+    def delete(self, request, *args, **kwargs):
+        password_id = kwargs.get("id")
+        password_instance = get_object_or_404(self.model, id=password_id)
+        password_instance.delete()
+        return JsonResponse({'message': 'Password deleted successfully!'}, status=200)
 
-def simple_password_create(request):
+  def simple_password_create(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():

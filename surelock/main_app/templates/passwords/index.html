@@ -5,18 +5,16 @@
 {% endblock %} 
 {% block content %}
 
+<section class = "password-index-body">
 
-<div class = "password-index-body">
-
-    <section class="passwords-container">
-        <button class = 'open-button'>New Password</button>
-        <h1>Login/Password List</h1>
-        {% for password in passwords %}
-            <div class="card">
-            {{password.id}}
-                {% comment %} <a href = '{% url 'password-detail' password.id %}'></a> {% endcomment %}
-            <a href = '{% url 'password-detail' password.id %}' >{{password.appname}}</a>
-            </div>
+<section class="passwords-container">
+    <button class = 'open-button'>New Password</button>
+  <h1>Login/Password List</h1>
+  {% for password in passwords %}
+    <div class="card">
+    {% comment %} <a href = '{% url 'password-detail' password.id %}'></a> {% endcomment %}
+    <a href = '{% url 'password-detail' password.id %}' >{{password.appname}}</a>
+    </div>
     
          {% endfor %}
     </section>
@@ -54,11 +52,11 @@
         
         </form>
     </dialog>      
-  
-<dialog class = 'modal' id = 'updatemodal'>
+
+<dialog class = 'modal' id = 'updatemodal' data-appname = "{{ updateform.appname.value}}">
     
     <button class = 'close-update-button'><a href = '/passwords'>x<a/></button>
-    <form action = '' id="UpdateForm" method="post">
+    <form action = '' id="UpdateForm" method="post" data-id="{{ updateform.instance.id }}">
         {% csrf_token %}
         {% comment %} {{ updateform.as_p }} {% endcomment %}
         <label for="appname">Name:</label>
@@ -84,6 +82,8 @@
         <br />    
 
         <button type="submit">Save</button>
+        <button type="submit" id="delete-button" class="delete-btn">Delete</button>
+
     
     </form>
     
@@ -179,10 +179,10 @@
     });
 
      // Generate and set random password
-     generatePasswordBtn.addEventListener('click', function () {
+    generatePasswordBtn.addEventListener('click', function () {
         const randomPassword = generateRandomPassword(12); // You can change the length as desired
         createPasswordInput.value = randomPassword;
-});
+    });
 
     // copy-create-password to clipboard
     const copyCreatePasswordBtn = document.getElementById('copy-create-password');
@@ -214,6 +214,41 @@
         });
     });
 
+    // delete-button functionality
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        const deleteButton = document.getElementById("delete-button");
+    
+        deleteButton.addEventListener("click", function(event) {
+            event.preventDefault();
+    
+            const form = document.getElementById("UpdateForm");
+            const passwordId = form.getAttribute("data-id");
+            const appName = document.getElementById("updatemodal").getAttribute("data-appname");
+    
+            if (confirm(`Are you sure you want to delete ${appName}?`)) {
+                fetch(`/passwords/${passwordId}/delete/`, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}",  // Django's CSRF token for security
+                        "Content-Type": "application/json"
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = "/passwords/"
+                    } else {
+                        alert("Failed to delete the password.");
+                    }
+                })
+                .catch(err => {
+                    console.error("Error:", err);
+                });
+            }
+        });
+    });
+                
+        
 </script>
     
 {% endblock %} 
