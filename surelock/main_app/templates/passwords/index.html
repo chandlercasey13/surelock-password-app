@@ -217,7 +217,13 @@
     copyUpdatePasswordBtn.addEventListener("click", function() {
         updatePasswordInput.select();
         updatePasswordInput.setSelectionRange(0, 99999);
-    })
+
+        navigator.clipboard.writeText(updatePasswordInput.value).then(() => {
+            alert("Password copied to clipboard!");
+        }).catch(err => {
+            console.error("Failed to copy password: ", err)
+        });
+    });
 
 </script>
     
