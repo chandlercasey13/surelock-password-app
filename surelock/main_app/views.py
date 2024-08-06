@@ -15,8 +15,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Login  # imports Login model from models.py
 from django.urls import reverse_lazy
 
+
 class Home(LoginView):
     template_name = "home.html"
+
 
 class PassCreate(CreateView):
     model = Login
@@ -30,16 +32,19 @@ class PassCreate(CreateView):
         # Let the CreateView do its job as usual
         return super().form_valid(form)
 
+
 @login_required
 def password_index(request):
     passwords = Login.objects.filter(user=request.user)
 
     return render(request, "passwords/index.html", {"passwords": passwords})
 
+
 @login_required
 def password_detail(request, password_id):
     password = Login.objects.get(id=password_id)
     return render(request, "passwords/detail.html", {"password": password})
+
 
 def signup(request):
     error_message = ""
@@ -66,6 +71,7 @@ def signup(request):
     #     {'form': form, 'error_message': error_message}
     # )
 
+
 class PassCreate(LoginRequiredMixin, CreateView):
     model = Login
     form_class = LoginForm
@@ -77,13 +83,13 @@ class PassCreate(LoginRequiredMixin, CreateView):
         context["passwords"] = Login.objects.all()
         return context
 
+
 class PasswordUpdate(LoginRequiredMixin, UpdateView):
     model = Login
     form_class = LoginForm
     template_name = "passwords/index.html"
     success_url = "/passwords/"
 
-    
     def get(self, request, *args, **kwargs):
         password_id = kwargs.get("pk")
 
@@ -109,21 +115,17 @@ class PasswordUpdate(LoginRequiredMixin, UpdateView):
 #     success_url = "/passwords/"
 
 
-
 class CrudView(LoginRequiredMixin, View):
     model = Login
     form_class = LoginForm
     template_name = "passwords/index.html"
     success_url = "/passwords"
 
-
     def get(self, request, *args, **kwargs):
         password_id = kwargs.get("id")
 
         form = LoginForm
         passwords = Login.objects.filter(user=request.user).order_by("id")
-
-      
 
         if password_id:
             login_instance = get_object_or_404(self.model, id=password_id)
@@ -162,13 +164,15 @@ class CrudView(LoginRequiredMixin, View):
         return render(
             request, self.template_name, {"form": form, "passwords": passwords}
         )
+
     def delete(self, request, *args, **kwargs):
         password_id = kwargs.get("id")
         password_instance = get_object_or_404(self.model, id=password_id)
         password_instance.delete()
-        return JsonResponse({'message': 'Password deleted successfully!'}, status=200)
+        return JsonResponse({"message": "Password deleted successfully!"}, status=200)
 
-  def simple_password_create(request):
+
+def simple_password_create(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
