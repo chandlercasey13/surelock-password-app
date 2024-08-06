@@ -200,8 +200,8 @@
     const copyCreatePasswordBtn = document.getElementById('copy-create-password');
 
     copyCreatePasswordBtn.addEventListener('click', function() {
-        createPasswordInput.select();
-        createPasswordInput.setSelectionRange(0, 99999); // For mobile devices
+        createPasswordInput.select(); // Selects the text inside this input field
+        createPasswordInput.setSelectionRange(0, 99999);
 
         // Copy the text inside the password input field
         navigator.clipboard.writeText(createPasswordInput.value).then(() => {
@@ -214,6 +214,10 @@
     // copy-update-password
     const copyUpdatePasswordBtn = document.getElementById("copy-update-password");
 
+    copyUpdatePasswordBtn.addEventListener("click", function() {
+        updatePasswordInput.select();
+        updatePasswordInput.setSelectionRange(0, 99999);
+    })
 
 </script>
     
