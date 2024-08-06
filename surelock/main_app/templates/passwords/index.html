@@ -192,10 +192,10 @@
     });
 
      // Generate and set random password
-     generatePasswordBtn.addEventListener('click', function () {
+    generatePasswordBtn.addEventListener('click', function () {
         const randomPassword = generateRandomPassword(12); // You can change the length as desired
         createPasswordInput.value = randomPassword;
-});
+    });
 
 
     // copy-create-password to clipboard
@@ -233,16 +233,13 @@
         const deleteButton = document.getElementById("delete-button");
     
         deleteButton.addEventListener("click", function(event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault();
     
-            // Get the password ID from the form's data attribute
             const form = document.getElementById("UpdateForm");
             const passwordId = form.getAttribute("data-id");
     
-            console.log(`Attempting to delete password with ID: ${passwordId}`);
-    
             if (confirm("Are you sure you want to delete this password?")) {
-                fetch(`/passwords/${passwordId}/delete`, {
+                fetch(`/passwords/${passwordId}/delete/`, {
                     method: "DELETE",
                     headers: {
                         "X-CSRFToken": "{{ csrf_token }}",  // Django's CSRF token for security
@@ -250,13 +247,11 @@
                     },
                 })
                 .then(response => {
-                    console.log(`Response status: ${response.status}`);
-                    if (response.ok || response.status === 302) {  // Treat 302 as success
+                    if (response.ok) {
                         alert("Password deleted successfully!");
-                        location.reload();  // Optionally, refresh the page or update the UI
+                        location.reload();  // Refresh the page or update the UI
                     } else {
                         alert("Failed to delete the password.");
-                        console.error("Failed response:", response);
                     }
                 })
                 .catch(err => {
@@ -265,7 +260,7 @@
             }
         });
     });
-            
+                
         
 </script>
     
