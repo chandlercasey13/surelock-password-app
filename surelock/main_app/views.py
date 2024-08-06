@@ -108,9 +108,9 @@ class PasswordUpdate(UpdateView):
         )
 
 
-class PasswordDelete(DeleteView):
-    model = Login
-    success_url = "/passwords/"
+# class PasswordDelete(DeleteView):
+#     model = Login
+#     success_url = "/passwords/"
 
 
 class CrudView(View):
