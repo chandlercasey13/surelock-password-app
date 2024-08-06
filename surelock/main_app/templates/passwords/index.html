@@ -96,6 +96,8 @@
         <br />    
 
         <button type="submit">Save</button>
+        <button type="submit" id="delete-button" class="delete-btn">Delete</button>
+
     
     </form>
     
@@ -224,6 +226,10 @@
             console.error("Failed to copy password: ", err)
         });
     });
+
+    // delete-button functionality
+    const deleteButton = document.getElementById("delete-button");
+    
 
 </script>
     
