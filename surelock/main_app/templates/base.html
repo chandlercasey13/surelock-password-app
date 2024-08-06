@@ -11,43 +11,53 @@
 			type="image/png"
 			href="{% static 'images/splash.svg' %}"
 		/>
-		<title>password Collector</title>
+		<title>SureLock Password Manager</title>
 		<link rel="stylesheet" href="{% static 'css/base.css' %}" />
 		{% block head %} {% endblock %}
 	</head>
 	<body>
-		<header>
-			<div class="header-logo-container">
-				<a href="/">
-					{% comment %}
-					<img
-						src="{% static 'images/header-logo.svg' %}"
-						alt="The Surelock Password Manager logo"
-					/>
-					{% endcomment %}
-				</a>
-			</div>
-			<nav>
-				<ul>
-					{% if user.is_authenticated %}
-					<li><a href="{% url 'password-index' %}">Vault</a></li>
-					<li>
-						<form
-							id="logout-form"
-							method="post"
-							action="{% url 'logout' %}"
-						>
-							{% csrf_token %}
-							<button type="submit">Log out</button>
-						</form>
-					</li>
-					{% else %}
-					<li><a href="{% url 'home' %}">Home</a></li>
-					<li><a href="{% url 'signup' %}">Sign Up</a></li>
-					{% endif %}
-				</ul>
-			</nav>
+		<div>
+			
+		</div>
+
+		<header>		
+				<h2 class="logo">SureLock&#128274</h2>
+				
+				<div class="toggle"></div>
 		</header>
+		<div class="menu">
+			<ul>
+				
+				{% if user.is_authenticated %}
+				<li><a href="{% url 'home' %}">Home</a></li>
+				<li><a href="{% url 'password-index' %}">Vault</a></li>
+				<li>
+					<form
+						id="logout-form"
+						method="post"
+						action="{% url 'logout' %}"
+					>
+						{% csrf_token %}
+						<button type="submit">Log out</button>
+					</form>
+				</li>
+				{% else %}
+					<form action="{% url 'home' %}" method="post" class="login">
+						<h1>Login</h1>
+						{% csrf_token %} {{ form.as_p }}
+						<input type="hidden" name="next" value="{{ next }}" />
+						<button type="submit" class="btn submit">Login</button>
+					</form>
+				<li><a href="{% url 'home' %}">Home</a></li>
+				<li><a href="{% url 'signup' %}">Sign Up</a></li>
+				{% endif %}
+			</ul>
+		</div>
+		
 		<main>{% block content %} {% endblock %}</main>
+
+		<script src="{% static 'javascript.js' %}"></script>
+
 	</body>
 </html>
+ 
