@@ -59,7 +59,7 @@
 
 <section>
     <dialog class = 'modal' id = 'createmodal'>
-        <button class = 'close-create-button'>x</button>
+        <button class = 'close-create-button btn'>x</button>
         <form action = '' id="CreateForm" method="post">
             {% csrf_token %}
     
@@ -74,11 +74,11 @@
             <label for="password">Password:</label>
             <div class="password-reveal-container">
                 <input type="password" id="create-password" name="password">
-                <button type="button" id="generate-password" class="generate-btn">Generate Password</button>
-                <button type="button" id="toggle-create-password" class="toggle-btn">
+                <button type="button" id="generate-password" class="generate-btn btn">Generate Password</button>
+                <button type="button" id="toggle-create-password" class="toggle-btn btn">
                     <i class="fa-solid fa-eye"></i>
                 </button>
-                <button type="button" id="copy-create-password" name="cpy-btn">Copy</button>
+                <button type="button" id="copy-create-password" name="cpy-btn" class="btn">Copy</button>
             </div>
             <br />
             
@@ -86,7 +86,7 @@
             <textarea id="note" name="note"></textarea>
             <br />
     
-            <button type="submit">Submit</button>
+            <button type="submit" class="btn" >Submit</button>
         
         </form>
     </dialog>      
@@ -95,7 +95,7 @@
 <dialog class = 'modal' id = 'updatemodal' data-appname = "{{ updateform.appname.value}}">
 <div class= 'modal-close-button-container'>
     <h1>Edit Item</h1>
-    <button class = 'close-update-button'><a href = '/passwords'>x<a/></button>
+    <button class = 'close-update-button btn'><a href = '/passwords'>x<a/></button>
 </div>
   
 <form action = '' id="UpdateForm" method="post" data-id="{{ updateform.instance.id }}">
@@ -112,10 +112,10 @@
     <label for="password">Password:</label>
     <div class="password-reveal-container">
         <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
-        <button type="button" id="toggle-update-password" class="toggle-btn">
+        <button type="button" id="toggle-update-password" class="toggle-btn btn">
             <i class="fa-solid fa-eye"></i>
         </button>
-        <button type="button" id="copy-update-password" name="cpy-btn">Copy</button>
+        <button type="button" id="copy-update-password" name="cpy-btn" class="btn">Copy</button>
     </div>
     <br />
 
@@ -123,8 +123,8 @@
     <textarea name="note" id="note" name="note">{{ updateform.note.value }}</textarea>
     <br />    
 
-    <button type="submit">Save</button>
-    <button type="submit" id="delete-button" class="delete-btn">Delete</button>
+    <button type="submit" class="btn">Save</button>
+    <button type="submit" id="delete-button" class="delete-btn btn">Delete</button>
 
 
 </form>
