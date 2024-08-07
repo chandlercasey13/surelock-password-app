@@ -8,10 +8,12 @@
 {% block content %}
 
 
+<div id="loading-spinner" class="loading-spinner">
+    <div class="spinner"></div>
+</div>
 
 <div class= 'background'>
-    <svg id="visual" viewBox="0 0 900 500" width = '100vw' height ='100vh' preserveAspectRatio="none"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><defs><filter id="blur1" x="-10%" y="-10%" width="120%" height="120%"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur stdDeviation="163" result="effect1_foregroundBlur"></feGaussianBlur></filter></defs><rect width="960" height="540" fill="#6600FF"></rect><g filter="url(#blur1)"><circle cx="730" cy="52" fill="#00CC99" r="363"></circle><circle cx="143" cy="525" fill="#6600FF" r="363"></circle><circle cx="439" cy="163" fill="#00CC99" r="363"></circle><circle cx="530" cy="501" fill="#00CC99" r="363"></circle><circle cx="682" cy="337" fill="#6600FF" r="363"></circle><circle cx="214" cy="211" fill="#00CC99" r="363"></circle></g></svg>
-
+    <svg id="visual" viewBox="0 0 900 600" width = '100vw' height ='100vh' preserveAspectRatio="none"xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><defs><filter id="blur1" x="-10%" y="-10%" width="120%" height="120%"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur stdDeviation="161" result="effect1_foregroundBlur"></feGaussianBlur></filter></defs><rect width="900" height="600" fill="#011727"></rect><g filter="url(#blur1)"><circle cx="227" cy="527" fill="#011727" r="357"></circle><circle cx="506" cy="137" fill="#011727" r="357"></circle><circle cx="469" cy="318" fill="#011727" r="357"></circle><circle cx="668" cy="2" fill="#011727" r="357"></circle><circle cx="627" cy="525" fill="#011727" r="357"></circle><circle cx="57" cy="121" fill="#011727" r="357"></circle></g></svg>
     <div class = 'body-container'>
 
 
@@ -40,7 +42,7 @@
     <div class="card">
     
     
-    <a id= 'password-button' href = '{% url 'password-detail' password.id %}' ><button id='button-in-tag' >{{password.appname}}</button></a>
+    <a id= 'password-button'  onclick="navigateToUrl('{% url 'password-detail' password.id %}')" href='javascript:void(0);' ><button id='button-in-tag' >{{password.appname}}</button></a>
 </div>
     
          {% endfor %}
@@ -163,7 +165,30 @@
     
     {%endif%}
     <script>
+
+        function navigateToUrl(url) {
+            // Show the loading spinner
+            document.getElementById('loading-spinner').style.display = 'flex';
         
+            // Simulate navigation (you would replace this with actual navigation)
+            
+
+                window.location.href = url;
+            
+        }
+        
+        // Hide the loading spinner on page load
+        window.addEventListener('load', function() {
+            
+            document.getElementById('loading-spinner').style.display = 'none';
+            
+        
+        });   
+
+
+
+
+
     const closeUpdateModal = document.querySelector('.close-update-button')
 
     closeUpdateModal.addEventListener('click', function () {
