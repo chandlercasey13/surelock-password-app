@@ -37,7 +37,8 @@
     <div class="card">
     
     
-    <a id= 'password-button'  onclick="navigateToUrl('{% url 'password-detail' password.id %}')" href='javascript:void(0);' ><button id='button-in-tag' >{{password.appname}}</button></a>
+    <a id= 'password-button'  onclick="navigateToUrl('{% url 'password-detail' password.id %}')" href='javascript:void(0);' ><button id='button-in-tag' >
+           <h1>{{password.appname}}</h1> <p id= "username-text">{{password.username}}</p></button></a>
 </div>
     
          {% endfor %}
