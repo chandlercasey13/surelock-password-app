@@ -1,5 +1,6 @@
-const menuToggle = document.querySelector('.toggle');
-const showcase = document.querySelector('.showcase');
+const menuToggle = document.querySelector(".toggle");
+const showcase = document.querySelector(".showcase");
+
 
 menuToggle.addEventListener('click', () => {
   menuToggle.classList.toggle('active');
@@ -62,4 +63,3 @@ window.onload = function() {
   css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
   document.body.appendChild(css);
 };
-

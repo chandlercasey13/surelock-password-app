@@ -1,35 +1,7 @@
-{% extends "base.html" %} {% load static %} 
-{% block head%}
-<!-- <link rel="stylesheet" href="{% static 'css/home.css' %}" /> -->
-{% endblock %} 
-{% block content %}
-
-<!-- <section>
-	<div class="surelock-container">
-		{% comment %}<img
-			src="{% static 'images/splash.svg' %}"
-			alt="SureLock Password Manager"
-		/>{% endcomment %}
-	</div>
-	{% comment %}<img
-		src="{% static 'images/logotype.svg' %}"
-		alt="Text reads: Surelock Password Manager"
-	/>{% endcomment %} 
-	{% if not user.is_authenticated %}
-	<form action="{% url 'home' %}" method="post" class="login">
-		<h1>Login</h1>
-		{% csrf_token %} {{ form.as_p }}
-		<input type="hidden" name="next" value="{{ next }}" />
-		<button type="submit" class="btn submit">Login</button>
-	</form>
-</section> -->
-
-{% endif %}
+{% extends "base.html" %} {% load static %} {% block head%} {% endblock %} {% block content %}
 
 <section class="showcase">
-
-
-	<!-- 
+  <!-- 
 	This is the video that will play in the background
 	<video src="" muted loop autoplay></video> 
 	-->
@@ -42,7 +14,6 @@
 				   data-period="2000"
 				   data-rotate='[ "Secret.", "Safe."]'></span>
 			  </h3>
-		<!-- <h3>Make sure.</h3> -->
 		<p>
 			Tired of forgotten passwords and security breaches? Unlock peace of
 			mind with SureLock Our powerful password manager safeguards your
@@ -63,6 +34,5 @@
 		</li>
 	</ul>
 </section>
-
 
 {% endblock %}
