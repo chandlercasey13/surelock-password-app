@@ -72,8 +72,8 @@
             <br />
             
             <label for="password">Password:</label>
+            <input type="password" id="create-password" name="password">
             <div class="password-reveal-container">
-                <input type="password" id="create-password" name="password">
                 <button type="button" id="generate-password" class="generate-btn btn">Generate Password</button>
                 <button type="button" id="toggle-create-password" class="toggle-btn btn">
                     <i class="fa-solid fa-eye"></i>
@@ -110,8 +110,8 @@
     <br />
 
     <label for="password">Password:</label>
+    <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
     <div class="password-reveal-container">
-        <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
         <button type="button" id="toggle-update-password" class="toggle-btn btn">
             <i class="fa-solid fa-eye"></i>
         </button>
