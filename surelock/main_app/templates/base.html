@@ -16,8 +16,19 @@
 	</head>
 	<body>
 		<header>		
-			<h2><a class="logo" href="{% url 'home' %}">SureLock&#128274</a></h2>
-			<div class="toggle"></div>			
+			<img src="https://files.logomakr.com/8nnSE5-LogoMakr.png" alt="SureLock logo">
+			<!-- <h2><a class="logo" href="{% url 'home' %}">SureLock&#128274</a></h2> -->
+			{% if not user.is_authenticated %}
+				<div class="toggle"></div>		
+			{% else %}
+				<form
+					id="logout-form"
+					method="post"
+					action="{% url 'logout' %}">
+					{% csrf_token %}  
+					<button id = 'logout-button' type="submit">Log out</button>
+				</form>				
+			{% endif %}	
 		</header>
 		<div class="menu">
 			<ul>
@@ -29,18 +40,11 @@
 						<input type="hidden" name="next" value="{{ next }}" />
 						<button type="submit" class="btn submit">Login</button>
 					</form>		
-				{% else %}
-					<form
-						id="logout-form"
-						method="post"
-						action="{% url 'logout' %}">
-						{% csrf_token %}  
-						<button id = 'logout-button' type="submit">Log out</button>
-					</form>				
+					<li><a href="{% url 'home' %}">Home</a></li>
+					<li><a href="{% url 'signup' %}">Sign Up</a></li>		
 				{% endif %}	
 				</li>
-				<li><a href="{% url 'home' %}">Home</a></li>
-				<li><a href="{% url 'signup' %}">Sign Up</a></li>
+				
 			</ul>
 		</div>		
 		<main>
