@@ -20,19 +20,37 @@
 		<div>
 			
 		</div>
-
+		{% if not user.is_authenticated %}
 		<header>		
 				<h2 class="logo">SureLock&#128274</h2>
 				
-				<div class="toggle"></div>
+				
+				
+				<div class="toggle">
+
+					
+				</div>
+				
 		</header>
 		<div class="menu">
-			<ul>
+			<form action="{% url 'home' %}" method="post" class="login">
+				<h1>Login</h1>
+				{% csrf_token %} {{ form.as_p }}
+				<input type="hidden" name="next" value="{{ next }}" />
+				<button type="submit" class="btn submit">Login</button>
+				<a href="{% url 'home' %}">Home</a>
+				<a href="{% url 'signup' %}">Sign Up</a>
+			</form>
 				
-				{% if user.is_authenticated %}
-				<li><a href="{% url 'home' %}">Home</a></li>
-				<li><a href="{% url 'password-index' %}">Vault</a></li>
-				<li>
+				
+				
+					
+				{% else %}
+				<header>		
+					<h2 class="logo">SureLock&#128274</h2>
+					
+					
+					
 					<form
 						id="logout-form"
 						method="post"
@@ -41,18 +59,13 @@
 						{% csrf_token %}
 						<button type="submit">Log out</button>
 					</form>
-				</li>
-				{% else %}
-					<form action="{% url 'home' %}" method="post" class="login">
-						<h1>Login</h1>
-						{% csrf_token %} {{ form.as_p }}
-						<input type="hidden" name="next" value="{{ next }}" />
-						<button type="submit" class="btn submit">Login</button>
-					</form>
-				<li><a href="{% url 'home' %}">Home</a></li>
-				<li><a href="{% url 'signup' %}">Sign Up</a></li>
+					
+			</header>
+				
+					
+				
 				{% endif %}
-			</ul>
+			
 		</div>
 		
 		<main>{% block content %} {% endblock %}</main>
