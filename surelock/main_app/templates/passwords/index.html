@@ -12,23 +12,19 @@
 
     <div class = 'body-container'>
 
-    <div class="header-logo-container">
-        <a href="/">
-            {% comment %}
-            <img
-                src="{% static 'images/header-logo.svg' %}"
-                alt="The Surelock Password Manager logo"
-            />
-            {% endcomment %}
-        </a>
-    </div>
+    
   
+
 
 
 
 <section class = "password-index-body">
 
-    <div id ='new-password-button'> <button class = 'open-button'> New Password </button><div>
+    <div id ='new-password-button'> 
+        
+    <button class = 'open-button'> New Password </button>
+    
+    </div>
 
 
 
@@ -44,96 +40,113 @@
     
          {% endfor %}
     
+
+
+
+
+   
+</section>
+
+</section>
 </div>
-</section>
+</div>
 
-</section>
 
-<section>
-    <dialog class = 'modal' id = 'createmodal'>
-        <button class = 'close-create-button'>x</button>
-        <form action = '' id="CreateForm" method="post">
-            {% csrf_token %}
-    
-            <label for="appname">Appname:</label>
-            <input type="text" id="appname" name="appname">
-            <br />
-            
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
-            <br />
-            
-            <label for="password">Password:</label>
-            <div class="password-reveal-container">
-                <input type="password" id="create-password" name="password">
-                <button type="button" id="generate-password" class="generate-btn">Generate Password</button>
-                <button type="button" id="toggle-create-password" class="toggle-btn">
-                    <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
-                </button>
-                <button type="button" id="copy-create-password" name="cpy-btn">Copy</button>
-            </div>
-            <br />
-            
-            <label for="note">Note:</label>
-            <textarea id="note" name="note"></textarea>
-            <br />
-    
-            <button type="submit">Submit</button>
+<div class='modal-container'>
+<dialog class = 'modal' id = 'createmodal'>
+    <button class = 'close-create-button'>x</button>
+    <form action = '' id="CreateForm" method="post">
+        {% csrf_token %}
+
+        <label for="appname">Appname:</label>
+        <input type="text" id="appname" name="appname">
+        <br />
         
-        </form>
-    </dialog>      
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <br />
+        
+        <label for="password">Password:</label>
+        <div class="password-reveal-container">
+            <input type="password" id="create-password" name="password">
+            <button type="button" id="generate-password" class="generate-btn">Generate Password</button>
+            <button type="button" id="toggle-create-password" class="toggle-btn">
+                <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
+            </button>
+            <button type="button" id="copy-create-password" name="cpy-btn">Copy</button>
+        </div>
+        <br />
+        
+        <label for="note">Note:</label>
+        <textarea id="note" name="note"></textarea>
+        <br />
+
+        <button type="submit">Submit</button>
+    
+    </form>
+</dialog>      
 
 
 <dialog class = 'modal' id = 'updatemodal' data-appname = "{{ updateform.appname.value}}">
-    <div class= 'modal-close-button-container'>
-        <h1>Edit Item</h1>
-        <button class = 'close-update-button'><a href = '/passwords'>x<a/></button>
+<div class= 'modal-close-button-container'>
+    <h1>Edit Item</h1>
+    <button class = 'close-update-button'><a href = '/passwords'>x<a/></button>
+</div>
+  
+<form action = '' id="UpdateForm" method="post" data-id="{{ updateform.instance.id }}">
+    {% csrf_token %}
+    {% comment %} {{ updateform.as_p }} {% endcomment %}
+    <label for="appname">Name:</label>
+    <input type="text" id="appname" name="appname" value="{{ updateform.appname.value }}">
+    <br />
+
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" value="{{ updateform.username.value}}">
+    <br />
+
+    <label for="password">Password:</label>
+    <div class="password-reveal-container">
+        <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
+        <button type="button" id="toggle-update-password" class="toggle-btn">
+            <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
+        </button>
+        <button type="button" id="copy-update-password" name="cpy-btn">Copy</button>
     </div>
-      
-    <form action = '' id="UpdateForm" method="post" data-id="{{ updateform.instance.id }}">
-        {% csrf_token %}
-        {% comment %} {{ updateform.as_p }} {% endcomment %}
-        <label for="appname">Name:</label>
-        <input type="text" id="appname" name="appname" value="{{ updateform.appname.value }}">
-        <br />
+    <br />
 
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" value="{{ updateform.username.value}}">
-        <br />
+    <label for="note">Notes:</label>
+    <textarea name="note" id="note" name="note">{{ updateform.note.value }}</textarea>
+    <br />    
 
-        <label for="password">Password:</label>
-        <div class="password-reveal-container">
-            <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
-            <button type="button" id="toggle-update-password" class="toggle-btn">
-                <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
-            </button>
-            <button type="button" id="copy-update-password" name="cpy-btn">Copy</button>
-        </div>
-        <br />
+    <button type="submit">Save</button>
+    <button type="submit" id="delete-button" class="delete-btn">Delete</button>
 
-        <label for="note">Notes:</label>
-        <textarea name="note" id="note" name="note">{{ updateform.note.value }}</textarea>
-        <br />    
 
-        <button type="submit">Save</button>
-        <button type="submit" id="delete-button" class="delete-btn">Delete</button>
+</form>
+</dialog>
+</div>
 
-    
-    </form>
-    
+
+
+
+
+
+
 <script>
+
+    
     const createModal = document.querySelector('#createmodal');
     const openCreateModal = document.querySelector('.open-button'); 
     const closeCreateModal = document.querySelector('.close-create-button');
     
     openCreateModal.addEventListener('click', function () {
         createModal.showModal();
-        createModal.style.display ='flex'
+        
     })
     
     closeCreateModal.addEventListener('click', function () {
         createModal.close();
-        createModal.style.display ='none'
+        
     })
 
     const updateModal = document.querySelector('#updatemodal');
@@ -141,14 +154,14 @@
     
     {%if password_id%}
     updateModal.showModal()
-    updateModal.style.display ='flex'
+    
     {%endif%}
 
     const closeUpdateModal = document.querySelector('.close-update-button')
 
     closeUpdateModal.addEventListener('click', function () {
         updateModal.close();
-        updateModal.style.display ='none'
+        
     });
 
     // Password reveal functionality for update modal
@@ -270,6 +283,5 @@
         
 </script>
 
-</div>
-</div>
+
 {% endblock %} 
