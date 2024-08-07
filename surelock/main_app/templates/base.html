@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -16,63 +15,38 @@
 		{% block head %} {% endblock %}
 	</head>
 	<body>
-
-		<div>
-			
-		</div>
-		{% if not user.is_authenticated %}
 		<header>		
-				<h2 class="logo">SureLock&#128274</h2>
-				
-				
-				
-				<div class="toggle">
-
-					
-				</div>
-				
+			<h2><a class="logo" href="{% url 'home' %}">SureLock&#128274</a></h2>
+			<div class="toggle"></div>			
 		</header>
 		<div class="menu">
-			<form action="{% url 'home' %}" method="post" class="login">
-				<h1>Login</h1>
-				{% csrf_token %} {{ form.as_p }}
-				<input type="hidden" name="next" value="{{ next }}" />
-				<button type="submit" class="btn submit">Login</button>
-				<a href="{% url 'home' %}">Home</a>
-				<a href="{% url 'signup' %}">Sign Up</a>
-			</form>
-				
-				
-				
-					
+			<ul>
+				<li>
+				{% if not user.is_authenticated %}
+					<form action="{% url 'home' %}" method="post" class="login">
+						<h1>Login</h1>
+						{% csrf_token %} {{ form.as_p }}
+						<input type="hidden" name="next" value="{{ next }}" />
+						<button type="submit" class="btn submit">Login</button>
+					</form>		
 				{% else %}
-				<header>		
-					<h2 class="logo">SureLock&#128274</h2>
-					
-					
-					
 					<form
 						id="logout-form"
 						method="post"
-						action="{% url 'logout' %}"
-					>
-						{% csrf_token %}
+						action="{% url 'logout' %}">
+						{% csrf_token %}  
 						<button id = 'logout-button' type="submit">Log out</button>
-					</form>
-					
-			</header>
-				
-					
-				
-				{% endif %}
-			
-		</div>
-		
-		<main>{% block content %} {% endblock %}</main>
-
+					</form>				
+				{% endif %}	
+				</li>
+				<li><a href="{% url 'home' %}">Home</a></li>
+				<li><a href="{% url 'signup' %}">Sign Up</a></li>
+			</ul>
+		</div>		
+		<main>
+			{% block content %} 
+			{% endblock %}
+		</main>
 		<script src="{% static 'javascript.js' %}"></script>
-
-
 	</body>
 </html>
- 
