@@ -92,46 +92,6 @@
     </dialog>      
 
 
-<div class='modal-container'>
-<dialog class = 'modal' id = 'createmodal'>
-    <button class = 'close-create-button'>x</button>
-    <form action = '' id="CreateForm" method="post">
-        {% csrf_token %}
-
-        <label for="appname">Appname:</label>
-        <input type="text" id="appname" name="appname">
-        <br />
-        
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username">
-        <br />
-        
-        <label for="password">Password:</label>
-        <div class="password-reveal-container">
-
-            <input type="password" id="create-password" name="password">
-            <button type="button" id="generate-password" class="generate-btn">Generate Password</button>
-  
-
-            <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
-            <button type="button" id="toggle-update-password" class="toggle-btn">
-                <i class="fa-solid fa-eye"></i>
-
-            </button>
-            <button type="button" id="copy-create-password" name="cpy-btn">Copy</button>
-        </div>
-        <br />
-        
-        <label for="note">Note:</label>
-        <textarea id="note" name="note"></textarea>
-        <br />
-
-        <button type="submit">Submit</button>
-    
-    </form>
-</dialog>      
-
-
 <dialog class = 'modal' id = 'updatemodal' data-appname = "{{ updateform.appname.value}}">
 <div class= 'modal-close-button-container'>
     <h1>Edit Item</h1>
@@ -153,7 +113,7 @@
     <div class="password-reveal-container">
         <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
         <button type="button" id="toggle-update-password" class="toggle-btn">
-            <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
+            <i class="fa-solid fa-eye"></i>
         </button>
         <button type="button" id="copy-update-password" name="cpy-btn">Copy</button>
     </div>
