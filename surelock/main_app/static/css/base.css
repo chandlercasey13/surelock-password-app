@@ -96,6 +96,12 @@ header .logo {
 	line-height: 1em;
 	text-transform: uppercase;
 }
+.text-gold {
+
+    color: #e0b320;
+    display:inline; 
+}
+
 .text p {
 	font-size: 1.1em;
 	color: #fff;
@@ -162,7 +168,7 @@ header .logo {
 	color: #111;
 }
 .menu ul li a:hover {
-	color: #03a9f4;
+	color: #E0B320;
 }
 
 @media (max-width: 991px) {
@@ -177,3 +183,4 @@ header .logo {
 		font-size: 2em;
 	}
 }
+
