@@ -289,7 +289,7 @@
                 fetch(`/passwords/${passwordId}/delete/`, {
                     method: "DELETE",
                     headers: {
-                        "X-CSRFToken": "{{ csrf_token }}",  // Django's CSRF token for security
+                        "X-CSRFToken": "{{ csrf_token }}",
                         "Content-Type": "application/json"
                     },
                 })
