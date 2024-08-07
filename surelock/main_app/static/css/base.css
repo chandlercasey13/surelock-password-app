@@ -6,7 +6,7 @@
 	font-family: "Poppins", sans-serif;
 }
 header {
-    position: absolute; 
+	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -73,6 +73,7 @@ header .logo {
 	height: 100%;
 	background: #03a9f4;
 	mix-blend-mode: overlay;
+	pointer-events: none;
 }
 .text {
 	position: relative;

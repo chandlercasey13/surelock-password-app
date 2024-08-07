@@ -196,12 +196,16 @@
 
     const updateModal = document.querySelector('#updatemodal');
     const allPasswords = document.querySelectorAll('.card')
-    
+    </script>
+
     {%if password_id%}
-    updateModal.showModal()
+    <script>
+        updateModal.showModal()
+    </script>
     
     {%endif%}
-
+    <script>
+        
     const closeUpdateModal = document.querySelector('.close-update-button')
 
     closeUpdateModal.addEventListener('click', function () {
