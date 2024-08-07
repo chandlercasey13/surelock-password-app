@@ -2,6 +2,8 @@
 {% load static %} 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/passwords/password-index.css' %}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 {% endblock %} 
 {% block content %}
 
@@ -87,7 +89,7 @@
                 <input type="password" id="create-password" name="password">
                 <button type="button" id="generate-password" class="generate-btn">Generate Password</button>
                 <button type="button" id="toggle-create-password" class="toggle-btn">
-                    <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
+                    <i class="fa-solid fa-eye"></i>
                 </button>
                 <button type="button" id="copy-create-password" name="cpy-btn">Copy</button>
             </div>
@@ -124,7 +126,7 @@
         <div class="password-reveal-container">
             <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
             <button type="button" id="toggle-update-password" class="toggle-btn">
-                <img src="{% static 'images/eye-icon.png' %}" alt="Reveal" />
+                <i class="fa-solid fa-eye"></i>
             </button>
             <button type="button" id="copy-update-password" name="cpy-btn">Copy</button>
         </div>
@@ -173,17 +175,17 @@
     // Password reveal functionality for update modal
     const updatePasswordInput = document.getElementById('update-password');
     const toggleUpdatePasswordBtn = document.getElementById('toggle-update-password');
-    const updateEyeIcon = toggleUpdatePasswordBtn.querySelector('img');
+    const updateEyeIcon = toggleUpdatePasswordBtn.querySelector('i');
 
     toggleUpdatePasswordBtn.addEventListener('click', function () {
         if (updatePasswordInput.type === 'password') {
             updatePasswordInput.type = 'text';
-            updateEyeIcon.src = "{% static 'images/eye-icon.png' %}";
-            updateEyeIcon.alt = "Hide";
+            updateEyeIcon.classList.remove("fa-eye");
+            updateEyeIcon.classList.add("fa-eye-slash");
         } else {
             updatePasswordInput.type = 'password';
-            updateEyeIcon.src = "{% static 'images/eye-icon.png' %}";
-            updateEyeIcon.alt = "Reveal";
+            updateEyeIcon.classList.remove("fa-eye-slash");
+            updateEyeIcon.classList.add("fa-eye");
         }
     });
 
@@ -201,18 +203,18 @@
     const createPasswordInput = document.getElementById('create-password');
     const toggleCreatePasswordBtn = document.getElementById('toggle-create-password');
     const generatePasswordBtn = document.getElementById('generate-password');
-    const createEyeIcon = toggleCreatePasswordBtn.querySelector('img');
+    const createEyeIcon = toggleCreatePasswordBtn.querySelector('i');
 
     // Toggle password visibility
     toggleCreatePasswordBtn.addEventListener('click', function () {
         if (createPasswordInput.type === 'password') {
             createPasswordInput.type = 'text';
-            createEyeIcon.src = "{% static 'images/eye-icon.png' %}";
-            createEyeIcon.alt = "Hide";
+            createEyeIcon.classList.remove("fa-eye");
+            createEyeIcon.classList.add("fa-eye-slash");
         } else {
             createPasswordInput.type = 'password';
-            createEyeIcon.src = "{% static 'images/eye-icon.png' %}";
-            createEyeIcon.alt = "Reveal";
+            createEyeIcon.classList.remove("fa-eye-slash");
+            createEyeIcon.classList.add("fa-eye");
         }
     });
 
