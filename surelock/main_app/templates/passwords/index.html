@@ -11,7 +11,7 @@
     <svg id="visual" viewBox="0 0 900 600" width = '100%' height ='100vh' preserveAspectRatio="none"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><defs><filter id="blur1" x="-10%" y="-10%" width="120%" height="120%"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur stdDeviation="163" result="effect1_foregroundBlur"></feGaussianBlur></filter></defs><rect width="960" height="540" fill="#6600FF"></rect><g filter="url(#blur1)"><circle cx="730" cy="52" fill="#00CC99" r="363"></circle><circle cx="143" cy="525" fill="#6600FF" r="363"></circle><circle cx="439" cy="163" fill="#00CC99" r="363"></circle><circle cx="530" cy="501" fill="#00CC99" r="363"></circle><circle cx="682" cy="337" fill="#6600FF" r="363"></circle><circle cx="214" cy="211" fill="#00CC99" r="363"></circle></g></svg>
 
     <div class = 'body-container'>
-<header>
+
     <div class="header-logo-container">
         <a href="/">
             {% comment %}
@@ -22,32 +22,13 @@
             {% endcomment %}
         </a>
     </div>
-    <nav class = 'index-nav'>
-        
-            {% if user.is_authenticated %}
-            <button>
-            <a href="{% url 'password-index' %}">Vault</a>
-            </button>
-                <form
-                    id="logout-form"
-                    method="post"
-                    action="{% url 'logout' %}"
-                >
-                    {% csrf_token %}
-                    <button type="submit">Log out</button>
-                </form>
-            
-            {% else %}
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'signup' %}">Sign Up</a>
-            {% endif %}
-        
-    </nav>
-</header>
+  
+
 
 
 <section class = "password-index-body">
-    <div id ='new-password-button'><button class = 'open-button'>New Password</button><div>
+
+    <div id ='new-password-button'> <button class = 'open-button'> New Password </button><div>
 
 
 
