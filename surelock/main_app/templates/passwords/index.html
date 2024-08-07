@@ -6,9 +6,10 @@
 {% block content %}
 
 <section class = "password-index-body">
-
+    <div id ='new-password-button'><button class = 'open-button'>New Password</button><div>
 <section class="passwords-container">
-    <button class = 'open-button'>New Password</button>
+
+    
   <h1>Login/Password List</h1>
   {% for password in passwords %}
     <div class="card">
@@ -98,10 +99,12 @@
     
     openCreateModal.addEventListener('click', function () {
         createModal.showModal();
+        createModal.style.display ='flex'
     })
     
     closeCreateModal.addEventListener('click', function () {
         createModal.close();
+        createModal.style.display ='none'
     })
 
     const updateModal = document.querySelector('#updatemodal');
@@ -109,12 +112,14 @@
     
     {%if password_id%}
     updateModal.showModal()
+    updateModal.style.display ='flex'
     {%endif%}
 
     const closeUpdateModal = document.querySelector('.close-update-button')
 
     closeUpdateModal.addEventListener('click', function () {
         updateModal.close();
+        updateModal.style.display ='none'
     });
 
     // Password reveal functionality for update modal
