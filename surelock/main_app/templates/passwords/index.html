@@ -13,7 +13,7 @@
 </div>
 
 <div class= 'background'>
-    <svg id="visual" viewBox="0 0 900 600" width = '100vw' height ='100vh' preserveAspectRatio="none"xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><defs><filter id="blur1" x="-10%" y="-10%" width="120%" height="120%"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur stdDeviation="161" result="effect1_foregroundBlur"></feGaussianBlur></filter></defs><rect width="900" height="600" fill="#011727"></rect><g filter="url(#blur1)"><circle cx="227" cy="527" fill="#011727" r="357"></circle><circle cx="506" cy="137" fill="#011727" r="357"></circle><circle cx="469" cy="318" fill="#011727" r="357"></circle><circle cx="668" cy="2" fill="#011727" r="357"></circle><circle cx="627" cy="525" fill="#011727" r="357"></circle><circle cx="57" cy="121" fill="#011727" r="357"></circle></g></svg>
+    <svg id="visual" viewBox="0 0 900 600" width = '100vw' height ='100vh' preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><path d="M0 235L900 217L900 0L0 0Z" fill="#011727"></path><path d="M0 457L900 445L900 215L0 233Z" fill="#011727"></path><path d="M0 601L900 601L900 443L0 455Z" fill="#011727"></path></svg>
     <div class = 'body-container'>
 
 
@@ -37,7 +37,8 @@
     <div class="card">
     
     
-    <a id= 'password-button'  onclick="navigateToUrl('{% url 'password-detail' password.id %}')" href='javascript:void(0);' ><button id='button-in-tag' >{{password.appname}}</button></a>
+    <a id= 'password-button'  onclick="navigateToUrl('{% url 'password-detail' password.id %}')" href='javascript:void(0);' ><button id='button-in-tag' >
+           <h1>{{password.appname}}</h1> <p id= "username-text">{{password.username}}</p></button></a>
 </div>
     
          {% endfor %}
@@ -54,7 +55,11 @@
 
 <section>
     <dialog class = 'modal' id = 'createmodal'>
-        <button class = 'close-create-button btn'>x</button>
+        <div class= 'modal-close-button-container'>
+            <div id='modal-close-button-container-childh1'><h1>Create Password</h1></div>
+            <div id='modal-close-button-container-childbutton'><button class = 'close-create-button btn'>x</button></div>
+        </div>
+        
         <form action = '' id="CreateForm" method="post">
             {% csrf_token %}
     
@@ -68,13 +73,7 @@
             
             <label for="password">Password:</label>
             <input type="password" id="create-password" name="password">
-            <div class="password-reveal-container">
-                <button type="button" id="generate-password" class="generate-btn btn">Generate Password</button>
-                <button type="button" id="toggle-create-password" class="toggle-btn btn">
-                    <i class="fa-solid fa-eye"></i>
-                </button>
-                <button type="button" id="copy-create-password" name="cpy-btn" class="btn">Copy</button>
-            </div>
+            
             <br />
             
             <label for="note">Note:</label>
@@ -89,8 +88,8 @@
 
 <dialog class = 'modal' id = 'updatemodal' data-appname = "{{ updateform.appname.value}}">
 <div class= 'modal-close-button-container'>
-    <h1>Edit Item</h1>
-    <button class = 'close-update-button btn'><a href = '/passwords'>x<a/></button>
+    <div id='modal-close-button-container-childh1'><h1>Edit Password</h1></div>
+    <div id='modal-close-button-container-childbutton'><button class = 'close-update-button btn'><a href = '/passwords'>x<a/></button></div>
 </div>
   
 <form action = '' id="UpdateForm" method="post" data-id="{{ updateform.instance.id }}">
@@ -105,8 +104,9 @@
     <br />
 
     <label for="password">Password:</label>
-    <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
     <div class="password-reveal-container">
+    <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
+    
         <button type="button" id="toggle-update-password" class="toggle-btn btn">
             <i class="fa-solid fa-eye"></i>
         </button>
