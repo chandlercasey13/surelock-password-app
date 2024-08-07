@@ -2,22 +2,17 @@
 <link rel="stylesheet" href="{% static 'css/form.css' %}" />
 {% endblock %} {% block content %}
 <div class="page-header">
-	<h1>Sign Up</h1>
-	{% comment %}
-	<img
-		src="{% static 'images/nerd-cat.svg' %}"
-		alt="A cat using a computer"
-	/>{% endcomment %}
+  <h1>Sign Up</h1>
 </div>
 {% if error_message %}
 <p class="red-text">{{ error_message }}</p>
 {% endif %}
 <form action="" method="post" class="form-container" autocomplete="off">
-	{% csrf_token %}
-	<table>
-		{{ form.as_table }}
-	</table>
-	<button type="submit" class="btn submit">Submit!</button>
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <button type="submit" class="btn submit">Submit!</button>
 </form>
 
 {% endblock %}
