@@ -20,20 +20,20 @@ SureLock is a secure, user-friendly password management application designed to 
 
 ## Screenshots
 
-**Home**
-![Screenshot of Home]()
+**Landing Page**
+![Screenshot of Home](./main_app/static/images/Landing-Page.png)
 
 **Sign Up**
-![Screenshot of Signup]()
+![Screenshot of Signup](./main_app/static/images/SignUp-Page.png)
 
 **Index Page**
-![ScreenShot of Index Page]()
+![ScreenShot of Index Page](./main_app/static/images/Index-Page.png)
 
 **Create Modal**
 ![ScreenShot of Create Modal]()
 
 **Update Modal**
-![ScreenShot of Update Modal]()
+![ScreenShot of Update Modal](./main_app/static/images/Edit-Modal.png)
 
 ## Getting Started
 
