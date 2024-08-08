@@ -11,7 +11,8 @@
 			href="{% static 'images/favicon.png' %}"
 		/>
 		<title>SureLock Password Manager</title>
-		<link rel="stylesheet" href="{% static 'css/base.css' %}" />
+		<!-- <link rel="stylesheet" href="{% static 'css/base.css' %}" /> -->
+		<link rel="stylesheet" href="{% static 'css/home/home.css' %}" />
 		{% block head %} {% endblock %}
 	</head>
 	<body>
@@ -32,24 +33,26 @@
 			{% endif %}	
 		</header>
 		<div class="menu">
-			<ul>
-				<li>
+			<!-- <ul>
+				<li> -->
 				{% if not user.is_authenticated %}
 				<div class="linkbox">
-					<ul>
-					<li><a href="{% url 'signup' %}">Sign Up</a></li>
-					</ul>	
+					<!-- If we want any links in the menu above the login, they should be added here. -->
 				</div>	
+				<div class="loginformbox text"></div>
 					<form action="{% url 'home' %}" method="post" class="login">
 						<h1>Login</h1>
 						{% csrf_token %} {{ form.as_p }}
 						<input type="hidden" name="next" value="{{ next }}" />
-						<button type="submit" class="btn submit">Login</button>
+						<div class="form-button">
+							<button type="submit" class="btn submit login-button">Login</button>
+						</div>
 					</form>
+				</div>
 				{% endif %}	
-				</li>
+				<!-- </li>
 				
-			</ul>
+			</ul> -->
 		</div>		
 		<main>
 			{% block content %} 

@@ -23,21 +23,73 @@ header .logo {
   cursor: pointer;
   text-decoration: none;
 }
+.linkbox {
+    content: "";
+    margin: 120px 0;
+}
+.login{
+    padding: 170px 0;
+}
 
+label {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: white;
+    font-weight: 500;
+    font-size: 1.2em;
+    padding: 7px 0 0 0;
+}
+li {
+    margin: 10px 0;
+    font-weight: 300;
+    font-size: 0.85em;
+}
+button {
+    display: inline-block;
+    font-size: 1em;
+    background: #fff;
+    color: #2c281b;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: 2px;
+    transition: 0.2s;
+    border: none;
+    cursor: pointer;
+}
+.form-button {
+   margin: 20px 0 0 0;
+   display: flex;
+   justify-content: center; 
+}
+.text button:hover {
+        letter-spacing: 6px;
+}
+.login-button {
+    margin: 0 0 0 0;
+    /* width:70px; */
+    justify-content: center;
+}
+.login-button:hover {
+    letter-spacing: 6px;
+}
 .toggle {
   position: relative;
-  width: 60px;
-  height: 60px;
-  background: url(https://i.ibb.co/HrfVRcx/menu.png);
+  width: 80px;
+  height: 80px;
+  background: url(../../images/hamburger.png);
   background-repeat: no-repeat;
-  background-size: 30px;
+  background-size: 50px;
   background-position: center;
   cursor: pointer;
 }
 .toggle.active {
-  background: url(https://i.ibb.co/rt3HybH/close.png);
+  background: url(../../images/white-x.png);
   background-repeat: no-repeat;
-  background-size: 25px;
+  background-size: 50px;
   background-position: center;
   cursor: pointer;
 }
@@ -81,7 +133,10 @@ header .logo {
   position: relative;
   z-index: 10;
 }
-
+h1 {
+    font-size: 2.5em;
+    color: #fff;
+}
 .text h2 {
   font-size: 5em;
   font-weight: 800;
@@ -112,7 +167,7 @@ header .logo {
 .text a {
   display: inline-block;
   font-size: 1em;
-  background: #fff;
+  background: #e0b320;
   padding: 10px 30px;
   text-transform: uppercase;
   text-decoration: none;
@@ -132,6 +187,10 @@ header .logo {
   display: flex;
   justify-content: center;
   align-items: center;
+  filter: invert(1);
+}
+.social img {
+    margin: 0 20px;
 }
 .social li {
   list-style: none;
@@ -154,7 +213,8 @@ header .logo {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  background: #e0b320;
+  padding: 10px;
 }
 .menu ul {
   position: relative;
@@ -183,3 +243,4 @@ header .logo {
     font-size: 2em;
   }
 }
+
