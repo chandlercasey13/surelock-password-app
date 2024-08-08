@@ -10,7 +10,7 @@ SureLock is a secure, user-friendly password management application designed to 
 
 - Password Storage: Easily store usernames, passwords, and associated notes for different accounts.
 
-- Password Generation: Generate strong, random passwords to enhance your online security.
+<!-- - Password Generation: Generate strong, random passwords to enhance your online security. -->
 
 - Password Visibility Toggle: Quickly reveal or hide your passwords with a simple toggle button.
 
@@ -59,4 +59,4 @@ Hosted by Heroku
 
 ## Next Steps
 
-Future enhancements would include two-factor authentication (2FA), so that we could integrate an additional layer of security. Users could receive a verification code via SMS, email, or a 2FA app to complete their login process. Another enhancement would be a password strength indicator to guide users when creating or updating passwords, ensuring they choose strong and secure passwords.
+Future enhancements would include two-factor authentication (2FA), so that we could integrate an additional layer of security. Users could receive a verification code via SMS, email. Another enhancement would be a password strength indicator to guide users when creating or updating passwords, ensuring they choose strong and secure passwords. As well as a search and filter option for the index page.
