@@ -24,17 +24,11 @@ SureLock is a secure, user-friendly password management application designed to 
 ![image](https://github.com/user-attachments/assets/827d24bc-1c7f-48f4-9d40-274381ef637a)
 
 
-**Sign Up**
-![Screenshot of Signup]()
+
 
 **Index Page**
-![ScreenShot of Index Page]()
+![image](https://github.com/user-attachments/assets/7b11d166-e915-4b53-9760-919fd3491cc5)
 
-**Create Modal**
-![ScreenShot of Create Modal]()
-
-**Update Modal**
-![ScreenShot of Update Modal]()
 
 ## Getting Started
 
