@@ -1,3 +1,16 @@
+**Home**
+![image](https://github.com/user-attachments/assets/827d24bc-1c7f-48f4-9d40-274381ef637a)
+
+
+
+
+**Index Page**
+![image](https://github.com/user-attachments/assets/7b11d166-e915-4b53-9760-919fd3491cc5)
+
+
+
+
+
 # SureLock
 
 ## App Description
@@ -19,15 +32,6 @@ SureLock is a secure, user-friendly password management application designed to 
 - Modern Interface: A sleek, intuitive interface with glassmorphic design elements, making it visually appealing and easy to navigate.
 
 ## Screenshots
-
-**Home**
-![image](https://github.com/user-attachments/assets/827d24bc-1c7f-48f4-9d40-274381ef637a)
-
-
-
-
-**Index Page**
-![image](https://github.com/user-attachments/assets/7b11d166-e915-4b53-9760-919fd3491cc5)
 
 
 ## Getting Started
