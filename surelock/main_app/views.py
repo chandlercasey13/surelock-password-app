@@ -78,7 +78,7 @@ class PasswordUpdate(LoginRequiredMixin, UpdateView):
         password_id = kwargs.get("pk")
 
         form = LoginForm
-        passwords = Login.objects.filter(user=request.user).order_by("id")
+        passwords = Login.objects.filter(user=request.user).order_by("appname")
 
         if password_id:
             login_instance = get_object_or_404(self.model, id=password_id)
@@ -102,7 +102,8 @@ class CrudView(LoginRequiredMixin, View):
         password_id = kwargs.get("id")
 
         form = LoginForm
-        passwords = Login.objects.filter(user=request.user).order_by("id")
+        passwords = Login.objects.filter(user=request.user).order_by("appname")
+
 
         if password_id:
             login_instance = get_object_or_404(self.model, id=password_id)
@@ -124,7 +125,7 @@ class CrudView(LoginRequiredMixin, View):
             return redirect(self.success_url)
         else:
             print(form.errors)
-            passwords = Login.objects.filter(user=request.user)
+            passwords = Login.objects.filter(user=request.user).order_by("appname")
             return render(
                 request, self.template_name, {"passwords": passwords, "form": form}
             )
@@ -135,7 +136,7 @@ class CrudView(LoginRequiredMixin, View):
 
         form = LoginForm(request.PUT, instance=login)
 
-        passwords = Login.objects.all()
+        passwords = Login.objects.filter(user=request.user).order_by("appname")
         return render(
             request, self.template_name, {"form": form, "passwords": passwords}
         )
