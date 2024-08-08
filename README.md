@@ -1,16 +1,3 @@
-**Home**
-![image](https://github.com/user-attachments/assets/827d24bc-1c7f-48f4-9d40-274381ef637a)
-
-
-
-
-**Index Page**
-![image](https://github.com/user-attachments/assets/7b11d166-e915-4b53-9760-919fd3491cc5)
-
-
-
-
-
 # SureLock
 
 ## App Description
@@ -23,7 +10,7 @@ SureLock is a secure, user-friendly password management application designed to 
 
 - Password Storage: Easily store usernames, passwords, and associated notes for different accounts.
 
-- Password Generation: Generate strong, random passwords to enhance your online security.
+<!-- - Password Generation: Generate strong, random passwords to enhance your online security. -->
 
 - Password Visibility Toggle: Quickly reveal or hide your passwords with a simple toggle button.
 
@@ -32,6 +19,21 @@ SureLock is a secure, user-friendly password management application designed to 
 - Modern Interface: A sleek, intuitive interface with glassmorphic design elements, making it visually appealing and easy to navigate.
 
 ## Screenshots
+**Landing Page**
+![Landing Page](./main_app/static/images/Landing-Page.png)
+
+**Sign Up**
+![Sign Up Page](./main_app/static/images/SignUp-Page.png)
+
+**Index Page**
+![Index Page](./main_app/static/images/Index-Page.png)
+
+**Create Modal**
+![Create Modal](./main_app/static/images/Create-Modal.png)
+
+**Edit Page**
+![Edit Page](./main_app/static/images/Edit-Modal.png)
+
 
 
 ## Getting Started
@@ -58,4 +60,4 @@ Hosted by Heroku
 
 ## Next Steps
 
-Future enhancements would include two-factor authentication (2FA), so that we could integrate an additional layer of security. Users could receive a verification code via SMS, email, or a 2FA app to complete their login process. Another enhancement would be a password strength indicator to guide users when creating or updating passwords, ensuring they choose strong and secure passwords.
+Future enhancements would include two-factor authentication (2FA), so that we could integrate an additional layer of security. Users could receive a verification code via SMS, email, or a 2FA app to complete their login process. Another enhancement would be a password strength indicator to guide users when creating or updating passwords, ensuring they choose strong and secure passwords. As well a search/filter option for the index page.
