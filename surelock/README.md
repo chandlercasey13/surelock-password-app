@@ -30,7 +30,7 @@ SureLock is a secure, user-friendly password management application designed to 
 ![ScreenShot of Index Page](./main_app/static/images/Index-Page.png)
 
 **Create Modal**
-![ScreenShot of Create Modal]()
+![ScreenShot of Create Modal](./main_app/static/images/Create-Modal.png)
 
 **Update Modal**
 ![ScreenShot of Update Modal](./main_app/static/images/Edit-Modal.png)

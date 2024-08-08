@@ -85,10 +85,14 @@
             <br />
             
             <label for="password">Password:</label>
-            <input type="password" id="create-password" name="password">
-            
-            <br />
-            
+            <div class="password-reveal-container">
+                <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
+                
+                    <button type="button" id="toggle-update-password" class="toggle-btn btn">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>        
+                        
             <label for="note">Note:</label>
             <textarea id="note" name="note"></textarea>
             <br />
