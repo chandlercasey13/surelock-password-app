@@ -7,6 +7,7 @@ from django.views import View
 
 from .models import Login
 from .forms import LoginForm
+from .forms import SignUpForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -40,21 +41,35 @@ def password_detail(request, password_id):
     password = Login.objects.get(id=password_id)
     return render(request, "passwords/detail.html", {"password": password})
 
+#ORIGINAL CODE BEFORE MY ATTEMPT AT A CUSTOM SIGNUP
+# def signup(request):
+#     error_message = ""
+#     if request.method == "POST":
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)
+#             return redirect("password-index")
+#         else:
+#             error_message = "Invalid Signup - Try again"
+#     form = UserCreationForm()
+#     context = {"form": form, "error_message": error_message}
+#     return render(request, "signup.html", context)
 
+#THIS IS THE NEW CODE
 def signup(request):
     error_message = ""
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect("password-index")
         else:
             error_message = "Invalid Signup - Try again"
-    form = UserCreationForm()
+    form = SignUpForm()
     context = {"form": form, "error_message": error_message}
     return render(request, "signup.html", context)
-
 
 class PassCreate(LoginRequiredMixin, CreateView):
     model = Login

@@ -16,3 +16,6 @@ urlpatterns = [
     ),
     path("accounts/signup/", views.signup, name="signup"),
 ]
+
+
+#*Is that a duplicate singup path above??

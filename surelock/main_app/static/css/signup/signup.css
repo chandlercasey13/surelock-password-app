@@ -26,18 +26,81 @@
     line-height: 1em;
     text-transform: uppercase;
   }
-  .signup-form {
-    margin: 60px 0 0 0;
+  .form-container {
+      
+  }
+  .form-box {
+    margin: 70px 0;
+  }
+  .form-label {
+    width: 25%;
+    height: 40px;
+    align-content: center;
+    float: left;
+  }
+  .form-field {
+    width: 75%;
+    height:40px;
+    align-content: center;
+    float: right;
+  }
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    
+  }
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    
+    height: 35px;
+    background-color: grey;
+    color: #fff;
+    text-align: center;
+    align-content: center;
+    padding: 0 5px;
+    border-radius: 6px;
+    opacity: 0.75;
+    font-size: 0.8em;
+    font-weight: 400;
+    top: 2px;
+    left: 25%;
+    /* Position the tooltip text  */
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1s;
+  }
+  .tooltip .tooltiptext::after {
+    content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%; /* To the left of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .page-header {
+    margin: 0 0 30px 0;
+  }
+  .input-icon {
+    height: 10px;
+    width: 10px;
+
   }
   label {
+    padding: 0;
     font-size: 1em;
     font-weight: 700;
     color: #fff;
     line-height: 1em;
     text-transform: uppercase;
-  }
-  th {
-    margin: 20px 0;
   }
   button {
     display: inline-block;
@@ -48,7 +111,7 @@
     text-transform: uppercase;
     text-decoration: none;
     font-weight: 700;
-    margin-top: 10px;
+    margin-top: 30px;
     color: #111;
     letter-spacing: 2px;
     transition: 0.2s;
@@ -81,7 +144,7 @@
 .text p {
   font-size: 1.1em;
   color: #fff;
-  margin: 20px 0;
+  /* margin: 20px 0; */
   font-weight: 400;
   max-width: 700px;
 }
