@@ -10,7 +10,7 @@ SureLock is a secure, user-friendly password management application designed to 
 
 - Password Storage: Easily store usernames, passwords, and associated notes for different accounts.
 
-<!-- - Password Generation: Generate strong, random passwords to enhance your online security. -->
+- Password Generation: Generate strong, random passwords to enhance your online security.
 
 - Password Visibility Toggle: Quickly reveal or hide your passwords with a simple toggle button.
 

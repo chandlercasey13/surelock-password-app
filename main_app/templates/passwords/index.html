@@ -291,17 +291,24 @@
             });
         });
     
-        // Delete functionality
-        document.addEventListener("DOMContentLoaded", function() {
-            const deleteButton = document.getElementById("delete-button");
+    });
     
+    
+</script>
+
+<script>
+    // Delete functionality
+    document.addEventListener("DOMContentLoaded", function() {
+
+        const deleteButton = document.getElementById("delete-button");
+
             deleteButton.addEventListener("click", function(event) {
                 event.preventDefault();
-    
+
                 const form = document.getElementById("UpdateForm");
                 const passwordId = form.getAttribute("data-id");
                 const appName = document.getElementById("updatemodal").getAttribute("data-appname");
-    
+
                 if (confirm(`Are you sure you want to delete ${appName}?`)) {
                     fetch(`/passwords/${passwordId}/delete/`, {
                         method: "DELETE",
@@ -312,7 +319,7 @@
                     })
                     .then(response => {
                         if (response.ok) {
-                            window.location.href = "/passwords/"
+                            window.location.href = "/passwords/";
                         } else {
                             alert("Failed to delete the password.");
                         }
@@ -322,11 +329,8 @@
                     });
                 }
             });
-        });
     });
-
-
-    </script>
+</script>        
 
 
 {% endblock %} 
