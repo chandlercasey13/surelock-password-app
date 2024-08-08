@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% load static %} 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/signup/signup.css' %}" />
+<!-- <link rel="stylesheet" href="{% static 'css/passwords/password-index.css' %}" /> -->
 {% endblock %} 
 
 {% block content %}
@@ -55,10 +56,10 @@
             <img class="icon input-icon" src="{% static 'icons/password.png' %}" alt=""> 
             {{form.password2}} 
           </div>
+        </form>
         <div class="form-button">
           <button type="submit" class="btn submit">Submit</button>
         </div>
-      </form>
 	  </div> 
   </div>
 </section>
