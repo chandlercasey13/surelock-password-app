@@ -30,7 +30,11 @@
     <div id ='new-password-button'>     
         <button class = 'open-button'> New Password </button>
     </div>
-        
+    <div id = 'legend'><p id = 'legend-date'>Created At</p><p id ='legend-app-name'>App Name</p>
+        <p id = 'legend-username'>Username</p><p id ='legend-note'>Note</p> </div>
+    
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>    
+
 <div id = 'smaller-passwords-container'>    
 
   {% for password in passwords %}
@@ -38,8 +42,16 @@
     
     
     <a id= 'password-button'  onclick="navigateToUrl('{% url 'password-detail' password.id %}')" href='javascript:void(0);' ><button id='button-in-tag' >
-           <h1>{{password.appname}}</h1> <p id= "username-text">{{password.username}}</p></button></a>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAPlJREFUSEvtlcsRgjAYhP+lCOGIF6EMrAStRKhErUTKEC9yBIrIOkF0HAhEfMx4kCvJfjv7PwL58ocv68tzAC+MHKViAlFrqCCQSnnMbAbtAC9cgdyahEgmUp/
+        SMcg4wAsjkAct0Ig5zr4RUyoGsBIRn8BcymMxBBkFwA20eGR0OltsACQgd6o+rV8FsHFf5X0jX
+        uiDPItIwSqffx4gInCDYQMt0RbRqMCPAq6ds9HFtfV4539mmo1eRHADXTh/ovjteMYqXz7eNQG
+        shTPBh+rxB9zT+kdk7dqfiuidQettVtMa1qtCv2BTp/m5VWENe+IB+5s8UbB7/AK6bKsZlqHeY
+        wAAAABJRU5ErkJggg=="/><p id = 'password-date'>{{password.my_datetime}}</p>
+        <h1 id = "password-appname">{{password.appname}}</h1> <p id= "username-text">{{password.username}}</p><p id = 'password-note'>{{password.note}}</p>
+        </button></a>
 </div>
+
+
     
          {% endfor %}
     
