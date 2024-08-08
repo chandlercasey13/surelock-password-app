@@ -14,6 +14,10 @@ from pathlib import Path
 
 from main_app.hashers import MyBCryptSHA256PasswordHasher
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 from dotenv import load_dotenv
 import os
