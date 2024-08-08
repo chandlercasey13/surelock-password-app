@@ -1,18 +1,36 @@
-{% extends 'base.html' %} {% load static %} {% block head %}
-<link rel="stylesheet" href="{% static 'css/form.css' %}" />
-{% endblock %} {% block content %}
-<div class="page-header">
-  <h1>Sign Up</h1>
+{% extends 'base.html' %} {% load static %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/signup/signup.css' %}" />
+{% endblock %} 
+
+{% block content %}
+<section class="showcase">
+  <!-- 
+	This is the video that will play in the background
+	<video src="" muted loop autoplay></video> 
+	-->
+
+	<div class="overlay"></div>
+	<div class="text">
+		<div class="page-header">
+        <h4 class="text-gold">Sign Up</h4>
+    </div>   
+    <div class="signup-form">
+      {% if error_message %}
+        <p class="red-text">{{ error_message }}</p>
+      {% endif %}
+      <form action="" method="post" class="form-container" autocomplete="off">
+        {% csrf_token %}
+        <table>
+          {{ form.as_table }}
+        </table>
+        <div class="form-button">
+          <button type="submit" class="btn submit">Submit</button>
+        </div>
+      </form>
+	</div> 
 </div>
-{% if error_message %}
-<p class="red-text">{{ error_message }}</p>
-{% endif %}
-<form action="" method="post" class="form-container" autocomplete="off">
-  {% csrf_token %}
-  <table>
-    {{ form.as_table }}
-  </table>
-  <button type="submit" class="btn submit">Submit!</button>
-</form>
+</section>
+
 
 {% endblock %}
