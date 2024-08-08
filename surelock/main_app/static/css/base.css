@@ -23,21 +23,23 @@ header .logo {
   cursor: pointer;
   text-decoration: none;
 }
-
+.linkbox {
+    margin: 110px 0;
+}
 .toggle {
   position: relative;
-  width: 60px;
-  height: 60px;
-  background: url(https://i.ibb.co/HrfVRcx/menu.png);
+  width: 80px;
+  height: 80px;
+  background: url(../images/hamburger.png);
   background-repeat: no-repeat;
-  background-size: 30px;
+  background-size: 50px;
   background-position: center;
   cursor: pointer;
 }
 .toggle.active {
-  background: url(https://i.ibb.co/rt3HybH/close.png);
+  background: url(../images/x.png);
   background-repeat: no-repeat;
-  background-size: 25px;
+  background-size: 50px;
   background-position: center;
   cursor: pointer;
 }
@@ -154,7 +156,7 @@ header .logo {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: top;
 }
 .menu ul {
   position: relative;

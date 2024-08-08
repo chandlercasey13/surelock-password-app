@@ -8,7 +8,7 @@
 		<link
 			rel="shortcut icon"
 			type="image/png"
-			href="{% static 'images/splash.svg' %}"
+			href="{% static 'images/favicon.png' %}"
 		/>
 		<title>SureLock Password Manager</title>
 		<link rel="stylesheet" href="{% static 'css/base.css' %}" />
@@ -16,7 +16,9 @@
 	</head>
 	<body>
 		<header>		
-			<img src="https://files.logomakr.com/8nnSE5-LogoMakr.png" alt="SureLock logo">
+			<a href="{% url 'home' %}">
+				<img src="https://files.logomakr.com/8nnSE5-LogoMakr.png" alt="SureLock logo">
+			</a>
 			{% if not user.is_authenticated %}
 				<div class="toggle"></div>		
 			{% else %}
@@ -33,14 +35,17 @@
 			<ul>
 				<li>
 				{% if not user.is_authenticated %}
+				<div class="linkbox">
+					<ul>
+					<li><a href="{% url 'signup' %}">Sign Up</a></li>
+					</ul>	
+				</div>	
 					<form action="{% url 'home' %}" method="post" class="login">
 						<h1>Login</h1>
 						{% csrf_token %} {{ form.as_p }}
 						<input type="hidden" name="next" value="{{ next }}" />
 						<button type="submit" class="btn submit">Login</button>
-					</form>		
-					<li><a href="{% url 'home' %}">Home</a></li>
-					<li><a href="{% url 'signup' %}">Sign Up</a></li>		
+					</form>
 				{% endif %}	
 				</li>
 				
