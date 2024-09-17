@@ -1,68 +1,97 @@
-{% extends 'base.html' %} {% load static %} 
-{% block head %}
+{% extends 'base.html' %} {% load static %} {% block head %}
 <link rel="stylesheet" href="{% static 'css/signup/signup.css' %}" />
 <!-- <link rel="stylesheet" href="{% static 'css/passwords/password-index.css' %}" /> -->
-{% endblock %} 
-
-{% block content %}
+{% endblock %} {% block content %}
 <section class="showcase">
-  <!-- 
+	<!-- 
 	This is the video that will play in the background
 	<video src="" muted loop autoplay></video> 
 	-->
 
 	<div class="overlay"></div>
 	<div class="text">
-    <div class="form-box">
-      <div class="page-header">
-          <h4 class="text-gold">Sign Up</h4>
-      </div>   
-      {% if error_message %}
-        <p class="red-text">{{ error_message }}</p>
-      {% endif %}
-      <form action="" method="post" class="form-container" id="signup-form" autocomplete="off">
-        {% csrf_token %}
-          <div class="form-label">
-            <h5>Username: </h5>
-          </div>
-          <div class="form-field tooltip">
-            <span class="tooltiptext">Required. 150 characters or fewer. Only these special characters are allowed: @/./+/-/_ only.</span>
-            <img class="icon input-icon" src="{% static 'icons/user.png' %}" alt=""> 
-            {{form.username}} 
-          </div>
-          <div class="form-label">
-            <h5>Email: </h5>
-          </div>
-          <div class="form-field tooltip">
-            <span class="tooltiptext">Must be valid domain. Ex: shawty@domain.com You may only have one login per email.</span>
-            <img class="icon input-icon" src="{% static 'icons/email.png' %}" alt=""> 
-           {{form.email}} 
-          </div>
-          <div class="form-label">
-            <h5>Password: </h5>
-          </div>
-          <div class="form-field tooltip">
-            <span class="tooltiptext">Password must contain at least 8 characters, cannot be a commonly used password, and cannot be entirely numeric.</span>
-            
-            <img class="icon input-icon" src="{% static 'icons/password.png' %}" alt=""> 
-            {{form.password1}} 
-          </div>
-          <div class="form-label">
-            <h5>Confirm Password: </h5>
-          </div>
-          <div class="form-field tooltip">
-            <span class="tooltiptext">Confirm Password must be identical to Password.</span>
-            
-            <img class="icon input-icon" src="{% static 'icons/password.png' %}" alt=""> 
-            {{form.password2}} 
-          </div>
-        </form>
-        <div class="form-button">
-          <button type="submit" class="btn submit">Submit</button>
-        </div>
-	  </div> 
-  </div>
-</section>
+		<div class="form-box">
+			<div class="page-header">
+				<h4 class="text-gold">Sign Up</h4>
+			</div>
+			{% if error_message %}
+			<p class="red-text">{{ error_message }}</p>
+			{% endif %}
+			<form
+				action=""
+				method="post"
+				class="form-container"
+				id="signup-form"
+				autocomplete="off"
+			>
+				{% csrf_token %}
+				<div class="form-label">
+					<h5>Username:</h5>
+				</div>
+				<div class="form-field tooltip">
+					<span class="tooltiptext"
+						>Required. 150 characters or fewer. Only these special
+						characters are allowed: @/./+/-/_ only.</span
+					>
+					<img
+						class="icon input-icon"
+						src="{% static 'icons/user.png' %}"
+						alt=""
+					/>
+					{{form.username}}
+				</div>
+				<div class="form-label">
+					<h5>Email:</h5>
+				</div>
+				<div class="form-field tooltip">
+					<span class="tooltiptext"
+						>Must be valid domain. Ex: shawty@domain.com You may only have
+						one login per email.</span
+					>
+					<img
+						class="icon input-icon"
+						src="{% static 'icons/email.png' %}"
+						alt=""
+					/>
+					{{form.email}}
+				</div>
+				<div class="form-label">
+					<h5>Password:</h5>
+				</div>
+				<div class="form-field tooltip">
+					<span class="tooltiptext"
+						>Password must contain at least 8 characters, cannot be a
+						commonly used password, and cannot be entirely numeric.</span
+					>
 
+					<img
+						class="icon input-icon"
+						src="{% static 'icons/password.png' %}"
+						alt=""
+					/>
+					{{form.password1}}
+				</div>
+				<div class="form-label">
+					<h5>Confirm Password:</h5>
+				</div>
+				<div class="form-field tooltip">
+					<span class="tooltiptext"
+						>Confirm Password must be identical to Password.</span
+					>
+
+					<img
+						class="icon input-icon"
+						src="{% static 'icons/password.png' %}"
+						alt=""
+					/>
+					{{form.password2}}
+				</div>
+				<div class="form-button">
+					<button type="submit" class="btn submit">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
 
 {% endblock %}

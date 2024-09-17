@@ -56,6 +56,7 @@ def password_detail(request, password_id):
 #     context = {"form": form, "error_message": error_message}
 #     return render(request, "signup.html", context)
 
+
 #THIS IS THE NEW CODE
 def signup(request):
     error_message = ""
@@ -84,7 +85,7 @@ class PassCreate(LoginRequiredMixin, CreateView):
 
 
 class PasswordUpdate(LoginRequiredMixin, UpdateView):
-    model = Login
+    model = Login``
     form_class = LoginForm
     template_name = "passwords/index.html"
     success_url = "/passwords/"
