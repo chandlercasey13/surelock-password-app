@@ -19,21 +19,22 @@ SureLock is a secure, user-friendly password management application designed to 
 - Modern Interface: A sleek, intuitive interface with glassmorphic design elements, making it visually appealing and easy to navigate.
 
 ## Screenshots
-
-**Home**
-![Screenshot of Home]()
+**Landing Page**
+![Landing Page](./main_app/static/images/Landing-Page.png)
 
 **Sign Up**
-![Screenshot of Signup]()
+![Sign Up Page](./main_app/static/images/SignUp-Page.png)
 
 **Index Page**
-![ScreenShot of Index Page]()
+![Index Page](./main_app/static/images/Index-Page.png)
 
 **Create Modal**
-![ScreenShot of Create Modal]()
+![Create Modal](./main_app/static/images/Create-Modal.png)
 
-**Update Modal**
-![ScreenShot of Update Modal]()
+**Edit Page**
+![Edit Page](./main_app/static/images/Edit-Modal.png)
+
+
 
 ## Getting Started
 
@@ -59,4 +60,4 @@ Hosted by Heroku
 
 ## Next Steps
 
-Future enhancements would include two-factor authentication (2FA), so that we could integrate an additional layer of security. Users could receive a verification code via SMS, email, or a 2FA app to complete their login process. Another enhancement would be a password strength indicator to guide users when creating or updating passwords, ensuring they choose strong and secure passwords.
+Future enhancements would include two-factor authentication (2FA), so that we could integrate an additional layer of security. Users could receive a verification code via SMS, email, or a 2FA app to complete their login process. Another enhancement would be a password strength indicator to guide users when creating or updating passwords, ensuring they choose strong and secure passwords. As well a search/filter option for the index page.

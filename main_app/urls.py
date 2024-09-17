@@ -14,8 +14,4 @@ urlpatterns = [
     path(
         "passwords/create/", views.simple_password_create, name="simple_password_create"
     ),
-    path("accounts/signup/", views.signup, name="signup"),
 ]
-
-
-#*Is that a duplicate singup path above??
