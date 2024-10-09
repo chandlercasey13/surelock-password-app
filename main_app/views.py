@@ -85,7 +85,7 @@ class PassCreate(LoginRequiredMixin, CreateView):
 
 
 class PasswordUpdate(LoginRequiredMixin, UpdateView):
-    model = Login``
+    model = Login
     form_class = LoginForm
     template_name = "passwords/index.html"
     success_url = "/passwords/"
