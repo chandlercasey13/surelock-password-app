@@ -1,0 +1,19 @@
+{
+  "name": "surelock-password-app",
+  "version": "1.0.0",
+  "description": "SureLock Password Manager App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/padcoding1/surelock-password-app.git"
+  },
+  "author": "Philip Dillon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/padcoding1/surelock-password-app/issues"
+  },
+  "homepage": "https://github.com/padcoding1/surelock-password-app#readme"
+}
