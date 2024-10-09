@@ -31,6 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+DEBUG = os.getenv('DEBUG') == 'True'
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -83,7 +84,8 @@ WSGI_APPLICATION = "surelock.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-if 'ON_HEROKU' in os.environ:
+# if 'ON_HEROKU' in os.environ:
+if 'DATABASE_URL' in os.environ:
     DATABASES = {
         "default": dj_database_url.config(
             env='DATABASE_URL',
@@ -96,8 +98,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': "loginDB",
-            # The value of 'NAME' should match the value of 'NAME' you replaced.
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
+            'PORT': os.getenv('DB_PORT'),
         }
     }
 
