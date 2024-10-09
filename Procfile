@@ -1,1 +1,1 @@
-web: gunicorn surelock.wsgi
+web: gunicorn surelock.wsgi --log-file -pip
