@@ -32,6 +32,8 @@
 				</form>				
 			{% endif %}	
 		</header>
+
+
 		<div class="menu">
 			<!-- <ul>
 				<li> -->
@@ -39,10 +41,10 @@
 				<div class="linkbox">
 					<!-- If we want any links in the menu above the login, they should be added here. -->
 				</div>	
-				<div class="loginformbox text"></div>
+				<div class="loginentryformbox text"></div> 
 					<form action="{% url 'home' %}" method="post" class="login">
 						<h1>Login</h1>
-						{% csrf_token %} {{ form.as_p }}
+						{% csrf_token %} {{ login_form.as_p }}  <!-- Updated to use login_form -->
 						<input type="hidden" name="next" value="{{ next }}" />
 						<div class="form-button">
 							<button type="submit" class="btn submit login-button">Login</button>

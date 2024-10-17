@@ -5,7 +5,7 @@ from . import views  # Import views to connect routes to view functions
 urlpatterns = [
     path("", views.Home.as_view(), name="home"),
     path("passwords/", views.CrudView.as_view(), name="password-index"),
-    path("passwords/<int:pk>/", views.PasswordUpdate.as_view(), name="password-detail"),
+    path("passwords/<int:pk>/", views.PassUpdate.as_view(), name="password-detail"),
     path("passwords/<int:password_id>/", views.password_detail, name="password-detail"),
     path(
         "passwords/<int:id>/delete/", views.CrudView.as_view(), name="password-delete"
