@@ -16,11 +16,29 @@ header {
   justify-content: space-between;
   align-items: center;
 }
-
+.error-text {
+  color: red;
+  font-size: 0.8em;
+  margin: 0;
+  padding: 0;
+}
 header .logo {
   color: #fff;
   text-transform: uppercase;
   cursor: pointer;
+  text-decoration: none;
+}
+.username-and-hamburger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.username-display {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-right: 15px;  /* Adjust spacing as needed */
+  color: #e0b320;
+  text-transform: uppercase;
   text-decoration: none;
 }
 .linkbox {
@@ -230,6 +248,48 @@ h1 {
 .menu ul li a:hover {
 	color: #E0B320;
 }
+
+.TheHeader_toggle {
+  position: relative;
+  z-index: 9;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  width: 42px;
+  height: 42px;
+  margin-left: var(--space-xs);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: background-color .23s ease-in-out;
+  outline: none;
+  cursor: pointer
+}
+
+.TheHeader_toggle:focus-visible,.TheHeader_toggle:hover {
+  background: rgba(var(--base-color-secondary-rgb),.06)
+}
+
+.TheHeader_one,.TheHeader_three,.TheHeader_two {
+  transition: all .23s ease-in-out
+}
+
+.TheHeader_three.TheHeader_animate {
+  width: 0
+}
+
+.TheHeader_one.TheHeader_animate {
+  transform: rotate(45deg) translate(5.75px,-7px);
+  width: 14px
+}
+
+.TheHeader_two.TheHeader_animate {
+  transform: rotate(-45deg) translate(-11.5px,.5px);
+  width: 14px
+}
+
+
 
 @media (max-width: 991px) {
   .showcase,

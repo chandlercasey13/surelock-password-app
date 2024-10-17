@@ -1,91 +1,95 @@
-{% extends 'base.html' %} {% load static %} {% block head %}
-<link rel="stylesheet" href="{% static 'css/signup/signup.css' %}" />
-<!-- <link rel="stylesheet" href="{% static 'css/passwords/password-index.css' %}" /> -->
-{% endblock %} {% block content %}
-<section class="showcase">
-	<!-- 
-	This is the video that will play in the background
-	<video src="" muted loop autoplay></video> 
-	-->
+{% extends 'base.html' %}
+{% load static %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/signup/signup.css' %}" />
+{% endblock %}
+
+{% block content %}
+<section class="showcase">
 	<div class="overlay"></div>
 	<div class="text">
 		<div class="form-box">
 			<div class="page-header">
 				<h4 class="text-gold">Sign Up</h4>
 			</div>
+
+			<!-- Render error messages at the top if necessary -->
 			{% if error_message %}
-			<p class="red-text">{{ error_message }}</p>
+				<p class="red-text">{{ error_message }}</p>
 			{% endif %}
-			<form
-				action=""
-				method="post"
-				class="form-container"
-				id="signup-form"
-				autocomplete="on"
-			>
+
+			<form action="" method="post" class="form-container" id="signup-form" autocomplete="on">
 				{% csrf_token %}
-				<div class="form-label">
-					<h5>Username:</h5>
-				</div>
-				<div class="form-field tooltip">
-					<span class="tooltiptext"
-						>Required. 150 characters or fewer. Only these special
-						characters are allowed: @/./+/-/_ only.</span
-					>
-					<img
-						class="icon input-icon"
-						src="{% static 'icons/user.png' %}"
-						alt=""
-					/>
-					{{form.username}}
-				</div>
-				<div class="form-label">
-					<h5>Email:</h5>
-				</div>
-				<div class="form-field tooltip">
-					<span class="tooltiptext"
-						>Must be valid domain. Ex: shawty@domain.com You may only have
-						one login per email.</span
-					>
-					<img
-						class="icon input-icon"
-						src="{% static 'icons/email.png' %}"
-						alt=""
-					/>
-					{{form.email}}
-				</div>
-				<div class="form-label">
-					<h5>Password:</h5>
-				</div>
-				<div class="form-field tooltip">
-					<span class="tooltiptext"
-						>Password must contain at least 8 characters, cannot be a
-						commonly used password, and cannot be entirely numeric.</span
-					>
 
-					<img
-						class="icon input-icon"
-						src="{% static 'icons/password.png' %}"
-						alt=""
-					/>
-					{{form.password1}}
-				</div>
+				<!-- Username Field -->
 				<div class="form-label">
-					<h5>Confirm Password:</h5>
+					{{ form.username.label_tag }}
 				</div>
 				<div class="form-field tooltip">
-					<span class="tooltiptext"
-						>Confirm Password must be identical to Password.</span
-					>
-
-					<img
-						class="icon input-icon"
-						src="{% static 'icons/password.png' %}"
-						alt=""
-					/>
-					{{form.password2}}
+					<span class="tooltiptext">Required. 150 characters or fewer. Only these special characters are allowed: @/./+/-/_ only.</span>
+					<img class="icon input-icon" src="{% static 'icons/user.png' %}" alt=""/>
+					{{ form.username }}
+					{% if form.username.errors %}
+						<div class="error-message">
+							{{ form.username.errors }}
+						</div>
+					{% endif %}
 				</div>
+
+				<!-- Email Field -->
+				<div class="form-label">
+					{{ form.email.label_tag }}
+				</div>
+				<div class="form-field tooltip">
+					<span class="tooltiptext">Must be valid domain. Ex: shawty@domain.com You may only have one login per email.</span>
+					<img class="icon input-icon" src="{% static 'icons/email.png' %}" alt=""/>
+					{{ form.email }}
+					{% if form.email.errors %}
+						<div class="error-message">
+							{{ form.email.errors }}
+						</div>
+					{% endif %}
+				</div>
+
+				<!-- Password Field -->
+				<div class="form-label">
+					{{ form.password1.label_tag }}
+				</div>
+				<div class="form-field tooltip">
+					<span class="tooltiptext">Password must contain at least 8 characters, cannot be a commonly used password, and cannot be entirely numeric.</span>
+					<img class="icon input-icon" src="{% static 'icons/password.png' %}" alt=""/>
+					{{ form.password1 }}
+					{% if form.password1.errors %}
+						<div class="error-message">
+							{{ form.password1.errors }}
+						</div>
+					{% endif %}
+				</div>
+
+				<!-- Confirm Password Field -->
+				<div class="form-label">
+					{{ form.password2.label_tag }}
+				</div>
+				<div class="form-field tooltip">
+					<span class="tooltiptext">Confirm Password must be identical to Password.</span>
+					<img class="icon input-icon" src="{% static 'icons/password.png' %}" alt=""/>
+					{{ form.password2 }}
+					{% if form.password2.errors %}
+						<div class="error-message">
+							{{ form.password2.errors }}
+						</div>
+					{% endif %}
+				</div>
+
+				<!-- Non-field Errors (e.g., Password mismatch) -->
+				{% if form.non_field_errors %}
+					<div class="non-field-errors">
+						{{ form.non_field_errors }}
+					</div>
+				{% endif %}
+
+				<!-- Submit Button -->
 				<div class="form-button">
 					<button type="submit" class="btn submit">Submit</button>
 				</div>
@@ -93,5 +97,4 @@
 		</div>
 	</div>
 </section>
-
 {% endblock %}

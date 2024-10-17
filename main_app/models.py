@@ -2,9 +2,11 @@ from django.db import models
 
 # Import the User
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 from django.utils import timezone
 
 # Create your models here.
+
 
 
 class Login(models.Model):
@@ -16,12 +18,10 @@ class Login(models.Model):
     my_datetime = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
-
-    def most_recent(self):
-        return max(self.my_datetime, self.date_updated)
-    
     def save(self, *args, **kwargs):
-        # Capitalize the first letter of appname
+        # Ensure password is hashed before saving
+        if not self.pk or self.has_changed('password'):  # Use Django's field change check
+            self.password = make_password(self.password)
         self.appname = self.appname.capitalize()
         super().save(*args, **kwargs)
 

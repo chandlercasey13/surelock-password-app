@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views  # Import views to connect routes to view functions
-
+from .views import ajax_login_view
 
 urlpatterns = [
     path("", views.Home.as_view(), name="home"),
@@ -14,4 +14,5 @@ urlpatterns = [
     path(
         "passwords/create/", views.simple_password_create, name="simple_password_create"
     ),
+    path('ajax-login/', ajax_login_view, name='ajax_login'),
 ]

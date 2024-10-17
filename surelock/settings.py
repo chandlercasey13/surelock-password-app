@@ -73,6 +73,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                #Added a custom context processor for the UserLoginForm in base.html
+                'main_app.context_processors.login_form_processor',
             ],
         },
     },

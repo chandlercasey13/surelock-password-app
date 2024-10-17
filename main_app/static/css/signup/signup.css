@@ -29,6 +29,17 @@
   .form-container {
       
   }
+  .error-message {
+    color: red;
+    font-weight: bolder;
+    margin-top: 5px;
+}
+
+.non-field-errors {
+    color: red;
+    font-weight: bolder;
+    margin-bottom: 10px;
+}
   .form-box {
     margin: 70px 0;
   }

@@ -3,6 +3,9 @@ from django.http import JsonResponse
 from django.views.generic.edit import CreateView, UpdateView
 from django.views import View
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.http import JsonResponse
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -29,6 +32,8 @@ class PassCreate(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+    
+
 
 @login_required
 def password_index(request):
@@ -54,6 +59,21 @@ from datetime import datetime
 
 # Set up the logger
 logger = logging.getLogger(__name__)
+
+# for updating the error messages in the login form in the showcase menu
+def ajax_login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            # If login is successful, log the user in and return success
+            user = form.get_user()
+            login(request, user)
+            return JsonResponse({'success': True, 'username': user.username})
+        else:
+            # Collect errors to send them back to the client
+            errors = [error for error_list in form.errors.values() for error in error_list]
+            return JsonResponse({'success': False, 'errors': errors})
+    return JsonResponse({'success': False, 'errors': ['Invalid request']})
 
 def signup(request):
     # Generate a UUID-based unique form_id

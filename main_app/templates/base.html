@@ -21,8 +21,17 @@
 				<img src="https://files.logomakr.com/8nnSE5-LogoMakr.png" alt="SureLock logo">
 			</a>
 			{% if not user.is_authenticated %}
-				<div class="toggle"></div>		
+				<div class="username-and-hamburger">
+					<span class="username-display">Guest</span>
+					<div class="toggle"></div>		
+				</div>
 			{% else %}
+				<!-- Display username when logged in -->
+				<div class="username-and-hamburger">
+					<span class="username-display">{{ user.username }}</span>  
+					<div class="toggle"></div>
+				</div>
+				<!-- Logout Form -->
 				<form
 					id="logout-form"
 					method="post"
@@ -33,33 +42,39 @@
 			{% endif %}	
 		</header>
 
-
 		<div class="menu">
-			<!-- <ul>
-				<li> -->
-				{% if not user.is_authenticated %}
+			{% if not user.is_authenticated %}
 				<div class="linkbox">
 					<!-- If we want any links in the menu above the login, they should be added here. -->
 				</div>	
 				<div class="loginentryformbox text"></div> 
-					<form action="{% url 'home' %}" method="post" class="login">
-						<h1>Login</h1>
-						{% csrf_token %} {{ login_form.as_p }}  <!-- Updated to use login_form -->
-						<input type="hidden" name="next" value="{{ next }}" />
-						<div class="form-button">
-							<button type="submit" class="btn submit login-button">Login</button>
-						</div>
-					</form>
-				</div>
-				{% endif %}	
-				<!-- </li>
-				
-			</ul> -->
+				<form action="{% url 'home' %}" method="post" class="login">
+					<h1>Login</h1>
+					{% csrf_token %} 
+					{{ login_form.as_p }}  <!-- Updated to use login_form -->
+					
+					
+					<!-- Error messages container -->
+					<div class="error-messages"></div>
+
+					<input type="hidden" name="next" value="{{ next }}" />
+					<div class="form-button">
+						<button type="submit" class="btn submit login-button">Login</button>
+					</div>
+				</form>
+			{% endif %}	
 		</div>		
+
 		<main>
 			{% block content %} 
 			{% endblock %}
 		</main>
+		<script>
+			// Dynamically pass the URL for the AJAX login view
+			const ajaxLoginUrl = "{% url 'ajax_login' %}";
+		</script>
+		
+		<!-- Load the external JavaScript file -->
 		<script src="{% static 'javascript.js' %}"></script>
 	</body>
 </html>

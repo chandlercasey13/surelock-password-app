@@ -65,3 +65,47 @@ window.onload = function() {
   css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
   document.body.appendChild(css);
 };
+
+document.addEventListener('DOMContentLoaded', function() {
+  const loginForm = document.querySelector('.login');  // Login form selector
+  const errorContainer = document.querySelector('.error-messages');  // Error message container
+  const usernameDisplay = document.querySelector('.username-display');  // Where the username will be displayed
+
+  // Listen for the login form submission
+  loginForm.addEventListener('submit', function(event) {
+      event.preventDefault();  // Prevent default form submission behavior
+
+      // Gather form data
+      const formData = new FormData(loginForm);
+      const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+      // Use the dynamic URL from base.html
+      fetch(ajaxLoginUrl, {
+          method: "POST",
+          body: formData,
+          headers: {
+              "X-CSRFToken": csrfToken
+          }
+      })
+      .then(response => response.json())  // Parse JSON response
+      .then(data => {
+          if (data.success) {
+              // If login is successful, update the username display
+              usernameDisplay.innerText = data.username;
+              document.querySelector('.menu').classList.remove('active');  // Close the menu
+          } else {
+              // If login fails, display error messages
+              errorContainer.innerHTML = '';  // Clear any previous errors
+              data.errors.forEach(error => {
+                  const errorMessage = document.createElement('p');
+                  errorMessage.classList.add('error-text');
+                  errorMessage.innerText = error;
+                  errorContainer.appendChild(errorMessage);
+              });
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);  // Log any errors in the console
+      });
+  });
+});
