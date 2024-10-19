@@ -94,7 +94,7 @@ button {
 .login-button:hover {
     letter-spacing: 6px;
 }
-.toggle {
+/* .toggle {
   position: relative;
   width: 80px;
   height: 80px;
@@ -110,7 +110,7 @@ button {
   background-size: 50px;
   background-position: center;
   cursor: pointer;
-}
+} */
 .showcase {
   position: absolute;
   right: 0;
@@ -304,3 +304,66 @@ h1 {
   }
 }
 
+
+
+.toggle {
+  position: relative;
+  z-index: 9;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  width: 42px;
+  height: 42px;
+  margin-left: var(--space-xs);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: background-color 230ms ease-in-out;
+  outline: none;
+  cursor: pointer;
+  color:#fff
+}
+.toggle.active {
+  color: black; /* Change bar color when toggled */
+}
+
+.toggle:hover,
+.toggle:focus-visible {
+  background: rgba(var(--base-color-secondary-rgb), 0.06);
+}
+
+.one,
+.two,
+.three {
+  transition: all 230ms ease-in-out;
+  background-color: currentColor; /* Ensures the bars match the text color */
+  height: 1.6px;
+  width: 16px;
+}
+
+.one.animate {
+  transform: rotate(45deg) translate(5.75px, -7px);
+  width: 14px; /* Adjusted width */
+}
+
+.two.animate {
+  transform: rotate(-45deg) translate(-11.5px, 0.5px);
+  width: 14px; /* Adjusted width */
+}
+
+.three.animate {
+  width: 0; /* Hide the middle bar */
+}
+
+/* 
+.toggle:hover, .toggle:focus-visible: The & has been removed to conform to vanilla CSS. This makes the hover and focus-visible states work as expected.
+
+background-color: currentColor;: I added this to ensure the bars inherit the color set on the parent button or SVG (usually defined by CSS color).
+
+height: 1.6px;: Ensures that all the bars have consistent height.
+
+transition on .one, .two, .three: These transitions now apply to both transformations and any width adjustments.
+
+Animation classes (.one.animate, .two.animate, .three.animate): These are retained to rotate and adjust the widths of the bars when toggled. 
+The middle bar (.three) hides when toggled by reducing its width to 0. */

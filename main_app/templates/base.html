@@ -16,64 +16,159 @@
 		{% block head %} {% endblock %}
 	</head>
 	<body>
-		<header>		
+		<header>
 			<a href="{% url 'home' %}">
-				<img src="https://files.logomakr.com/8nnSE5-LogoMakr.png" alt="SureLock logo">
+				<img
+					src="https://files.logomakr.com/8nnSE5-LogoMakr.png"
+					alt="SureLock logo"
+				/>
 			</a>
+
+			
+
 			{% if not user.is_authenticated %}
-				<div class="username-and-hamburger">
-					<span class="username-display">Guest</span>
-					<div class="toggle"></div>		
-				</div>
+			<div class="username-and-hamburger">
+				<span class="username-display">Guest</span>
+				<!-- <div class="toggle"></div> -->
+				<button
+				
+				class="toggle"
+				type="button"
+				aria-label="Main"
+				aria-haspopup="true"
+				aria-controls="nav"
+				aria-expanded="false"
+				onclick="toggleMenu()"
+				
+				>
+				<svg
+					class="svg"
+					width="32"
+					height="32"
+					viewBox="0 0 24 24"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+					focusable="false"
+					aria-hidden="true"
+				>
+					<rect
+						class="one"
+						x="4.5"
+						y="6"
+						width="16"
+						height="1.6"
+						fill="currentColor"
+					/>
+					<rect
+						class="two"
+						x="4.5"
+						y="16"
+						width="16"
+						height="1.6"
+						fill="currentColor"
+					/>
+					<rect
+						class="three"
+						x="4.5"
+						y="11"
+						width="16"
+						height="1.6"
+						fill="currentColor"
+					/>
+				</svg>
+			</button>
+			</div>
 			{% else %}
-				<!-- Display username when logged in -->
-				<div class="username-and-hamburger">
-					<span class="username-display">{{ user.username }}</span>  
-					<div class="toggle"></div>
-				</div>
-				<!-- Logout Form -->
-				<form
-					id="logout-form"
-					method="post"
-					action="{% url 'logout' %}">
-					{% csrf_token %}  
-					<button id = 'logout-button' type="submit">Log out</button>
-				</form>				
-			{% endif %}	
+			<!-- Display username when logged in -->
+			<div class="username-and-hamburger">
+				<span class="username-display">{{ user.username }}</span>
+				<!-- <div class="toggle"></div> -->
+				 <button
+				
+				class="toggle"
+				type="button"
+				aria-label="Main"
+				aria-haspopup="true"
+				aria-controls="nav"
+				aria-expanded="false"
+				onclick="toggleMenu()"
+				
+				>
+				<svg
+					class="svg"
+					width="32"
+					height="32"
+					viewBox="0 0 24 24"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+					focusable="false"
+					aria-hidden="true"
+				>
+					<rect
+						class="one"
+						x="4.5"
+						y="6"
+						width="16"
+						height="1.6"
+						fill="currentColor"
+					/>
+					<rect
+						class="two"
+						x="4.5"
+						y="16"
+						width="16"
+						height="1.6"
+						fill="currentColor"
+					/>
+					<rect
+						class="three"
+						x="4.5"
+						y="11"
+						width="16"
+						height="1.6"
+						fill="currentColor"
+					/>
+				</svg>
+			</button>
+			</div>
+			<!-- Logout Form -->
+			<form id="logout-form" method="post" action="{% url 'logout' %}">
+				{% csrf_token %}
+				<button id="logout-button" type="submit">Log out</button>
+			</form>
+			{% endif %}
 		</header>
 
 		<div class="menu">
 			{% if not user.is_authenticated %}
-				<div class="linkbox">
-					<!-- If we want any links in the menu above the login, they should be added here. -->
-				</div>	
-				<div class="loginentryformbox text"></div> 
-				<form action="{% url 'home' %}" method="post" class="login">
-					<h1>Login</h1>
-					{% csrf_token %} 
-					{{ login_form.as_p }}  <!-- Updated to use login_form -->
-					
-					
-					<!-- Error messages container -->
-					<div class="error-messages"></div>
+			<div class="linkbox">
+				<!-- If we want any links in the menu above the login, they should be added here. -->
+			</div>
+			<div class="loginentryformbox text"></div>
+			<form action="{% url 'home' %}" method="post" class="login">
+				<h1>Login</h1>
+				{% csrf_token %} {{ login_form.as_p }}
+				<!-- Updated to use login_form -->
 
-					<input type="hidden" name="next" value="{{ next }}" />
-					<div class="form-button">
-						<button type="submit" class="btn submit login-button">Login</button>
-					</div>
-				</form>
-			{% endif %}	
-		</div>		
+				<!-- Error messages container -->
+				<div class="error-messages"></div>
 
-		<main>
-			{% block content %} 
-			{% endblock %}
-		</main>
+				<input type="hidden" name="next" value="{{ next }}" />
+				<div class="form-button">
+					<button type="submit" class="btn submit login-button">
+						Login
+					</button>
+				</div>
+			</form>
+			{% endif %}
+		</div>
+
+		<main>{% block content %} {% endblock %}</main>
 		<script>
 			// Dynamically pass the URL for the AJAX login view
 			const ajaxLoginUrl = "{% url 'ajax_login' %}";
 		</script>
-		
+
 		<!-- Load the external JavaScript file -->
 		<script src="{% static 'javascript.js' %}"></script>
 	</body>
