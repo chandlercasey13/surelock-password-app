@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -16,17 +17,17 @@ header {
   justify-content: space-between;
   align-items: center;
 }
-.error-text {
-  color: red;
-  font-size: 0.8em;
-  margin: 0;
-  padding: 0;
-}
 header .logo {
   color: #fff;
   text-transform: uppercase;
   cursor: pointer;
   text-decoration: none;
+}
+.error-text {
+  color: red;
+  font-size: 0.8em;
+  margin: 0;
+  padding: 0;
 }
 .username-and-hamburger {
   display: flex;

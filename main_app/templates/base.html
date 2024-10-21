@@ -11,7 +11,6 @@
 			href="{% static 'images/favicon.png' %}"
 		/>
 		<title>SureLock Password Manager</title>
-		<!-- <link rel="stylesheet" href="{% static 'css/base.css' %}" /> -->
 		<link rel="stylesheet" href="{% static 'css/home/home.css' %}" />
 		{% block head %} {% endblock %}
 	</head>
@@ -182,7 +181,7 @@
 		<script>
 			// Set a JavaScript variable to indicate if the user is authenticated
 			const isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
-			
+
 			// Dynamically pass the URL for the AJAX login view
 			const ajaxLoginUrl = "{% url 'ajax_login' %}";
 		</script>
