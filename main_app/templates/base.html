@@ -137,18 +137,19 @@
 			<form action="{% url 'home' %}" method="post" class="login">
 				<h1>Login</h1>
 				{% csrf_token %} {{ login_form.as_p }}
-				<!-- Updated to use login_form -->
-
+				
 				<!-- Error messages container -->
 				<div class="error-messages"></div>
-
+			
 				<input type="hidden" name="next" value="{{ next }}" />
 				<div class="form-button">
 					<button type="submit" class="btn submit login-button">
-						Login
+						<span class="button-text">Login</span>  <!-- Button text to be replaced -->
 					</button>
+					<div id="loading-indicator" class="spinner" style="display: none;"></div>  <!-- Loading indicator -->
 				</div>
 			</form>
+			
 			{% else %}
 			<div class="linkbox">
 				<ul>
@@ -177,7 +178,11 @@
 		</div>
 
 		<main>{% block content %} {% endblock %}</main>
+		
 		<script>
+			// Set a JavaScript variable to indicate if the user is authenticated
+			const isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
+			
 			// Dynamically pass the URL for the AJAX login view
 			const ajaxLoginUrl = "{% url 'ajax_login' %}";
 		</script>

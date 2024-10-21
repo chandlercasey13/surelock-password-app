@@ -33,7 +33,9 @@ class PassCreate(CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
     
-
+# Create an API endpoint to check if the user is authenticated
+def check_authentication_status(request):
+    return JsonResponse({'isAuthenticated': request.user.is_authenticated, 'username': request.user.username if request.user.is_authenticated else None})
 
 @login_required
 def password_index(request):

@@ -1,13 +1,3 @@
-// const menuToggle = document.querySelector(".toggle");
-// const showcase = document.querySelector(".showcase");
-
-// menuToggle.addEventListener("click", () => {
-// 	showcase.classList.toggle("active");
-// 	setTimeout(() => {
-// 		menuToggle.classList.toggle("active");
-// 	}, 500);
-// });
-
 var TxtRotate = function (el, toRotate, period) {
 	this.toRotate = toRotate;
 	this.el = el;
@@ -67,69 +57,115 @@ window.onload = function () {
 	document.body.appendChild(css);
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-	const loginForm = document.querySelector(".login"); // Login form selector
-	const errorContainer = document.querySelector(".error-messages"); // Error message container
-	const usernameDisplay = document.querySelector(".username-display"); // Where the username will be displayed
-
-	// Listen for the login form submission
-	loginForm.addEventListener("submit", function (event) {
-		event.preventDefault(); // Prevent default form submission behavior
-
-		// Gather form data
-		const formData = new FormData(loginForm);
-		const csrfToken = document.querySelector(
-			"[name=csrfmiddlewaretoken]"
-		).value;
-
-		// Use the dynamic URL from base.html
-		fetch(ajaxLoginUrl, {
-			method: "POST",
-			body: formData,
-			headers: {
-				"X-CSRFToken": csrfToken,
-			},
-		})
-			.then((response) => response.json()) // Parse JSON response
-			.then((data) => {
-				if (data.success) {
-					// If login is successful, update the username display
-					usernameDisplay.innerText = data.username;
-					document.querySelector(".menu").classList.remove("active"); // Close the menu
-				} else {
-					// If login fails, display error messages
-					errorContainer.innerHTML = ""; // Clear any previous errors
-					data.errors.forEach((error) => {
-						const errorMessage = document.createElement("p");
-						errorMessage.classList.add("error-text");
-						errorMessage.innerText = error;
-						errorContainer.appendChild(errorMessage);
-					});
-				}
-			})
-			.catch((error) => {
-				console.error("Error:", error); // Log any errors in the console
-			});
-	});
-});
-
 // Toggle function to open/close the menu and add/remove active class
 function toggleMenu() {
-	const button = document.querySelector(".toggle");
-	const showcase = document.querySelector(".showcase");
-	showcase.classList.toggle("active");
-	const isExpanded = button.getAttribute("aria-expanded") === "true";
-	button.setAttribute("aria-expanded", !isExpanded);
+  const button = document.querySelector(".toggle");
+  const showcase = document.querySelector(".showcase");
+  showcase.classList.toggle("active");
+  const isExpanded = button.getAttribute("aria-expanded") === "true";
+  button.setAttribute("aria-expanded", !isExpanded);
 
-	// Toggle classes for the button and the SVG bars
-	button.classList.toggle("active");
+  // Toggle classes for the button and the SVG bars
+  button.classList.toggle("active");
 
-	const rectOne = document.querySelector(".one");
-	const rectTwo = document.querySelector(".two");
-	const rectThree = document.querySelector(".three");
+  const rectOne = document.querySelector(".one");
+  const rectTwo = document.querySelector(".two");
+  const rectThree = document.querySelector(".three");
 
-	// Add/remove animation classes
-	rectOne.classList.toggle("animate");
-	rectTwo.classList.toggle("animate");
-	rectThree.classList.toggle("animate");
+  // Add/remove animation classes
+  rectOne.classList.toggle("animate");
+  rectTwo.classList.toggle("animate");
+  rectThree.classList.toggle("animate");
+
+  // Check if the login form is now visible
+  if (showcase.classList.contains("active")) {
+      addLoginFormListener();  // Call function to add event listener for login form
+  }
 }
+
+// Function to add the login form listener
+function addLoginFormListener() {
+  const loginForm = document.querySelector(".login");
+  if (loginForm) {
+      // Prevent adding multiple listeners if already added
+      if (!loginForm.hasAttribute('listener-added')) {
+          loginForm.addEventListener("submit", function (event) {
+              event.preventDefault(); // Prevent default form submission behavior
+
+              // Show loading indicator
+              const buttonText = document.querySelector(".login-button");
+              const loadingIndicator = document.getElementById("loading-indicator");
+              const errorContainer = document.querySelector(".error-messages");
+
+              buttonText.style.display = "none"; // Hide the button text
+              loadingIndicator.style.display = "flex"; // Show the loading indicator
+
+              // Gather form data
+              const formData = new FormData(loginForm);
+              const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
+              // Use the dynamic URL from base.html
+              fetch(ajaxLoginUrl, {
+                  method: "POST",
+                  body: formData,
+                  headers: {
+                      "X-CSRFToken": csrfToken,
+                  },
+              })
+              .then((response) => response.json()) // Parse JSON response
+              .then((data) => {
+                  // Hide loading indicator after receiving the response
+                  loadingIndicator.style.display = "none";
+                  buttonText.style.display = "inline";
+
+                  if (data.success) {
+                      // After successful login, force a page reload
+                      window.location.reload();
+                  } else {
+                      // If login fails, display error messages
+                      errorContainer.innerHTML = ""; // Clear any previous errors
+                      data.errors.forEach((error) => {
+                          const errorMessage = document.createElement("p");
+                          errorMessage.classList.add("error-text");
+                          errorMessage.innerText = error;
+                          errorContainer.appendChild(errorMessage);
+                      });
+                  }
+              })
+              .catch((error) => {
+                  // Hide loading indicator if there is an error
+                  loadingIndicator.style.display = "none";
+                  buttonText.style.display = "inline";
+                  console.error("Error:", error); // Log any errors in the console
+              });
+          });
+          loginForm.setAttribute('listener-added', true);  // Mark the listener as added
+      }
+  }
+}
+
+// document.addEventListener("DOMContentLoaded", function () {
+//   // Attach the toggle menu event
+//   const menuButton = document.querySelector(".toggle");
+//   if (menuButton) {
+//       menuButton.addEventListener("click", toggleMenu);
+//   }
+// });
+
+  
+
+  // // Set up a MutationObserver to watch for changes in the DOM
+  // const observer = new MutationObserver(function (mutationsList) {
+  //   for (const mutation of mutationsList) {
+  //     if (mutation.type === "childList") {
+  //       // Call the listener function when new elements are added to the DOM
+  //       addListeners();
+  //     }
+  //   }
+  // });
+
+  // // Start observing the body for added nodes
+  // observer.observe(document.body, { childList: true, subtree: true });
+
+  // // Initial check to add listeners if the form is already present in the DOM
+  // addListeners();
