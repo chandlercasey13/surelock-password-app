@@ -63,7 +63,7 @@
             <dialog class = 'modal' id = 'createmodal'>
                 <div class= 'modal-close-button-container'>
                     <div id='modal-close-button-container-childh1'><h1>Create Password</h1></div>
-                    <div id='modal-close-button-container-childbutton'><button class = 'close-create-button btn'>x</button></div>
+                    <div id='modal-close-button-container-childbutton'><button class = 'close-create-button btn fa-solid fa-xmark'></button></div>
                 </div> 
                 <form action = '' id="CreateForm" method="post">
                     {% csrf_token %}
@@ -287,6 +287,25 @@
                 }
             });
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+  const createModal = document.querySelector('#createmodal');
+  const openCreateModal = document.querySelector('.open-button'); 
+  const closeCreateModal = document.querySelector('.close-create-button');
+
+  // Add event listener for opening the modal
+  openCreateModal.addEventListener('click', function () {
+    createModal.showModal();
+    document.body.classList.add('modal-active'); // Add blur effect
+  });
+
+  // Add event listener for closing the modal
+  closeCreateModal.addEventListener('click', function () {
+    createModal.close();
+    document.body.classList.remove('modal-active'); // Remove blur effect
+  });
+});
+
 </script>        
 
 

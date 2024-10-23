@@ -44,11 +44,13 @@ header .logo {
 }
 .linkbox {
   padding: 10%;
+  margin-top: 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   
 }
+
 .login{
     display: flex;
     flex-direction: column;
@@ -60,7 +62,7 @@ label {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    color: white;
+    color: black;
     font-weight: 500;
     font-size: 1.2em;
     padding: 7px 0 0 0;
@@ -89,6 +91,7 @@ button {
   flex-direction: column;
   justify-content: center; 
   align-items: center;
+  cursor: pointer;
 }
 .text button:hover {
         letter-spacing: 6px;
@@ -98,27 +101,12 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center; 
+  cursor: pointer;
 }
 .login-button:hover {
     letter-spacing: 6px;
 }
-/* .toggle {
-  position: relative;
-  width: 80px;
-  height: 80px;
-  background: url(../../images/hamburger.png);
-  background-repeat: no-repeat;
-  background-size: 50px;
-  background-position: center;
-  cursor: pointer;
-}
-.toggle.active {
-  background: url(../../images/white-x.png);
-  background-repeat: no-repeat;
-  background-size: 50px;
-  background-position: center;
-  cursor: pointer;
-} */
+
 .showcase {
   position: absolute;
   right: 0;
@@ -128,7 +116,7 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #111;
+  background: #011727;
   transition: 0.5s;
   z-index: 2;
 }
@@ -256,13 +244,15 @@ h1 {
   justify-content: center;
   
 }
-.menu ul li a {
+.menulink {
   text-decoration: none;
   font-size: 1.4em;
   color: #fff;
+  cursor: pointer;
 }
-.menu ul li a:hover {
-	color: #E0B320;
+.menulink:hover {
+  transition: 0.5s;
+  color: black;
 }
 
 

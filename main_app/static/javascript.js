@@ -57,15 +57,10 @@ window.onload = function () {
 	document.body.appendChild(css);
 };
 
-// Toggle function to open/close the menu and add/remove active class
-function toggleMenu() {
+function xButton() {
   const button = document.querySelector(".toggle");
-  const showcase = document.querySelector(".showcase");
-  showcase.classList.toggle("active");
   const isExpanded = button.getAttribute("aria-expanded") === "true";
   button.setAttribute("aria-expanded", !isExpanded);
-
-  // Toggle classes for the button and the SVG bars
   button.classList.toggle("active");
 
   const rectOne = document.querySelector(".one");
@@ -76,7 +71,14 @@ function toggleMenu() {
   rectOne.classList.toggle("animate");
   rectTwo.classList.toggle("animate");
   rectThree.classList.toggle("animate");
+};
 
+
+// Toggle function to open/close the menu and add/remove active class
+function toggleMenu() {
+  xButton();
+  const showcase = document.querySelector(".showcase");
+  showcase.classList.toggle("active");
   // Check if the login form is now visible
   if (showcase.classList.contains("active")) {
       addLoginFormListener();  // Call function to add event listener for login form
