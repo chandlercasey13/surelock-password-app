@@ -1,312 +1,150 @@
-{% extends "base.html" %} {% load static %} {% block head%} 
-
+{% extends "base.html" %} {% load static %} {% block head %}
 <link rel="stylesheet" href="{% static 'css/passwords/password-index.css' %}" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+/>
+{% endblock %} {% block content %}
+<div class="background showcase">
+	<svg
+		id="visual"
+		viewBox="0 0 900 600"
+		width="100vw"
+		height="100vh"
+		preserveAspectRatio="none"
+		xmlns="http://www.w3.org/2000/svg"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+		version="1.1"
+	>
+		<path d="M0 235L900 217L900 0L0 0Z" fill="#011727"></path>
+		<path d="M0 457L900 445L900 215L0 233Z" fill="#011727"></path>
+		<path d="M0 601L900 601L900 443L0 455Z" fill="#011727"></path>
+	</svg>
 
-{% endblock %} 
-{% block content %}
+	<div class="body-container">
+		<section class="password-index-body">
+			<section class="passwords-container">
+				<!-- New Password Button -->
+				<button class="new-password-button open-button">
+					New Password
+				</button>
 
+				<!-- Column Categories -->
+				<div id="legend">
+					<p id="legend-date">Created/Updated</p>
+					<p id="legend-app-name">App Name</p>
+					<p id="legend-username">Username</p>
+					<p id="legend-note">Note</p>
+				</div>
 
-<!-- <div id="loading-spinner" class="loading-spinner">
-    <div class="spinner"></div>
-</div> -->
+				<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
-<div class= 'background showcase'>
-    <svg id="visual" viewBox="0 0 900 600" width = '100vw' 
-    height ='100vh' preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" 
-    xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
-        <path d="M0 235L900 217L900 0L0 0Z" fill="#011727"></path>
-        <path d="M0 457L900 445L900 215L0 233Z" fill="#011727"></path>
-        <path d="M0 601L900 601L900 443L0 455Z" fill="#011727"></path>
-    </svg>
-
-    <div class = 'body-container'>
-        <section class = "password-index-body"> 
-            <section class="passwords-container">
-
-                <!-- New Password Button opens new modal -->
-                <button class = 'new-password-button open-button'> New Password </button>
-
-                <!-- Column Categories -->
-                <div id = 'legend'>
-                    <p id = 'legend-date'>Created/Updated </p>
-                    <p id ='legend-app-name'>App Name</p>
-                    <p id = 'legend-username'>Username</p><p id ='legend-note'>Note</p> 
-                </div>   
-   
-                <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>    
-
-                <div id = 'password-cards-box'>    
-                {% for password in passwords %}
+				<div id="password-cards-box">
+                    {% for password in passwords %}
                     <div class="card">
-                        <a id= 'password-button'  
-                        onclick="navigateToUrl('{% url 'password-detail' password.id %}')" 
-                        href='javascript:void(0);' >
-                        <button id='button-in-tag' >
-                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAPlJREFUSEvtlcsRgjAYhP+lCOGIF6EMrAStRKhErUTKEC9yBIrIOkF0HAhEfMx4kCvJfjv7PwL58ocv68tzAC+MHKViAlFrqCCQSnnMbAbtAC9cgdyahEgmUp/
+                        <button 
+                            id="button-in-tag" 
+                            class="password-button" 
+                            data-password-id="{{ password.id }}"
+                            data-appname="{{ password.appname }}"
+                            data-username="{{ password.username }}"
+                            data-password="{{ password.password }}"
+                            data-note="{{ password.note }}"
+                        >
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAPlJREFUSEvtlcsRgjAYhP+lCOGIF6EMrAStRKhErUTKEC9yBIrIOkF0HAhEfMx4kCvJfjv7PwL58ocv68tzAC+MHKViAlFrqCCQSnnMbAbtAC9cgdyahEgmUp/
                                 SMcg4wAsjkAct0Ig5zr4RUyoGsBIRn8BcymMxBBkFwA20eGR0OltsACQgd6o+rV8FsHFf5X0jX
                                 uiDPItIwSqffx4gInCDYQMt0RbRqMCPAq6ds9HFtfV4539mmo1eRHADXTh/ovjteMYqXz7eNQG
                                 shTPBh+rxB9zT+kdk7dqfiuidQettVtMa1qtCv2BTp/m5VWENe+IB+5s8UbB7/AK6bKsZlqHeY
-                                wAAAABJRU5ErkJggg=="/>
-                                <p id = 'password-date'>{{password.most_recent}}</p>
-                                <h1 id = "password-appname">{{password.appname}}</h1> 
-                                <p id= "username-text">{{password.username}}</p>
-                                <p id = 'password-note'>{{password.note}}</p>
-                        </button></a>
-                    </div>
-                {% endfor %}
-                </div>
-            </section>
-
-        </section>
-        <section>
-            <dialog class = 'modal' id = 'createmodal'>
-                <div class= 'modal-close-button-container'>
-                    <div id='modal-close-button-container-childh1'><h1>Create Password</h1></div>
-                    <div id='modal-close-button-container-childbutton'><button class = 'close-create-button btn fa-solid fa-xmark'></button></div>
-                </div> 
-                <form action = '' id="CreateForm" method="post">
-                    {% csrf_token %}
-            
-                    <label for="appname">Name:</label>
-                    <input type="text" id="appname" name="appname">
-                    <br />
-                    
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username">
-                    <br />
-                    
-                    <label for="password">Password:</label>
-                    <div class="password-reveal-container">
-                        <input type="password" id="create-password" name="password" value="{{ updateform.password.value }}">
-                        
-                            <button type="button" id="toggle-create-password" class="toggle-btn btn">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                    </div>        
-                                
-                    <label for="note">Note:</label>
-                    <textarea id="note" name="note"></textarea>
-                    <br />
-            
-                    <button type="submit" id="submit-btn"class="btn" >Submit</button>
-                
-                </form>
-            </dialog>      
-            <dialog class = 'modal' id = 'updatemodal' 
-            data-appname = "{{ updateform.appname.value}}">
-                <div class= 'modal-close-button-container'>
-                    <div id='modal-close-button-container-childh1'><h1>Edit Password</h1></div>
-                        <div id='modal-close-button-container-childbutton'>
-                            <button class = 'close-update-button btn'>
-                                <a href = '/passwords'>x</a>
-                            </button>
-                        </div>
-                    </div>
-                <form action = '' id="UpdateForm" method="post" data-id="{{ updateform.instance.id }}">
-                    {% csrf_token %}
-                    {% comment %} {{ updateform.as_p }} {% endcomment %}
-                    <label for="appname">Name:</label>
-                    <input type="text" id="appname" name="appname" value="{{ updateform.appname.value }}">
-                    <br />
-
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" value="{{ updateform.username.value}}">
-                    <br />
-
-                    <label for="password">Password:</label>
-                    <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
-                    
-                    <div class="password-reveal-container">
-                        <button type="button" id="toggle-update-password" class="toggle-btn btn">
-                            <i class="fa-solid fa-eye"></i>
+                                wAAAABJRU5ErkJggg=="
+                            />
+                            <p id="password-date">{{ password.most_recent }}</p>
+                            <h1 id="password-appname">{{ password.appname }}</h1>
+                            <p id="username-text">{{ password.username }}</p>
+                            <p id="password-note">{{ password.note }}</p>
                         </button>
-                        <button type="button" id="copy-update-password" name="cpy-btn" class="btn">Copy</button>
-                        <button type="button" id="generate-update-password" class="btn">Gen. Password</button>
                     </div>
-                    <br />
+                    {% endfor %}
+                </div>
+                
+                
+			</section>
+		</section>
 
-                    <label for="note">Notes:</label>
-                    <textarea name="note" id="note" name="note">{{ updateform.note.value }}</textarea>
-                    <br />    
+		<!-- Create Modal -->
+		<dialog class="modal" id="createmodal">
+			<div class="modal-close-button-container">
+				<div id="modal-close-button-container-childh1">
+					<h1>Create Password</h1>
+				</div>
+				<div id="modal-close-button-container-childbutton">
+					<button
+						class="close-create-button btn fa-solid fa-xmark"
+					></button>
+				</div>
+			</div>
+			<form action="" id="CreateForm" method="post">
+				{% csrf_token %}
+				<label for="appname">Name:</label>
+				<input type="text" id="appname" name="appname" />
+				<br />
 
-                    <button type="submit" id="save-btn" class="btn">Save</button>
-                    <button type="submit" id="delete-button" class="delete-btn btn">Delete</button>
-                </form>
-            </dialog>
-    </div>
+				<label for="username">Username:</label>
+				<input type="text" id="username" name="username" />
+				<br />
 
+				<label for="password">Password:</label>
+				<div class="password-reveal-container">
+					<input type="password" id="create-password" name="password" />
+					<button
+						type="button"
+						id="toggle-create-password"
+						class="toggle-btn btn"
+					>
+						<i class="fa-solid fa-eye"></i>
+					</button>
+				</div>
+				<br />
+				<label for="note">Note:</label>
+				<textarea id="note" name="note"></textarea>
+				<br />
+				<button type="submit" id="submit-btn" class="btn">Submit</button>
+			</form>
+		</dialog>
 
-    <script>
-        const createModal = document.querySelector('#createmodal');
-        const openCreateModal = document.querySelector('.open-button'); 
-        const closeCreateModal = document.querySelector('.close-create-button');
+		<!-- Update Modal (edit password modal) with data-password-id only if there's a password being edited -->
+        <dialog class="modal" id="updatemodal">
+            <div class="modal-close-button-container">
+                <div id="modal-close-button-container-childh1">
+                    <h1>Edit Password</h1>
+                </div>
+                <div id="modal-close-button-container-childbutton">
+                    <button class="close-update-button btn">x</button>
+                </div>
+            </div>
+            <form id="UpdateForm" method="post" data-id="">
+                {% csrf_token %}
+                
+                <label for="appname">App Name:</label>
+                <input type="text" id="update-appname" name="appname" value="" />
+        
+                <label for="username">Username:</label>
+                <input type="text" id="update-username" name="username" value="" />
+        
+                <label for="password">Password:</label>
+                <input type="password" id="update-password" name="password" value="" />
+        
+                <label for="note">Notes:</label>
+                <textarea id="update-note" name="note"></textarea>
+        
+                <button type="submit" id="save-btn" class="btn">Save</button>
+            </form>
+        </dialog>
+        
 
-        openCreateModal.addEventListener('click', function () {
-            createModal.showModal();
-        })
-        closeCreateModal.addEventListener('click', function () {
-            createModal.close();
-        })
-        const updateModal = document.querySelector('#updatemodal');
-        const allPasswords = document.querySelectorAll('.card')
-    </script>
-    {%if password_id%}
-    <script>
-        updateModal.showModal()
-    </script>   
-    {%endif%}
-    <script>
-        function navigateToUrl(url) {
-            // Show the loading spinner
-            document.getElementById('loading-spinner').style.display = 'flex';
-            // Simulate navigation (you would replace this with actual navigation)
-                window.location.href = url;           
-        }      
-        // Hide the loading spinner on page load
-        window.addEventListener('load', function() {      
-            document.getElementById('loading-spinner').style.display = 'none';     
-        });   
-    const closeUpdateModal = document.querySelector('.close-update-button')
-    closeUpdateModal.addEventListener('click', function () {
-        updateModal.close();
-    });
-    document.addEventListener("DOMContentLoaded", function() {
-        // Function to generate a random strong password
-        function generateRandomPassword(length) {
-            const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
-            let password = "";
-            for (let i = 0; i < length; i++) {
-                const randomIndex = Math.floor(Math.random() * charset.length);
-                password += charset[randomIndex];
-            }
-            return password;
-        }   
-        // Generate Password for Update Modal
-        const generateUpdatePasswordBtn = document.getElementById("generate-update-password");
-        const updatePasswordInput = document.getElementById("update-password");   
-        generateUpdatePasswordBtn.addEventListener("click", function() {
-            const randomPassword = generateRandomPassword(12); // You can change the length as desired
-            updatePasswordInput.value = randomPassword;
-        });   
-        // Toggle Password Visibility for Update Modal
-        const toggleUpdatePasswordBtn = document.getElementById('toggle-update-password');
-        const updateEyeIcon = toggleUpdatePasswordBtn.querySelector('i'); 
-        toggleUpdatePasswordBtn.addEventListener('click', function() {
-            if (updatePasswordInput.type === 'password') {
-                updatePasswordInput.type = 'text';
-                updateEyeIcon.classList.remove("fa-eye");
-                updateEyeIcon.classList.add("fa-eye-slash");
-            } else {
-                updatePasswordInput.type = 'password';
-                updateEyeIcon.classList.remove("fa-eye-slash");
-                updateEyeIcon.classList.add("fa-eye");
-            }
-        });
-    
-        // Copy Password for Update Modal
-        const copyUpdatePasswordBtn = document.getElementById("copy-update-password");
-    
-        copyUpdatePasswordBtn.addEventListener("click", function() {
-            updatePasswordInput.select();
-            updatePasswordInput.setSelectionRange(0, 99999);
-    
-            navigator.clipboard.writeText(updatePasswordInput.value).then(() => {
-                alert("Password copied to clipboard!");
-            }).catch(err => {
-                console.error("Failed to copy password: ", err)
-            });
-        });
-    
-        // Toggle Password Visibility for Create Modal
-        const createPasswordInput = document.getElementById('create-password');
-        const toggleCreatePasswordBtn = document.getElementById('toggle-create-password');
-        const createEyeIcon = toggleCreatePasswordBtn.querySelector('i');
-    
-        toggleCreatePasswordBtn.addEventListener('click', function () {
-            if (createPasswordInput.type === 'password') {
-                createPasswordInput.type = 'text';
-                createEyeIcon.classList.remove("fa-eye");
-                createEyeIcon.classList.add("fa-eye-slash");
-            } else {
-                createPasswordInput.type = 'password';
-                createEyeIcon.classList.remove("fa-eye-slash");
-                createEyeIcon.classList.add("fa-eye");
-            }
-        });
-    
-        // Create Password Copy Button
-        const copyCreatePasswordBtn = document.getElementById('copy-create-password');
-    
-        copyCreatePasswordBtn.addEventListener('click', function() {
-            createPasswordInput.select();
-            createPasswordInput.setSelectionRange(0, 99999);
-    
-            navigator.clipboard.writeText(createPasswordInput.value).then(() => {
-                alert("Password copied to clipboard!");
-            }).catch(err => {
-                console.error("Failed to copy password: ", err);
-            });
-        });
-    });
-    
-    
-</script>
+	</div>
 
-<script>
-    // Delete functionality
-    document.addEventListener("DOMContentLoaded", function() {
-
-        const deleteButton = document.getElementById("delete-button");
-
-            deleteButton.addEventListener("click", function(event) {
-                event.preventDefault();
-
-                const form = document.getElementById("UpdateForm");
-                const passwordId = form.getAttribute("data-id");
-                const appName = document.getElementById("updatemodal").getAttribute("data-appname");
-
-                if (confirm(`Are you sure you want to delete ${appName}?`)) {
-                    fetch(`/passwords/${passwordId}/delete/`, {
-                        method: "DELETE",
-                        headers: {
-                            "X-CSRFToken": "{{ csrf_token }}",
-                            "Content-Type": "application/json"
-                        },
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            window.location.href = "/passwords/";
-                        } else {
-                            alert("Failed to delete the password.");
-                        }
-                    })
-                    .catch(err => {
-                        console.error("Error:", err);
-                    });
-                }
-            });
-    });
-
-    document.addEventListener("DOMContentLoaded", function () {
-  const createModal = document.querySelector('#createmodal');
-  const openCreateModal = document.querySelector('.open-button'); 
-  const closeCreateModal = document.querySelector('.close-create-button');
-
-  // Add event listener for opening the modal
-  openCreateModal.addEventListener('click', function () {
-    createModal.showModal();
-    document.body.classList.add('modal-active'); // Add blur effect
-  });
-
-  // Add event listener for closing the modal
-  closeCreateModal.addEventListener('click', function () {
-    createModal.close();
-    document.body.classList.remove('modal-active'); // Remove blur effect
-  });
-});
-
-</script>        
-
-
-{% endblock %}  
+	<!-- Include external JavaScript -->
+	<script src="{% static 'js/password-modals.js' %}"></script>
+</div>
+{% endblock %}
