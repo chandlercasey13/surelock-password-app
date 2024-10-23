@@ -1,127 +1,137 @@
-var TxtRotate = function (el, toRotate, period) {
-	this.toRotate = toRotate;
-	this.el = el;
-	this.loopNum = 0;
-	this.period = parseInt(period, 10) || 2000;
-	this.txt = "";
-	this.tick();
-	this.isDeleting = false;
-};
+// TxtRotate class: handles the rotating text effect.
+class TxtRotate {
+  // Constructor to initialize the rotating text instance.
+  constructor(element, toRotate, period = 2000) {
+      this.toRotate = toRotate;       // Array of texts to rotate
+      this.element = element;         // HTML element to display the text
+      this.loopNum = 0;               // Tracks the current word in the loop
+      this.period = period;           // Period between text rotations
+      this.txt = "";                  // Current displayed text
+      this.isDeleting = false;        // Flag to track if it's deleting text
+      this.tick();                    // Start the text rotation animation
+  }
 
-TxtRotate.prototype.tick = function () {
-	var i = this.loopNum % this.toRotate.length;
-	var fullTxt = this.toRotate[i];
+  // Function to handle the typing/deleting effect for text rotation
+  tick() {
+      // Determine the current text based on the loop number
+      const i = this.loopNum % this.toRotate.length;
+      const fullTxt = this.toRotate[i]; // Get the full text for the current index
 
-	if (this.isDeleting) {
-		this.txt = fullTxt.substring(0, this.txt.length - 1);
-	} else {
-		this.txt = fullTxt.substring(0, this.txt.length + 1);
-	}
+      // Update current text by either adding or deleting characters
+      this.txt = this.isDeleting
+          ? fullTxt.substring(0, this.txt.length - 1) // Delete one character
+          : fullTxt.substring(0, this.txt.length + 1); // Add one character
 
-	this.el.innerHTML = '<span class="wrap">' + this.txt + "</span>";
+      // Update the inner HTML of the element with the current portion of the text
+      this.element.innerHTML = `<span class="wrap">${this.txt}</span>`;
 
-	var that = this;
-	var delta = 300 - Math.random() * 100;
+      // Determine the delay for the next tick (typing speed)
+      let delta = 200 - Math.random() * 100; // Random speed for natural typing effect
+      if (this.isDeleting) delta /= 2; // Decrease speed when deleting characters
 
-	if (this.isDeleting) {
-		delta /= 2;
-	}
+      // If the full text is typed, pause for the period before deleting
+      if (!this.isDeleting && this.txt === fullTxt) {
+          delta = this.period;        // Pause before deleting
+          this.isDeleting = true;     // Start deleting characters next
+      } 
+      // If the text is fully deleted, move to the next word
+      else if (this.isDeleting && this.txt === "") {
+          this.isDeleting = false;    // Stop deleting and start typing the next word
+          this.loopNum++;             // Move to the next text in the array
+          delta = 350;                // Short delay before typing the next word
+      }
 
-	if (!this.isDeleting && this.txt === fullTxt) {
-		delta = this.period;
-		this.isDeleting = true;
-	} else if (this.isDeleting && this.txt === "") {
-		this.isDeleting = false;
-		this.loopNum++;
-		delta = 500;
-	}
+      // Schedule the next tick for the animation
+      setTimeout(() => this.tick(), delta);
+  }
+}
 
-	setTimeout(function () {
-		that.tick();
-	}, delta);
-};
-
+// When the window is loaded, initialize the TxtRotate function for elements with the 'txt-rotate' class
 window.onload = function () {
-	var elements = document.getElementsByClassName("txt-rotate");
+	var elements = document.getElementsByClassName("txt-rotate"); // Select all elements with class "txt-rotate"
 	for (var i = 0; i < elements.length; i++) {
-		var toRotate = elements[i].getAttribute("data-rotate");
-		var period = elements[i].getAttribute("data-period");
+		var toRotate = elements[i].getAttribute("data-rotate");  // Get the array of texts from 'data-rotate'
+		var period = elements[i].getAttribute("data-period");    // Get the period from 'data-period'
 		if (toRotate) {
-			new TxtRotate(elements[i], JSON.parse(toRotate), period);
+			new TxtRotate(elements[i], JSON.parse(toRotate), period); // Initialize TxtRotate with parsed text array
 		}
 	}
-	// INJECT CSS
+
+	// Inject CSS into the page to add a blinking cursor effect for the rotating text
 	var css = document.createElement("style");
 	css.type = "text/css";
-	css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
-	document.body.appendChild(css);
+	css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }"; // Styling for the cursor
+	document.body.appendChild(css); // Append the style to the document
 };
 
+// Function to handle the button animation for toggling menu visibility
 function xButton() {
-  const button = document.querySelector(".toggle");
-  const isExpanded = button.getAttribute("aria-expanded") === "true";
-  button.setAttribute("aria-expanded", !isExpanded);
-  button.classList.toggle("active");
+  const button = document.querySelector(".toggle"); // Get the toggle button element
+  const isExpanded = button.getAttribute("aria-expanded") === "true"; // Check if the button is currently expanded
+  button.setAttribute("aria-expanded", !isExpanded); // Toggle the 'aria-expanded' attribute
+  button.classList.toggle("active"); // Toggle the 'active' class on the button
 
+  // Get the three rectangles inside the button for the animation effect
   const rectOne = document.querySelector(".one");
   const rectTwo = document.querySelector(".two");
   const rectThree = document.querySelector(".three");
 
-  // Add/remove animation classes
+  // Add/remove animation classes for each rectangle
   rectOne.classList.toggle("animate");
   rectTwo.classList.toggle("animate");
   rectThree.classList.toggle("animate");
-};
+}
 
-
-// Toggle function to open/close the menu and add/remove active class
+// Function to toggle the menu visibility and call additional functions if the menu is opened
 function toggleMenu() {
-  xButton();
-  const showcase = document.querySelector(".showcase");
-  showcase.classList.toggle("active");
-  // Check if the login form is now visible
+  xButton(); // Call the xButton function to handle button animations
+  const showcase = document.querySelector(".showcase"); // Get the menu element
+  showcase.classList.toggle("active"); // Toggle the 'active' class on the menu
+
+  // If the login form is visible after toggling, add the event listener
   if (showcase.classList.contains("active")) {
       addLoginFormListener();  // Call function to add event listener for login form
   }
 }
 
-// Function to add the login form listener
+// Function to add the login form submit event listener
 function addLoginFormListener() {
-  const loginForm = document.querySelector(".login");
+  const loginForm = document.querySelector(".login"); // Get the login form element
   if (loginForm) {
-      // Prevent adding multiple listeners if already added
+      // Check if the listener was already added to prevent duplicates
       if (!loginForm.hasAttribute('listener-added')) {
+          // Add event listener for form submission
           loginForm.addEventListener("submit", function (event) {
               event.preventDefault(); // Prevent default form submission behavior
 
-              // Show loading indicator
-              const buttonText = document.querySelector(".login-button");
-              const loadingIndicator = document.getElementById("loading-indicator");
-              const errorContainer = document.querySelector(".error-messages");
+              // Show loading indicator during the form submission
+              const buttonText = document.querySelector(".login-button"); // Get the login button
+              const loadingIndicator = document.getElementById("loading-indicator"); // Get loading spinner
+              const errorContainer = document.querySelector(".error-messages"); // Get error message container
 
               buttonText.style.display = "none"; // Hide the button text
               loadingIndicator.style.display = "flex"; // Show the loading indicator
 
-              // Gather form data
+              // Gather form data to submit
               const formData = new FormData(loginForm);
-              const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+              const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value; // CSRF token for security
 
-              // Use the dynamic URL from base.html
+              // Use AJAX to submit the form via POST request
               fetch(ajaxLoginUrl, {
                   method: "POST",
                   body: formData,
                   headers: {
-                      "X-CSRFToken": csrfToken,
+                      "X-CSRFToken": csrfToken, // CSRF token header
                   },
               })
-              .then((response) => response.json()) // Parse JSON response
+              .then((response) => response.json()) // Parse the JSON response
               .then((data) => {
-                  // Hide loading indicator after receiving the response
+                  // After receiving a response, hide the loading indicator
                   loadingIndicator.style.display = "none";
                   buttonText.style.display = "inline";
 
                   if (data.success) {
-                      // After successful login, force a page reload
+                      // Reload the page after a successful login
                       window.location.reload();
                   } else {
                       // If login fails, display error messages
@@ -129,45 +139,21 @@ function addLoginFormListener() {
                       data.errors.forEach((error) => {
                           const errorMessage = document.createElement("p");
                           errorMessage.classList.add("error-text");
-                          errorMessage.innerText = error;
+                          errorMessage.innerText = error; // Add error message
                           errorContainer.appendChild(errorMessage);
                       });
                   }
               })
               .catch((error) => {
-                  // Hide loading indicator if there is an error
-                  loadingIndicator.style.display = "none";
+                  // Handle error in login process
+                  loadingIndicator.style.display = "none"; // Hide loading indicator
                   buttonText.style.display = "inline";
-                  console.error("Error:", error); // Log any errors in the console
+                  console.error("Error:", error); // Log error to the console
               });
           });
-          loginForm.setAttribute('listener-added', true);  // Mark the listener as added
+
+          // Mark the listener as added to avoid multiple listeners
+          loginForm.setAttribute('listener-added', true);
       }
   }
 }
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   // Attach the toggle menu event
-//   const menuButton = document.querySelector(".toggle");
-//   if (menuButton) {
-//       menuButton.addEventListener("click", toggleMenu);
-//   }
-// });
-
-  
-
-  // // Set up a MutationObserver to watch for changes in the DOM
-  // const observer = new MutationObserver(function (mutationsList) {
-  //   for (const mutation of mutationsList) {
-  //     if (mutation.type === "childList") {
-  //       // Call the listener function when new elements are added to the DOM
-  //       addListeners();
-  //     }
-  //   }
-  // });
-
-  // // Start observing the body for added nodes
-  // observer.observe(document.body, { childList: true, subtree: true });
-
-  // // Initial check to add listeners if the form is already present in the DOM
-  // addListeners();
