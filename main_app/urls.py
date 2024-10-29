@@ -4,7 +4,7 @@ from .views import CrudView, simple_password_create, signup, ajax_login_view
 
 urlpatterns = [
     path("", views.Home.as_view(), name="home"),
-    path('passwords/', views.CrudView.as_view(), name='password-index'),  # List, create, update, delete
+    path('passwords/', views.CrudView.as_view(), name='password-list'),  # List, create, update, delete
     path('passwords/<int:id>/', views.CrudView.as_view(), name='password-detail'),  # Update and delete specific password
 
     path('signup/', views.signup, name='signup'),  # User signup
@@ -22,7 +22,7 @@ urlpatterns = [
 # from .views import ajax_login_view
 # urlpatterns = [
 #     path("", views.Home.as_view(), name="home"),
-#     path("passwords/", views.CrudView.as_view(), name="password-index"),
+#     path("passwords/", views.CrudView.as_view(), name="password-list"),
 #     path("passwords/<int:pk>/", views.PassUpdate.as_view(), name="password-detail"),  # Keep this if you prefer class-based view
 #     path("passwords/<int:id>/delete/", views.CrudView.as_view(), name="password-delete"),
 #     path("accounts/signup/", views.signup, name="signup"),

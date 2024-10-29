@@ -161,7 +161,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGIN_URL = "home"
 # Add this variable to specify where successful logins should redirect to
-LOGIN_REDIRECT_URL = "password-index"
+LOGIN_REDIRECT_URL = "password-list"
 LOGOUT_REDIRECT_URL = "home"
 
 # Default primary key field type
