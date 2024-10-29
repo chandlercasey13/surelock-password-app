@@ -58,6 +58,7 @@
                                 shTPBh+rxB9zT+kdk7dqfiuidQettVtMa1qtCv2BTp/m5VWENe+IB+5s8UbB7/AK6bKsZlqHeY
                                 wAAAABJRU5ErkJggg=="
                             />
+                            <p id="password-id">{{ password.id }}</p>
                             <p id="password-date">{{ password.most_recent }}</p>
                             <h1 id="password-appname">{{ password.appname }}</h1>
                             <p id="username-text">{{ password.username }}</p>
@@ -79,8 +80,8 @@
 				</div>
 				<div id="modal-close-button-container-childbutton">
 					<button
-						class="close-create-button btn fa-solid fa-xmark"
-					></button>
+						class="close-create-button modal-close-button"
+					> <i class="fa-solid fa-xmark"></i></button>
 				</div>
 			</div>
 			<form action="" id="CreateForm" method="post">
@@ -93,17 +94,18 @@
 				<input type="text" id="username" name="username" />
 				<br />
 
-				<label for="password">Password:</label>
-				<div class="password-reveal-container">
-					<input type="password" id="create-password" name="password" />
-					<button
-						type="button"
-						id="toggle-create-password"
-						class="toggle-btn btn"
-					>
-						<i class="fa-solid fa-eye"></i>
-					</button>
+                <div class="password-reveal-container">
+                    <!-- Input field for password -->
+                    <label for="password">Password</label>
+                    <input type="password" id="create-password" name="password" />
+                    <!-- Button to toggle password visibility -->
+                    <button type="button" id="toggle-update-password" class="toggle-btn">
+                        <i class="fa-solid fa-eye"></i> <!-- Eye icon to show/hide the password -->
+                    </button>
 				</div>
+                <!-- Button to generate a new random password -->
+                <button type="button" id="generate-update-password" class="btn">Generate Password</button>
+
 				<br />
 				<label for="note">Note:</label>
 				<textarea id="note" name="note"></textarea>
@@ -112,34 +114,66 @@
 			</form>
 		</dialog>
 
-		<!-- Update Modal (edit password modal) with data-password-id only if there's a password being edited -->
-        <dialog class="modal" id="updatemodal">
-            <div class="modal-close-button-container">
-                <div id="modal-close-button-container-childh1">
-                    <h1>Edit Password</h1>
-                </div>
-                <div id="modal-close-button-container-childbutton">
-                    <button class="close-update-button btn">x</button>
-                </div>
-            </div>
-            <form id="UpdateForm" method="post" data-id="">
-                {% csrf_token %}
-                
-                <label for="appname">App Name:</label>
-                <input type="text" id="update-appname" name="appname" value="" />
+        <!-- Update Modal (edit password modal) with data-password-id only if there's a password being edited -->
+<dialog class="modal" id="updatemodal">
+    <div class="modal-close-button-container">
+        <div id="modal-close-button-container-childh1">
+            
+            <h1 id="update-modal-appname" name="appname" value=""></h1>
+           
+        </div>
+        <div id="modal-close-button-container-childbutton">
+            <button
+						class="close-update-button modal-close-button"
+					> <i class="fa-solid fa-xmark"></i></button><!-- Button to close the modal -->
+        </div>
+    </div>
+    
+    <!-- Update Password Form -->
+    <form id="UpdateForm" method="post" action="{% if password %}{% url 'password-detail' password.id %}{% endif %}">
+        {% csrf_token %} <!-- Django CSRF token for security -->
         
-                <label for="username">Username:</label>
-                <input type="text" id="update-username" name="username" value="" />
-        
-                <label for="password">Password:</label>
-                <input type="password" id="update-password" name="password" value="" />
-        
-                <label for="note">Notes:</label>
-                <textarea id="update-note" name="note"></textarea>
-        
-                <button type="submit" id="save-btn" class="btn">Save</button>
-            </form>
-        </dialog>
+        <input type="hidden" id="update-password-id" name="password-id" value="{{ password.id }}" />
+
+        <!-- Input field for app name -->
+        <label for="appname">Site/App Name</label>
+        <input type="text" id="update-appname" name="appname" value="{{ password.appname }}" />
+    
+        <!-- Input field for username -->
+        <label for="username">Username</label>
+        <input type="text" id="update-username" name="username" value="{{ password.username }}" />
+    
+        <!-- Password reveal/copy/generate functionality -->
+        <div class="password-reveal-container">
+            <!-- Input field for password -->
+            <label for="password">Password</label>
+            <input type="password" id="update-password" name="password" value="{{ password.password }}" />
+            <!-- Button to toggle password visibility -->
+            <button type="button" id="toggle-update-password" class="toggle-btn">
+                <i class="fa-solid fa-eye"></i> <!-- Eye icon to show/hide the password -->
+            </button>
+            <!-- Button to copy the password to the clipboard -->
+            <button type="button" id="copy-update-password" name="cpy-btn" class="">
+                <i class="fa-solid fa-copy"></i>
+            </button>
+        </div>
+    
+        <!-- Button to generate a new random password -->
+        <button type="button" id="generate-update-password" class="btn">Generate Password</button>
+    
+        <!-- Textarea for additional notes -->
+        <label for="note">Notes</label>
+        <textarea id="update-note" name="note">{{ password.note }}</textarea>
+    
+        <!-- Button to save changes -->
+        <button type="submit" name="action" value="save" id="save-btn" class="btn">Save</button>
+    
+        <!-- Button to delete the password -->
+        <button type="submit" name="action" value="delete" class="delete-btn btn">Delete</button>
+    </form>
+    
+</dialog>
+
         
 
 	</div>
@@ -148,3 +182,30 @@
 	<script src="{% static 'js/password-modals.js' %}"></script>
 </div>
 {% endblock %}
+
+
+<script>
+    document.getElementById('UpdateForm').addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevent the default form submission
+    
+        // Gather form data
+        const formData = new FormData(this);
+        const actionUrl = this.action;
+    
+        // Use fetch to send form data via POST
+        fetch(actionUrl, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'  // Marks it as an AJAX request
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Log POST data received from the server in Chrome console
+            console.log('POST data received from server:', data.post_data);
+        })
+        .catch(error => console.error('Error:', error));
+    });
+    </script>
+    
