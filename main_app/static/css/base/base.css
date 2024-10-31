@@ -1,11 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
 
+/* Global Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
+/* Header Styles */
 header {
   position: absolute;
   top: 0;
@@ -17,96 +20,126 @@ header {
   justify-content: space-between;
   align-items: center;
 }
+
 header .logo {
   color: #fff;
   text-transform: uppercase;
   cursor: pointer;
   text-decoration: none;
 }
-.error-text {
+
+/* Error Message */
+.error-message {
   color: red;
   font-size: 0.8em;
   margin: 0;
   padding: 0;
+}
+
+/* Layout */
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+
 }
 .username-and-hamburger {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .username-display {
   font-size: 1rem;
   font-weight: bold;
-  margin-right: 15px;  /* Adjust spacing as needed */
+  margin-right: 15px;
   color: #e0b320;
   text-transform: uppercase;
   text-decoration: none;
 }
+
 .linkbox {
   padding: 10%;
   margin-top: 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
 }
 
-.login{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-}
-
+/* Form Labels */
 label {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    color: black;
-    font-weight: 500;
-    font-size: 1.2em;
-    padding: 7px 0 0 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  color: black;
+  font-weight: 500;
+  font-size: 1.2em;
+  padding-top: 7px;
 }
 
-button {
-    display: inline-block;
-    font-size: 1em;
-    background: #fff;
-    color: #2c281b;
-    padding: 10px 20px;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: 700;
-    color: #111;
-    letter-spacing: 2px;
-    transition: 0.2s;
-    border: none;
-    cursor: pointer;
+/* Button Styles */
+button, .signup-button {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  font-size: 1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.3s;
+  border: none;
+  cursor: pointer;
+  border: 3px solid #fff;
+  background: #fff;
+  color: #011727;
+  padding: 10px 20px;
+  letter-spacing: 2px;
+  border-radius: 3px;
 }
+
 .form-button {
-  margin: 20px 0 0 0;
+  margin-top: 20px;
   height: 45px;
   width: 100px;
   display: flex;
-  flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   cursor: pointer;
 }
-.text button:hover {
-        letter-spacing: 6px;
-}
-.login-button {
-  
+.signup-button-box {
   display: flex;
-  flex-direction: column;
-  justify-content: center; 
-  cursor: pointer;
+}
+.signup-button {
+  width: 152px;
+  border: 3px solid #e0b320;
+  background: #e0b320;
+  color: #011727;
+  
+}
+.text button:hover {
+  border: 3px solid #011727;
+  letter-spacing: 6px;
+
+}
+.signup-button:hover {
+  background: #fff;
+  border: 3px solid #fff;
+  letter-spacing: 6px;
 }
 .login-button:hover {
-    letter-spacing: 6px;
+  letter-spacing: 6px;
+}
+.login-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  background: #fff;
 }
 
+/* Showcase Section */
 .showcase {
   position: absolute;
   right: 0;
@@ -120,6 +153,7 @@ button {
   transition: 0.5s;
   z-index: 2;
 }
+
 .showcase.active {
   right: 300px;
 }
@@ -133,6 +167,7 @@ button {
   object-fit: cover;
   opacity: 0.8;
 }
+
 .overlay {
   position: absolute;
   top: 0;
@@ -140,35 +175,42 @@ button {
   width: 100%;
   height: 100%;
   background: #011727;
-  /* mix-blend-mode: overlay; */
   pointer-events: none;
 }
+.hero-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  
+}
+/* Text Styles */
 .text {
   position: relative;
   z-index: 10;
 }
+
 h1 {
-    font-size: 2.5em;
-    color: #fff;
+  font-size: 2.5em;
+  color: #fff;
 }
-.text h2 {
-  font-size: 5em;
+
+.text h2, .text h3 {
   font-weight: 800;
   color: #fff;
-  line-height: 1em;
   text-transform: uppercase;
+  line-height: 1em;
 }
+
+.text h2 {
+  font-size: 5em;
+}
+
 .text h3 {
   font-size: 4em;
-  font-weight: 700;
-  color: #fff;
-  line-height: 1em;
-  text-transform: uppercase;
 }
-.text-gold {
-
-    color: #e0b320;
-    display:inline; 
+.text h4 {
+  font-size: 2em;
 }
 
 .text p {
@@ -178,22 +220,21 @@ h1 {
   font-weight: 400;
   max-width: 700px;
 }
+
 .text a {
-  display: inline-block;
-  font-size: 1em;
   background: #e0b320;
   padding: 10px 30px;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-weight: 500;
-  margin-top: 10px;
-  color: #111;
+  color: ##011727;
   letter-spacing: 2px;
-  transition: 0.2s;
 }
-.text a:hover {
-  letter-spacing: 6px;
+
+
+.text-gold {
+  color: #e0b320;
+  display: inline;
 }
+
+/* Social Links */
 .social {
   position: absolute;
   z-index: 10;
@@ -203,12 +244,15 @@ h1 {
   align-items: center;
   filter: invert(1);
 }
+
 .social img {
-    margin: 0 20px;
+  margin: 0 20px;
 }
+
 .social li {
   list-style: none;
 }
+
 .social li a {
   display: inline-block;
   margin-right: 20px;
@@ -216,9 +260,12 @@ h1 {
   transform: scale(0.5);
   transition: 0.5s;
 }
+
 .social li a:hover {
   transform: scale(0.5) translateY(-15px);
 }
+
+/* Menu Styles */
 .menu {
   position: absolute;
   top: 0;
@@ -230,20 +277,22 @@ h1 {
   background: #e0b320;
   padding-top: 7%;
 }
+
 .menu ul {
   display: flex;
   flex-direction: column;
   position: relative;
   justify-content: center;
-  text-align:center
+  text-align: center;
 }
+
 .menu ul li {
   list-style: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
 }
+
 .menulink {
   text-decoration: none;
   font-weight: 500;
@@ -251,33 +300,33 @@ h1 {
   color: #fff;
   cursor: pointer;
 }
+
 .menulink:hover {
   transition: 0.5s;
   color: black;
 }
 
-
+/* Responsive Styles */
 @media (max-width: 991px) {
-  .showcase,
-  .showcase header {
+  .showcase, .showcase header {
     padding: 40px;
   }
+  
   .text h2 {
     font-size: 3em;
   }
+  
   .text h3 {
     font-size: 2em;
   }
 }
 
-
-
+/* Toggle Button */
 .toggle {
   position: relative;
   z-index: 9;
   background: transparent;
   border: 0;
-  padding: 0;
   width: 42px;
   height: 42px;
   margin-left: var(--space-xs);
@@ -288,60 +337,44 @@ h1 {
   transition: background-color 230ms ease-in-out;
   outline: none;
   cursor: pointer;
-  color:#fff
-}
-.toggle.active {
-  color: black; /* Change bar color when toggled */
+  color: #fff;
+  padding: 0;
 }
 
-.toggle:hover,
-.toggle:focus-visible {
+.toggle.active {
+  color: black;
+}
+
+.toggle:hover, .toggle:focus-visible {
   background: rgba(var(--base-color-secondary-rgb), 0.06);
 }
 
-.one,
-.two,
-.three {
+.one, .two, .three {
   transition: all 230ms ease-in-out;
-  background-color: currentColor; /* Ensures the bars match the text color */
+  background-color: currentColor;
   height: 1.6px;
   width: 16px;
 }
 
 .one.animate {
   transform: rotate(45deg) translate(5.75px, -7px);
-  width: 14px; /* Adjusted width */
+  width: 14px;
 }
 
 .two.animate {
   transform: rotate(-45deg) translate(-11.5px, 0.5px);
-  width: 14px; /* Adjusted width */
+  width: 14px;
 }
 
 .three.animate {
-  width: 0; /* Hide the middle bar */
+  width: 0;
 }
 
-
-
-/* 
-.toggle:hover, .toggle:focus-visible: The & has been removed to conform to vanilla CSS. This makes the hover and focus-visible states work as expected.
-
-background-color: currentColor;: I added this to ensure the bars inherit the color set on the parent button or SVG (usually defined by CSS color).
-
-height: 1.6px;: Ensures that all the bars have consistent height.
-
-transition on .one, .two, .three: These transitions now apply to both transformations and any width adjustments.
-
-Animation classes (.one.animate, .two.animate, .three.animate): These are retained to rotate and adjust the widths of the bars when toggled. 
-The middle bar (.three) hides when toggled by reducing its width to 0. */
-
-
-/* Loading spinner CSS */
+/* Spinner */
 .spinner {
   display: flex;
   justify-content: center;
-  border: 4px solid #f3f3f3; /* Light gray */
+  border: 4px solid #fff;
   border-top: 4px solid black;
   border-radius: 50%;
   width: 30px;
@@ -349,15 +382,11 @@ The middle bar (.three) hides when toggled by reducing its width to 0. */
   animation: spin 1s linear infinite;
 }
 
-/*for Safari*/
 @-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
 }
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

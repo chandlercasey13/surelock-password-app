@@ -1,190 +1,172 @@
-.text h2 {
-  font-size: 6em;
-  font-weight: 800;
-  color: #fff;
-  line-height: 1em;
-  text-transform: uppercase;
+/* Modifying .showcase from base.css */
+.showcase {
+	flex-direction: column;
+	justify-content: center;
+  padding: 10% 0;
 }
-.text h3 {
-  font-size: 5em;
-  font-weight: 700;
-  color: #fff;
-  line-height: 1em;
-  text-transform: uppercase;
+
+/* Error Messages */
+.error-message {
+	color: red;
+	font-weight: bolder;
+	margin-top: 5px;
 }
-.text h4 {
-    font-size: 3em;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1em;
-    color: #e0b320;
-  }
-  .text h5 {
-    font-size: 1.5em;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1em;
-    text-transform: uppercase;
-  }
-  .form-container {
-      
-  }
-  .error-message {
-    color: red;
-    font-weight: bolder;
-    margin-top: 5px;
+.error-message-container {
+  height: 120px;
+  visibility: hidden;
 }
 
 .non-field-errors {
-    color: red;
-    font-weight: bolder;
-    margin-bottom: 10px;
+	color: red;
+	font-weight: bolder;
+	margin-bottom: 10px;
 }
-  .form-box {
-    margin: 70px 0;
-  }
-  input {
-    height: 35px;
-    width: 270px;
-  }
-  .form-label {
-    width: 25%;
-    height: 40px;
-    align-content: center;
-    float: left;
-  }
-  .form-field {
-    width: 75%;
-    height:40px;
-    align-content: center;
-    float: right;
-  }
-  .tooltip {
-    position: relative;
-    display: inline-block;
-    
-  }
-  .tooltip .tooltiptext {
-    visibility: hidden;
-    
-    height: 55px;
-    background-color: grey;
-    color: #fff;
-    text-align: center;
-    align-content: center;
-    padding: 0 5px;
-    border-radius: 6px;
-    opacity: 0.75;
-    font-size: 0.8em;
-    font-weight: 400;
-    top: -5px;
-    left: 44%;
-    /* Position the tooltip text  */
-    position: absolute;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 1s;
-  }
-  .tooltip .tooltiptext::after {
-    content: " ";
-  position: absolute;
-  top: 50%;
-  right: 100%; /* To the left of the tooltip */
-  margin-top: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent grey transparent transparent;
-  }
+/* Forms and Input */
+.signup-form-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
   
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 0.8;
-  }
-
-  .page-header {
-    margin: 0 0 30px 0;
-  }
-  .input-icon {
-    height: 10px;
-    width: 10px;
-
-  }
-  label {
-    padding: 0;
-    font-size: 1em;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1em;
-    text-transform: uppercase;
-  }
-  button {
-    display: inline-block;
-    font-size: 1em;
-    background: #e0b320;
-    color: #2c281b;
-    padding: 10px 30px;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: 700;
-    margin-top: 210px;
-    color: #111;
-    letter-spacing: 2px;
-    transition: 0.2s;
-    border: none;
 }
-.form-button {
-   margin: 30px 0 0 0; 
- 
+.signup-field-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  border: 2px solid transparent
 }
-.form-button {
-  margin: 30px 0 0 0; 
- 
+.form-label {
+  width: 25%;
+  height: 40px;
+  align-content: center;
+  float: left;
 }
-.text button:hover {
-        letter-spacing: 6px;
+.form-label label {
+  color: #e0b320
+}
+input {
+  height: 35px;
+  width: 270px;
+}
+.timezone-input {
+  height: 35px;
+  width: 270px;
+}
+/* input.field-error, select.field-error {
+  border: 2px solid red;
+  animation: flash 1s ease-in-out 2;
+} */
+.field-error {
+  border: 2px solid red;
+  animation: flash 1s ease-in-out 2;
 }
 
-.showcase {
-    position: absolute;
-    right: 0;
-    width: 100%;
-    min-height: 100vh;
-    padding: 150px;
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    background: #111;
-    transition: 0.5s;
-    z-index: 2;
-  }
-  .showcase.active {
-    right: 300px;
-  }
-
-.text p {
-  font-size: 1.1em;
-  color: #fff;
-  /* margin: 20px 0; */
-  font-weight: 400;
-  max-width: 700px;
+@keyframes flash {
+  0%, 100% { background-color: transparent; }
+  50% { background-color: rgba(255, 0, 0, 0.1); }
 }
-.text a {
+/* .error-message {
+
+} */
+/* .form-button {
+  margin: 30px 0 0 0;
+}
+
+
+.form-box {
+  margin: 70px 0;
+}
+
+
+.form-field {
+  width: 75%;
+  height: 40px;
+  align-content: center;
+  float: right;
+} */
+
+
+
+
+/* button {
   display: inline-block;
   font-size: 1em;
-  background: #fff;
+  background: #e0b320;
+  color: #2c281b;
   padding: 10px 30px;
   text-transform: uppercase;
-  text-decoration: none;
-  font-weight: 500;
-  margin-top: 10px;
-  color: #111;
+  font-weight: 700;
+  margin-top: 210px;
   letter-spacing: 2px;
   transition: 0.2s;
+  border: none;
+  cursor: pointer;
+} */
+
+/* Tooltip */
+.tooltip {
+	position: relative;
+	display: inline-block;
 }
-.text a:hover {
-  letter-spacing: 6px;
+
+.tooltip .tooltiptext {
+	visibility: hidden;
+	height: 55px;
+	background-color: grey;
+	color: #fff;
+	text-align: center;
+	padding: 0 5px;
+	border-radius: 6px;
+	font-size: 0.8em;
+	font-weight: 400;
+	top: -5px;
+	left: 44%;
+	position: absolute;
+	z-index: 9999;
+	opacity: 0;
+	transition: opacity 1s;
 }
-.social {
+
+.tooltip .tooltiptext::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	right: 100%;
+	margin-top: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent grey transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+	opacity: 0.8;
+}
+
+/* Showcase
+.showcase {
+  position: absolute;
+  right: 0;
+  width: 100%;
+  min-height: 100vh;
+  padding: 150px;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  background: #111;
+  transition: 0.5s;
+  z-index: 2;
+}
+
+.showcase.active {
+  right: 300px;
+} */
+
+/* Social Links */
+/* .social {
   position: absolute;
   z-index: 10;
   bottom: 20px;
@@ -192,9 +174,11 @@
   justify-content: center;
   align-items: center;
 }
+
 .social li {
   list-style: none;
 }
+
 .social li a {
   display: inline-block;
   margin-right: 20px;
@@ -202,10 +186,13 @@
   transform: scale(0.5);
   transition: 0.5s;
 }
+
 .social li a:hover {
   transform: scale(0.5) translateY(-15px);
-}
-.menu {
+} */
+
+/* Menu */
+/* .menu {
   position: absolute;
   top: 0;
   right: 0;
@@ -213,33 +200,33 @@
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: top;
+  align-items: flex-start;
 }
+
 .menu ul {
   position: relative;
 }
+
 .menu ul li {
   list-style: none;
 }
+
 .menu ul li a {
   text-decoration: none;
   font-size: 24px;
   color: #111;
 }
+
 .menu ul li a:hover {
-	color: #E0B320;
+  color: #e0b320;
+} */
+
+/* Miscellaneous */
+.input-icon {
+	height: 10px;
+	width: 10px;
 }
 
-@media (max-width: 991px) {
-  .showcase,
-  .showcase header {
-    padding: 40px;
-  }
-  .text h2 {
-    font-size: 3em;
-  }
-  .text h3 {
-    font-size: 2em;
-  }
-}
-
+/* .page-header {
+  margin: 0 0 30px 0;
+} */

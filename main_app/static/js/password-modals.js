@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	// 4. Password Button Click to Load Details in the Update Modal
 	setupPasswordButtons();
 
-	// 5. Delete Password Functionality
-	// setupDeleteFunction();
+	// 6. Bulk Delete Mode Controls
+	setupBulkDeleteMode();
 
 	/**
 	 * 2. Setup event listeners for opening and closing modals
@@ -50,30 +50,46 @@ document.addEventListener("DOMContentLoaded", function () {
 	 * 3. Setup password reveal, copy, and generation actions
 	 */
 	function setupPasswordActions() {
-		const togglePasswordBtn = document.getElementById("toggle-update-password");
-		const copyPasswordBtn = document.getElementById("copy-update-password");
-		const generatePasswordBtn = document.getElementById("generate-update-password");
+		const togglePasswordButtonCreate = document.getElementById("toggle-create-password");
+		const togglePasswordButtonUpdate = document.getElementById("toggle-update-password");
+		const copyPasswordButton = document.getElementById("copy-update-password");
+		const generatePasswordButtonCreate = document.getElementById("generate-password-create");
+		const generatePasswordButtonUpdate = document.getElementById("generate-password-update");
 		const updatePasswordInput = document.getElementById("update-password");
 
 		// Password Reveal
-		if (togglePasswordBtn && updatePasswordInput) {
-			togglePasswordBtn.addEventListener("click", function () {
-				togglePasswordVisibility(updatePasswordInput, togglePasswordBtn.querySelector("i"));
-			});
+		if (togglePasswordButtonCreate || togglePasswordButtonUpdate) {
+			if (togglePasswordButtonCreate) {
+				togglePasswordButtonCreate.addEventListener("click", function () {
+					togglePasswordVisibility(updatePasswordInput, togglePasswordButtonCreate.querySelector("i"));
+				});
+			}
+			if (togglePasswordButtonUpdate) {
+				togglePasswordButtonUpdate.addEventListener("click", function () {
+					togglePasswordVisibility(updatePasswordInput, togglePasswordButtonUpdate.querySelector("i"));
+				});
+			}
 		}
 
 		// Copy Password
-		if (copyPasswordBtn && updatePasswordInput) {
-			copyPasswordBtn.addEventListener("click", function () {
+		if (copyPasswordButton && updatePasswordInput) {
+			copyPasswordButton.addEventListener("click", function () {
 				copyPasswordToClipboard(updatePasswordInput);
 			});
 		}
 
 		// Generate Password
-		if (generatePasswordBtn && updatePasswordInput) {
-			generatePasswordBtn.addEventListener("click", function () {
-				updatePasswordInput.value = generateRandomPassword(12);
-			});
+		if (generatePasswordButtonCreate || generatePasswordButtonUpdate) {
+			if (generatePasswordButtonCreate) {
+				generatePasswordButtonCreate.addEventListener("click", function () {
+					updatePasswordInput.value = generateRandomPassword(12);
+				});
+			}
+			if (generatePasswordButtonUpdate) {
+				generatePasswordButtonUpdate.addEventListener("click", function () {
+					updatePasswordInput.value = generateRandomPassword(12);
+				});
+			}
 		}
 	}
 
@@ -82,11 +98,12 @@ document.addEventListener("DOMContentLoaded", function () {
 	 */
 	function setupPasswordButtons() {
 		const passwordButtons = document.querySelectorAll(".password-button");
-        const updatePasswordInput = document.getElementById("update-password");
-        const togglePasswordBtn = document.getElementById("toggle-update-password");
+		const updatePasswordInput = document.getElementById("update-password");
+
 		if (passwordButtons.length > 0) {
 			passwordButtons.forEach((button) => {
-				button.addEventListener("click", function () {
+				button.addEventListener("click", function (event) {
+					event.preventDefault();  // Prevent any form action
 					const passwordId = button.getAttribute("data-password-id");
 					const appName = button.getAttribute("data-appname");
 					const username = button.getAttribute("data-username");
@@ -97,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					populateUpdateModal(passwordId, appName, username, password, note);
 
 					// Reset password visibility
-					resetPasswordVisibility(updatePasswordInput, togglePasswordBtn.querySelector("i"));
+					resetPasswordVisibility(updatePasswordInput);
 
 					// Show the modal
 					updateModal.showModal();
@@ -108,38 +125,50 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	/**
-	 * 5. Setup the delete button functionality
+	 * 6. Setup Bulk Delete Mode
 	 */
-	// function setupDeleteFunction() {
-	// 	const deleteButton = document.getElementById("delete-button");
+	function setupBulkDeleteMode() {
+		const bulkDeleteModeButton = document.getElementById("bulk-delete-mode-button");
+		const deleteSelectedButton = document.getElementById("delete-selected-button");
+		const checkboxes = document.querySelectorAll(".password-checkbox");
+		const bulkDeleteForm = document.getElementById("bulk-delete-form");
 
-	// 	if (deleteButton) {
-	// 		deleteButton.addEventListener("click", function (event) {
-	// 			event.preventDefault();
+		// Toggle bulk delete mode
+		bulkDeleteModeButton.addEventListener("click", () => {
+			checkboxes.forEach(checkbox => checkbox.style.display = checkbox.style.display === "none" ? "block" : "none");
+			deleteSelectedButton.style.display = deleteSelectedButton.style.display === "none" ? "inline-block" : "none";
+		});
 
-	// 			const form = document.getElementById("UpdateForm");
-	// 			const passwordId = form.getAttribute("data-id");
-	// 			const appName = form.getAttribute("data-appname");
+		// Handle the delete confirmation prompt
+		deleteSelectedButton.addEventListener("click", (event) => {
+			event.preventDefault();  // Prevent form submission
 
-	// 			if (appName && confirm(`Are you sure you want to delete ${appName}?`)) {
-	// 				deletePassword(passwordId);
-	// 			}
-	// 		});
-	// 	}
-	// }
+			// Get the selected checkboxes
+			const selectedCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+			const selectedCount = selectedCheckboxes.length;
+
+			// Show confirmation if there are selected entries
+			if (selectedCount > 0) {
+				const confirmDelete = confirm(`Are you sure you want to delete ${selectedCount} entries?`);
+				if (confirmDelete) {
+					bulkDeleteForm.submit();
+				}
+			} else {
+				alert("No entries selected.");
+			}
+		});
+	}
 
 	/**
 	 * Function: Toggle Password Visibility (Eye Icon)
 	 */
 	function togglePasswordVisibility(passwordInput, eyeIcon) {
 		if (passwordInput.type === "password") {
-			passwordInput.type = "text"; // Show the password
-			eyeIcon.classList.remove("fa-eye"); // Change icon to eye-slash
-			eyeIcon.classList.add("fa-eye-slash");
+			passwordInput.type = "text";
+			eyeIcon.classList.replace("fa-eye", "fa-eye-slash");
 		} else {
-			passwordInput.type = "password"; // Hide the password
-			eyeIcon.classList.remove("fa-eye-slash"); // Change icon to eye
-			eyeIcon.classList.add("fa-eye");
+			passwordInput.type = "password";
+			eyeIcon.classList.replace("fa-eye-slash", "fa-eye");
 		}
 	}
 
@@ -159,8 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
 		let password = "";
 		for (let i = 0; i < length; i++) {
-			const randomIndex = Math.floor(Math.random() * charset.length);
-			password += charset[randomIndex];
+			password += charset.charAt(Math.floor(Math.random() * charset.length));
 		}
 		return password;
 	}
@@ -169,44 +197,23 @@ document.addEventListener("DOMContentLoaded", function () {
 	 * Function: Populate Update Modal with Password Details
 	 */
 	function populateUpdateModal(passwordId, appName, username, password, note) {
-        document.getElementById("update-modal-appname").innerText = appName;
+		document.getElementById("update-modal-appname").innerText = appName;
 		document.getElementById("update-appname").value = appName;
 		document.getElementById("update-username").value = username;
 		document.getElementById("update-password").value = password;
 		document.getElementById("update-note").value = note;
 		document.getElementById("UpdateForm").setAttribute("data-id", passwordId);
-        document.getElementById("update-password-id").value = passwordId;
+		document.getElementById("update-password-id").value = passwordId;
 	}
 
 	/**
 	 * Function: Reset Password Visibility in Update Modal
 	 */
-	function resetPasswordVisibility(passwordInput, eyeIcon) {
+	function resetPasswordVisibility(passwordInput) {
 		passwordInput.type = "password";
-		eyeIcon.classList.remove("fa-eye-slash");
-		eyeIcon.classList.add("fa-eye");
+		const eyeIcon = document.querySelector("#toggle-update-password i");
+		if (eyeIcon) {
+			eyeIcon.classList.replace("fa-eye-slash", "fa-eye");
+		}
 	}
-
-	/**
-	 * Function: Delete Password via Fetch Request
-	 */
-	// function deletePassword(passwordId) {
-	// 	fetch(`/passwords/${passwordId}/delete/`, {
-	// 		method: "DELETE",
-	// 		headers: {
-	// 			"X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
-	// 			"Content-Type": "application/json",
-	// 		},
-	// 	})
-	// 		.then((response) => {
-	// 			if (response.ok) {
-	// 				window.location.href = "/passwords/";
-	// 			} else {
-	// 				alert("Failed to delete the password.");
-	// 			}
-	// 		})
-	// 		.catch((err) => {
-	// 			console.error("Error:", err);
-	// 		});
-	// }
 });

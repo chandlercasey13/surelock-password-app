@@ -74,7 +74,7 @@ function addLoginFormListener() {
                       errorContainer.innerHTML = ""; // Clear any previous errors
                       data.errors.forEach((error) => {
                           const errorMessage = document.createElement("p");
-                          errorMessage.classList.add("error-text");
+                          errorMessage.classList.add("error-message");
                           errorMessage.innerText = error; // Add error message
                           errorContainer.appendChild(errorMessage);
                       });

@@ -49,7 +49,10 @@
                                 uiDPItIwSqffx4gInCDYQMt0RbRqMCPAq6ds9HFtfV4539mmo1eRHADXTh/ovjteMYqXz7eNQG
                                 shTPBh+rxB9zT+kdk7dqfiuidQettVtMa1qtCv2BTp/m5VWENe+IB+5s8UbB7/AK6bKsZlqHeY
                                 wAAAABJRU5ErkJggg=="/>
-                                <p id = 'password-date'>{{password.most_recent}}</p>
+                                {% load tz %}  <!-- Load timezone tags if not already loaded -->
+                                {% localtime on %}
+                                <p id = 'password-date'>{{password.most_recent }}</p>
+                                {% endlocaltime %}
                                 <h1 id = "password-appname">{{password.appname}}</h1> 
                                 <p id= "username-text">{{password.username}}</p>
                                 <p id = 'password-note'>{{password.note}}</p>
@@ -64,8 +67,8 @@
             <dialog class = 'modal' id = 'createmodal'>
                 <div class= 'modal-close-button-container'>
                     <div id='modal-close-button-container-childh1'><h1>Create Password</h1></div>
-                    <div id='modal-close-button-container-childbutton'><button class = 'close-create-button btn fa-solid fa-xmark'></button></div>
-                </div> 
+                    <div id='modal-close-button-container-childbutton'><button class = 'close-create-button button fa-solid fa-xmark'></button></div>
+                </div>
                 <form action = '' id="CreateForm" method="post">
                     {% csrf_token %}
             
@@ -81,7 +84,7 @@
                     <div class="password-reveal-container">
                         <input type="password" id="create-password" name="password" value="{{ updateform.password.value }}">
                         
-                            <button type="button" id="toggle-create-password" class="toggle-btn btn">
+                            <button type="button" id="toggle-create-password" class="toggle-button button">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
                     </div>        
@@ -90,7 +93,7 @@
                     <textarea id="note" name="note"></textarea>
                     <br />
             
-                    <button type="submit" id="submit-btn"class="btn" >Submit</button>
+                    <button type="submit" id="submit-button"class="button" >Submit</button>
                 
                 </form>
             </dialog>      
@@ -99,7 +102,7 @@
                 <div class= 'modal-close-button-container'>
                     <div id='modal-close-button-container-childh1'><h1>Edit Password</h1></div>
                         <div id='modal-close-button-container-childbutton'>
-                            <button class = 'close-update-button btn'>
+                            <button class = 'close-update-button button'>
                                 <a href = '/passwords'>x</a>
                             </button>
                         </div>
@@ -119,11 +122,11 @@
                     <input type="password" id="update-password" name="password" value="{{ updateform.password.value }}">
                     
                     <div class="password-reveal-container">
-                        <button type="button" id="toggle-update-password" class="toggle-btn btn">
+                        <button type="button" id="toggle-update-password" class="toggle-button button">
                             <i class="fa-solid fa-eye"></i>
                         </button>
-                        <button type="button" id="copy-update-password" name="cpy-btn" class="btn">Copy</button>
-                        <button type="button" id="generate-update-password" class="btn">Gen. Password</button>
+                        <button type="button" id="copy-update-password" name="copy-button" class="button">Copy</button>
+                        <button type="button" id="generate-update-password" class="button">Gen. Password</button>
                     </div>
                     <br />
 
@@ -131,8 +134,8 @@
                     <textarea name="note" id="note" name="note">{{ updateform.note.value }}</textarea>
                     <br />    
 
-                    <button type="submit" id="save-btn" class="btn">Save</button>
-                    <button type="submit" id="delete-button" class="delete-btn btn">Delete</button>
+                    <button type="submit" id="save-button" class="button">Save</button>
+                    <button type="submit" id="delete-button" class="delete-button button">Delete</button>
                 </form>
             </dialog>
     </div>

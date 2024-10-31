@@ -1,100 +1,106 @@
-{% extends 'base.html' %}
-{% load static %}
-
+{% extends 'base.html' %} 
+{% load static %} 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/signup/signup.css' %}" />
-{% endblock %}
-
+{% endblock %} 
 {% block content %}
 <section class="showcase">
-	<div class="overlay"></div>
-	<div class="text">
-		<div class="form-box">
-			<div class="page-header">
-				<h4 class="text-gold">Sign Up</h4>
-			</div>
+    <div class="text">
+        <h4 class="text-gold text">Sign Up</h4>
+    </div>
 
-			<!-- Render error messages at the top if necessary -->
-			{% if error_message %}
-				<p class="red-text">{{ error_message }}</p>
-			{% endif %}
+    <form
+        action=""
+        method="post"
+        class="signup-form-container"
+        id="signup-form"
+        autocomplete="on"
+    >
+        {% csrf_token %}
 
-			<form action="" method="post" class="form-container" id="signup-form" autocomplete="on">
-				{% csrf_token %}
+        <!-- Username Field -->
+        <div class="signup-field-box {% if form.username.errors %}field-error{% endif %}">
+            <img class="icon input-icon" src="{% static 'icons/user.png' %}" alt=""/>
+            {{ form.username }} 
+            <div class="form-field tooltip">
+                <span class="tooltiptext">
+                    Required. 150 characters or fewer. Only these special characters are allowed: @/./+/-/_ only.
+                </span>
+            </div>
+        </div>
 
-				<!-- Username Field -->
-				<div class="form-label">
-					{{ form.username.label_tag }}
-				</div>
-				<div class="form-field tooltip">
-					<span class="tooltiptext">Required. 150 characters or fewer. Only these special characters are allowed: @/./+/-/_ only.</span>
-					<img class="icon input-icon" src="{% static 'icons/user.png' %}" alt=""/>
-					{{ form.username }}
-					{% if form.username.errors %}
-						<div class="error-message">
-							{{ form.username.errors }}
-						</div>
-					{% endif %}
-				</div>
+        <!-- Email Field -->
+        <div class="signup-field-box {% if form.email.errors %}field-error{% endif %}">
+            <img class="icon input-icon" src="{% static 'icons/email.png' %}" alt=""/>
+            {{ form.email }} 
+            <div class="form-field tooltip">
+                <span class="tooltiptext">
+                    Must be valid domain. Ex: shawty@domain.com You may only have one login per email.
+                </span>
+            </div>
+        </div>
 
-				<!-- Email Field -->
-				<div class="form-label">
-					{{ form.email.label_tag }}
-				</div>
-				<div class="form-field tooltip">
-					<span class="tooltiptext">Must be valid domain. Ex: shawty@domain.com You may only have one login per email.</span>
-					<img class="icon input-icon" src="{% static 'icons/email.png' %}" alt=""/>
-					{{ form.email }}
-					{% if form.email.errors %}
-						<div class="error-message">
-							{{ form.email.errors }}
-						</div>
-					{% endif %}
-				</div>
+        <!-- Password Field -->
+        <div class="signup-field-box {% if form.password1.errors %}field-error{% endif %}">
+            <img class="icon input-icon" src="{% static 'icons/password.png' %}" alt=""/>
+            {{ form.password1 }} 
+            <div class="form-field tooltip">
+                <span class="tooltiptext">
+                    Password must contain at least 8 characters, cannot be a commonly used password, and cannot be entirely numeric.
+                </span>
+            </div>
+        </div>
 
-				<!-- Password Field -->
-				<div class="form-label">
-					{{ form.password1.label_tag }}
-				</div>
-				<div class="form-field tooltip">
-					<span class="tooltiptext">Password must contain at least 8 characters, cannot be a commonly used password, and cannot be entirely numeric.</span>
-					<img class="icon input-icon" src="{% static 'icons/password.png' %}" alt=""/>
-					{{ form.password1 }}
-					{% if form.password1.errors %}
-						<div class="error-message">
-							{{ form.password1.errors }}
-						</div>
-					{% endif %}
-				</div>
+        <!-- Confirm Password Field -->
+        <div class="signup-field-box {% if form.password2.errors %}field-error{% endif %}">
+            <img class="icon input-icon" src="{% static 'icons/password.png' %}" alt=""/>
+            {{ form.password2 }} 
+            <div class="form-field tooltip">
+                <span class="tooltiptext">
+                    Confirm Password must be identical to Password.
+                </span>
+            </div>
+        </div>
 
-				<!-- Confirm Password Field -->
-				<div class="form-label">
-					{{ form.password2.label_tag }}
-				</div>
-				<div class="form-field tooltip">
-					<span class="tooltiptext">Confirm Password must be identical to Password.</span>
-					<img class="icon input-icon" src="{% static 'icons/password.png' %}" alt=""/>
-					{{ form.password2 }}
-					{% if form.password2.errors %}
-						<div class="error-message">
-							{{ form.password2.errors }}
-						</div>
-					{% endif %}
-				</div>
+        <!-- Timezone Selection Field -->
+        <div class="signup-field-box {% if form.timezone.errors %}field-error{% endif %}">
+            <img class="icon input-icon" src="{% static 'icons/timezone.png' %}" alt=""/>
+            <select name="{{ form.timezone.name }}" id="{{ form.timezone.id_for_label }}" class="form-input timezone-input">
+                <option value="" disabled selected>Select Timezone</option>
+                <option id="user-timezone-option" value="">Your Timezone</option>
+                {% for value, label in form.timezone.field.choices %}
+                    <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+            <div class="form-field tooltip">
+                <span class="tooltiptext">
+                    Select your timezone to display times correctly.
+                </span>
+            </div>
+        </div>
 
-				<!-- Non-field Errors (e.g., Password mismatch) -->
-				{% if form.non_field_errors %}
-					<div class="non-field-errors">
-						{{ form.non_field_errors }}
-					</div>
-				{% endif %}
+        <!-- Submit Button -->
+        <div class="form-button">
+            <button type="submit" class="button submit">Submit</button>
+        </div>
+    </form>
 
-				<!-- Submit Button -->
-				<div class="form-button">
-					<button type="submit" class="btn submit">Submit</button>
-				</div>
-			</form>
-		</div>
-	</div>
+    <!-- Render all error messages at the bottom -->
+	<div class="error-message-container" id="error-container">
+        {% if form.errors %}
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <p class="error-message">{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
 </section>
+<script src="{% static 'js/signup.js' %}"></script>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load static %} {% block head %}
+{% extends "base.html" %} {% load static %} {% load tz %} {% block head %}
 <link rel="stylesheet" href="{% static 'css/passwords/password-list.css' %}" />
 <link
 	rel="stylesheet"
@@ -28,6 +28,7 @@
 				<button class="new-password-button open-button">
 					New Password
 				</button>
+           
 
 				<!-- Column Categories -->
 				<div id="legend">
@@ -39,34 +40,44 @@
 
 				<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
-				<div id="password-cards-box">
-                    {% for password in passwords %}
-                    <div class="card">
-                        <button 
-                            id="button-in-tag" 
-                            class="password-button" 
-                            data-password-id="{{ password.id }}"
-                            data-appname="{{ password.appname }}"
-                            data-username="{{ password.username }}"
-                            data-password="{{ password.password }}"
-                            data-note="{{ password.note }}"
-                        >
-                            <img
-                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAPlJREFUSEvtlcsRgjAYhP+lCOGIF6EMrAStRKhErUTKEC9yBIrIOkF0HAhEfMx4kCvJfjv7PwL58ocv68tzAC+MHKViAlFrqCCQSnnMbAbtAC9cgdyahEgmUp/
-                                SMcg4wAsjkAct0Ig5zr4RUyoGsBIRn8BcymMxBBkFwA20eGR0OltsACQgd6o+rV8FsHFf5X0jX
-                                uiDPItIwSqffx4gInCDYQMt0RbRqMCPAq6ds9HFtfV4539mmo1eRHADXTh/ovjteMYqXz7eNQG
-                                shTPBh+rxB9zT+kdk7dqfiuidQettVtMa1qtCv2BTp/m5VWENe+IB+5s8UbB7/AK6bKsZlqHeY
-                                wAAAABJRU5ErkJggg=="
-                            />
-                            <p id="password-id">{{ password.id }}</p>
-                            <p id="password-date">{{ password.most_recent }}</p>
-                            <h1 id="password-appname">{{ password.appname }}</h1>
-                            <p id="username-text">{{ password.username }}</p>
-                            <p id="password-note">{{ password.note }}</p>
-                        </button>
-                    </div>
-                    {% endfor %}
+                <div id="password-cards-box">
+                    <!-- Form for bulk delete action -->
+                    <form id="bulk-delete-form" method="post" action="{% url 'bulk-delete' %}">
+                        <div class="bulk-delete-container">
+                            <!-- Button to activate bulk delete mode -->
+                            <button id="bulk-delete-mode-button" class="button">Bulk Delete</button>
+                        
+                            <!-- Delete selected button (hidden by default) -->
+                            <button id="delete-selected-button" class="button delete-button" style="display: none;">Delete Selected</button>
+                        </div>
+                        {% csrf_token %}
+                        {% for password in passwords %}
+                        <div class="card">
+                            <!-- Checkbox for each password entry, hidden by default -->
+                            <input type="checkbox" name="selected_passwords" value="{{ password.id }}" class="password-checkbox" style="display: none;" />
+                            <button 
+                                id="button-{{ password.id }}"
+                                class="button-in-tag password-button" 
+                                data-password-id="{{ password.id }}"
+                                data-appname="{{ password.appname }}"
+                                data-username="{{ password.username }}"
+                                data-password="{{ password.password }}"
+                                data-note="{{ password.note }}"
+                            >
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAPlJREFUSEvtlcsRgjAYhP+lCOGIF6EMrAStRKhErUTKEC9yBIrIOkF0HAhEfMx4kCvJfjv7PwL58ocv68tzAC+MHKViAlFrqCCQSnnMbAbtAC9cgdyahEgmUp/SMcg4wAsjkAct0Ig5zr4RUyoGsBIRn8BcymMxBBkFwA20eGR0OltsACQgd6o+rV8FsHFf5X0jXuiDPItIwSqffx4gInCDYQMt0RbRqMCPAq6ds9HFtfV4539mmo1eRHADXTh/ovjteMYqXz7eNQGshTPBh+rxB9zT+kdk7dqfiuidQettVtMa1qtCv2BTp/m5VWENe+IB+5s8UbB7/AK6bKsZlqHeYwAAAABJRU5ErkJggg=="/>
+                                <p id="password-id">{{ password.id }}</p>
+                                {% localtime on %}
+                                <p id="password-date">{{ password.most_recent|date:"Y-m-d H:i"|localtime }}</p>
+                                {% endlocaltime %}
+                                <h1 id="password-appname">{{ password.appname }}</h1>
+                                <p id="username-text">{{ password.username }}</p>
+                                <p id="password-note">{{ password.note }}</p>
+                            </button>
+                        </div>
+                        {% endfor %}
+                    </form>
                 </div>
+                
                 
                 
 			</section>
@@ -91,26 +102,26 @@
 				<br />
 
 				<label for="username">Username:</label>
-				<input type="text" id="username" name="username" />
+				<input type="text" id="username" name="username" autocomplete="off"/>
 				<br />
 
                 <div class="password-reveal-container">
                     <!-- Input field for password -->
-                    <label for="password">Password</label>
+                    <label for="create-password">Password</label>
                     <input type="password" id="create-password" name="password" />
                     <!-- Button to toggle password visibility -->
-                    <button type="button" id="toggle-update-password" class="toggle-btn">
+                    <button type="button" id="toggle-create-password" class="toggle-password toggle-button">
                         <i class="fa-solid fa-eye"></i> <!-- Eye icon to show/hide the password -->
                     </button>
 				</div>
                 <!-- Button to generate a new random password -->
-                <button type="button" id="generate-update-password" class="btn">Generate Password</button>
+                <button type="button" id="generate-password-create" class="generate-password button">Generate Password</button>
 
 				<br />
 				<label for="note">Note:</label>
 				<textarea id="note" name="note"></textarea>
 				<br />
-				<button type="submit" id="submit-btn" class="btn">Submit</button>
+				<button type="submit" id="submit-button" class="button">Submit</button>
 			</form>
 		</dialog>
 
@@ -141,35 +152,35 @@
     
         <!-- Input field for username -->
         <label for="username">Username</label>
-        <input type="text" id="update-username" name="username" value="{{ password.username }}" />
+        <input type="text" id="update-username" name="username" value="{{ password.username }}"  autocomplete="off"/>
     
         <!-- Password reveal/copy/generate functionality -->
         <div class="password-reveal-container">
             <!-- Input field for password -->
-            <label for="password">Password</label>
+            <label for="update-password">Password</label>
             <input type="password" id="update-password" name="password" value="{{ password.password }}" />
             <!-- Button to toggle password visibility -->
-            <button type="button" id="toggle-update-password" class="toggle-btn">
+            <button type="button" id="toggle-update-password" class="toggle-password toggle-button">
                 <i class="fa-solid fa-eye"></i> <!-- Eye icon to show/hide the password -->
             </button>
             <!-- Button to copy the password to the clipboard -->
-            <button type="button" id="copy-update-password" name="cpy-btn" class="">
+            <button type="button" id="copy-update-password" name="copy-button" class="">
                 <i class="fa-solid fa-copy"></i>
             </button>
         </div>
     
         <!-- Button to generate a new random password -->
-        <button type="button" id="generate-update-password" class="btn">Generate Password</button>
+        <button type="button" id="generate-password-update" class="generate-password button">Generate Password</button>
     
         <!-- Textarea for additional notes -->
         <label for="note">Notes</label>
         <textarea id="update-note" name="note">{{ password.note }}</textarea>
     
         <!-- Button to save changes -->
-        <button type="submit" name="action" value="save" id="save-btn" class="btn">Save</button>
+        <button type="submit" name="action" value="save" id="save-button" class="button">Save</button>
     
         <!-- Button to delete the password -->
-        <button type="submit" name="action" value="delete" class="delete-btn btn">Delete</button>
+        <button type="submit" name="action" value="delete" class="delete-button button">Delete</button>
     </form>
     
 </dialog>

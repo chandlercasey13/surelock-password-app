@@ -132,7 +132,7 @@
 			<div class="linkbox">
 				<!-- If we want any links in the menu above the login, they should be added here. -->
 			</div>
-			<div class="loginentryformbox text"></div>
+			<!-- <div class="loginentryformbox text"> -->
 			<form action="{% url 'home' %}" method="post" class="login">
 				<h1>Login</h1>
 				{% csrf_token %} {{ login_form.as_p }}
@@ -142,7 +142,7 @@
 			
 				<input type="hidden" name="next" value="{{ next }}" />
 				<div class="form-button">
-					<button type="submit" class="btn submit login-button">
+					<button type="submit" class="button submit login-button">
 						<span class="button-text">Login</span>  <!-- Button text to be replaced -->
 					</button>
 					<div id="loading-indicator" class="spinner" style="display: none;"></div>  <!-- Loading indicator -->

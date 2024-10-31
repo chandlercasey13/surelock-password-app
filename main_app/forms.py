@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
-
+from pytz import common_timezones
 from .models import Login
 
 class UserLoginForm(AuthenticationForm):
@@ -31,6 +31,13 @@ class LoginEntryForm(forms.ModelForm):
         return login_instance
         
 class SignUpForm(UserCreationForm):
+    timezone = forms.ChoiceField(
+        choices=[("", "Select Timezone")] + [(tz, tz) for tz in common_timezones],  # Placeholder as first option
+        label="Timezone",
+        required=True,
+        
+        
+    )
     def __init__(self, *args, **kwargs):
         form_id = kwargs.pop('form_id', '')
         super().__init__(*args, **kwargs)
@@ -40,7 +47,7 @@ class SignUpForm(UserCreationForm):
             'name': 'username',
             'id': f'username-{form_id}',  # Use the dynamic form_id
             'type': 'text',
-            'placeholder': 'John Doe',
+            'placeholder': 'Username',
             'maxlength': '16',
             'minlength': '6',
         })
@@ -50,7 +57,7 @@ class SignUpForm(UserCreationForm):
             'name': 'email',
             'id': f'email-{form_id}',  # Use the dynamic form_id
             'type': 'email',
-            'placeholder': 'JohnDoe@mail.com',
+            'placeholder': 'Email',
         })
         self.fields['password1'].widget.attrs.update({
             'class': 'form-input',
@@ -58,7 +65,7 @@ class SignUpForm(UserCreationForm):
             'name': 'password1',
             'id': f'password1-{form_id}',  # Use the dynamic form_id
             'type': 'password',
-            'placeholder': 'password',
+            'placeholder': 'Password',
             'maxlength': '22',
             'minlength': '8',
         })
@@ -68,10 +75,16 @@ class SignUpForm(UserCreationForm):
             'name': 'password2',
             'id': f'password2-{form_id}',  # Use the dynamic form_id
             'type': 'password',
-            'placeholder': 'password',
+            'placeholder': 'Confirm Password',
             'maxlength': '22',
             'minlength': '8',
         })
+        self.fields['timezone'].widget.attrs.update({
+            'class': 'form-input timezone-input',
+            'name': 'timezone',
+            'id': f'timezone-{form_id}',
+        })
 
     class Meta(UserCreationForm.Meta):
-        fields = ['username', 'email', 'password1', 'password2']
+        model = User
+        fields = ['username', 'email', 'password1', 'password2', 'timezone']

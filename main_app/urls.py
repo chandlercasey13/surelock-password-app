@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views  # Import views to connect routes to view functions
-from .views import CrudView, simple_password_create, signup, ajax_login_view
+from .views import CrudView, simple_password_create, signup, ajax_login_view, bulk_delete_view
 
 urlpatterns = [
     path("", views.Home.as_view(), name="home"),
@@ -12,6 +12,7 @@ urlpatterns = [
     
     path('passwords/create/', views.simple_password_create, name='simple-password-create'),  # Separate create view if needed
     path('ajax-login/', views.ajax_login_view, name='ajax_login'),  # AJAX login endpoint
+    path('bulk-delete/', bulk_delete_view, name='bulk-delete'),
 ]
 
 
