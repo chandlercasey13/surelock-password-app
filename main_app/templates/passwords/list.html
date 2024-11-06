@@ -58,14 +58,14 @@
                             <button 
                                 id="button-{{ password.id }}"
                                 class="button-in-tag password-button" 
-                                data-password-id="{{ password.id }}"
+                                
                                 data-appname="{{ password.appname }}"
                                 data-username="{{ password.username }}"
                                 data-password="{{ password.password }}"
                                 data-note="{{ password.note }}"
                             >
                                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAPlJREFUSEvtlcsRgjAYhP+lCOGIF6EMrAStRKhErUTKEC9yBIrIOkF0HAhEfMx4kCvJfjv7PwL58ocv68tzAC+MHKViAlFrqCCQSnnMbAbtAC9cgdyahEgmUp/SMcg4wAsjkAct0Ig5zr4RUyoGsBIRn8BcymMxBBkFwA20eGR0OltsACQgd6o+rV8FsHFf5X0jXuiDPItIwSqffx4gInCDYQMt0RbRqMCPAq6ds9HFtfV4539mmo1eRHADXTh/ovjteMYqXz7eNQGshTPBh+rxB9zT+kdk7dqfiuidQettVtMa1qtCv2BTp/m5VWENe+IB+5s8UbB7/AK6bKsZlqHeYwAAAABJRU5ErkJggg=="/>
-                                <p id="password-id">{{ password.id }}</p>
+                                <!-- <p id="password-id">{{ password.id }}</p> -->
                                 {% localtime on %}
                                 <p id="password-date">{{ password.most_recent|date:"Y-m-d H:i"|localtime }}</p>
                                 {% endlocaltime %}

@@ -8,6 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.core.paginator import Paginator
+from django.db import connection
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -17,6 +18,7 @@ from .forms import LoginEntryForm, SignUpForm
 from .models import Login, Profile
 
 # Initialize the logger for structured logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 class Home(LoginView):
@@ -33,6 +35,7 @@ class CrudView(LoginRequiredMixin, View):
     success_url = reverse_lazy('password-list')
 
     def get(self, request, *args, **kwargs):
+        logger.info("GET request received for password list view.")
         # Activate the user's timezone
         user_timezone = request.user.profile.timezone
         timezone.activate(user_timezone)
@@ -46,9 +49,11 @@ class CrudView(LoginRequiredMixin, View):
         if password_id:
             password = get_object_or_404(self.model, id=password_id, user=request.user)
             form = self.form_class(instance=password)
-
+            logger.info(f"Editing existing password entry: ID = {password_id}")
         # Fetch and paginate all user passwords
         passwords = Login.objects.filter(user=request.user).order_by("appname")
+        logger.info(f"Number of password entries retrieved: {passwords.count()}")
+
         page_obj = Paginator(passwords, 20).get_page(request.GET.get('page'))
 
         # Render the password list page with form and pagination context
@@ -64,13 +69,17 @@ class CrudView(LoginRequiredMixin, View):
         return response
 
     def post(self, request, *args, **kwargs):
+        logger.info("POST request received for password entry creation/update.")
+
         action = request.POST.get('action')
-        if action not in ["save", "delete"]:
-            messages.error(request, "Invalid action.")
-            return redirect(self.success_url)
+        # logger.info(f"Action from form: {action}")
+        # if action not in ["save", "delete"]:
+        #     messages.error(request, "Invalid action.")
+        #     logger.info("Invalid action: ")
+        #     return redirect(self.success_url)
         
         password_id = request.POST.get('password-id')
-        
+        logger.info("Password ID from form: {password_id}")
         # Handle deletion
         if action == "delete" and password_id:
             return self.delete(request, password_id=password_id, *args, **kwargs)
@@ -78,13 +87,24 @@ class CrudView(LoginRequiredMixin, View):
         # Handle create or update
         login_instance = get_object_or_404(self.model, id=password_id, user=request.user) if password_id else None
         form = self.form_class(request.POST, instance=login_instance)
+        logger.info("Form instance created.", form)
+        logger.info("login_instance: ", login_instance)
 
         if form.is_valid():
+            logger.info("Form is valid.")
             entry = form.save(commit=False)
             entry.user = request.user
             entry.save()
             messages.success(request, "Password saved successfully.")
-            return redirect(self.success_url)
+            logger.info(f"Password entry saved: ID = {entry.id}, App Name = {entry.appname}")
+             # Log the database queries executed (to confirm database interaction)
+            for query in connection.queries:
+                logger.debug(query)
+
+            return redirect(self.success_url)    
+        else:
+            logger.info("Form is invalid.")
+            logger.error(f"Form is invalid: {form.errors}")
         
         passwords = Login.objects.filter(user=request.user).order_by("appname")
         page_obj = Paginator(passwords, 20).get_page(request.GET.get('page'))
@@ -94,7 +114,7 @@ class CrudView(LoginRequiredMixin, View):
             "form": form,
             "password_id": password_id,
         })
-
+         
     def delete(self, request, *args, password_id=None, **kwargs):
         password_instance = get_object_or_404(self.model, id=password_id, user=request.user)
         password_instance.delete()
