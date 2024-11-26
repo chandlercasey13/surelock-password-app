@@ -11,6 +11,7 @@ whitenoise = "*"
 gunicorn = "*"
 dj-database-url = "*"
 pytz = "*"
+bcrypt = "*"
 
 [dev-packages]
 
