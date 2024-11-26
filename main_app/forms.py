@@ -25,7 +25,9 @@ class LoginEntryForm(forms.ModelForm):
 
     def save(self, commit=True):
         login_instance = super().save(commit=False)
-        login_instance.password = make_password(self.cleaned_data["password"])
+        # login_instance.password = make_password(self.cleaned_data["password"])
+        login_instance.set_password(self.cleaned_data["password"])  # Use set_password
+        
         if commit:
             login_instance.save()
         return login_instance

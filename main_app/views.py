@@ -13,6 +13,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import View
+from django.views.decorators.http import require_POST
 from datetime import datetime
 from .forms import LoginEntryForm, SignUpForm
 from .models import Login, Profile
@@ -20,6 +21,17 @@ from .models import Login, Profile
 # Initialize the logger for structured logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
+@login_required  # Ensure only authenticated users can access this
+@require_POST  # Ensure this endpoint only accepts POST requests
+def reveal_password_api(request):
+    password_id = request.POST.get("password_id")
+    login_entry = Login.objects.filter(id=password_id).first()
+    
+    if login_entry and request.user.is_authenticated:
+        plaintext_password = login_entry.get_plaintext_password(user_authenticated=True)
+        return JsonResponse({"password": plaintext_password})
+    return JsonResponse({"error": "Unauthorized access or password not found"}, status=403)
 
 class Home(LoginView):
     # User login view, extending Django's built-in LoginView
@@ -87,8 +99,7 @@ class CrudView(LoginRequiredMixin, View):
         # Handle create or update
         login_instance = get_object_or_404(self.model, id=password_id, user=request.user) if password_id else None
         form = self.form_class(request.POST, instance=login_instance)
-        logger.info("Form instance created.", form)
-        logger.info("login_instance: ", login_instance)
+     
 
         if form.is_valid():
             logger.info("Form is valid.")

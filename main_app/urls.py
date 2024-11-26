@@ -13,7 +13,9 @@ urlpatterns = [
     path('passwords/create/', views.simple_password_create, name='simple-password-create'),  # Separate create view if needed
     path('ajax-login/', views.ajax_login_view, name='ajax_login'),  # AJAX login endpoint
     path('bulk-delete/', bulk_delete_view, name='bulk-delete'),
+    path('reveal-password/', views.reveal_password_api, name='reveal_password_api'),
 ]
+
 
 
 

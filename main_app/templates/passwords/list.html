@@ -64,7 +64,7 @@
                                 data-password="{{ password.password }}"
                                 data-note="{{ password.note }}"
                             >
-                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAPlJREFUSEvtlcsRgjAYhP+lCOGIF6EMrAStRKhErUTKEC9yBIrIOkF0HAhEfMx4kCvJfjv7PwL58ocv68tzAC+MHKViAlFrqCCQSnnMbAbtAC9cgdyahEgmUp/SMcg4wAsjkAct0Ig5zr4RUyoGsBIRn8BcymMxBBkFwA20eGR0OltsACQgd6o+rV8FsHFf5X0jXuiDPItIwSqffx4gInCDYQMt0RbRqMCPAq6ds9HFtfV4539mmo1eRHADXTh/ovjteMYqXz7eNQGshTPBh+rxB9zT+kdk7dqfiuidQettVtMa1qtCv2BTp/m5VWENe+IB+5s8UbB7/AK6bKsZlqHeYwAAAABJRU5ErkJggg=="/>
+                                <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAPlJREFUSEvtlcsRgjAYhP+lCOGIF6EMrAStRKhErUTKEC9yBIrIOkF0HAhEfMx4kCvJfjv7PwL58ocv68tzAC+MHKViAlFrqCCQSnnMbAbtAC9cgdyahEgmUp/SMcg4wAsjkAct0Ig5zr4RUyoGsBIRn8BcymMxBBkFwA20eGR0OltsACQgd6o+rV8FsHFf5X0jXuiDPItIwSqffx4gInCDYQMt0RbRqMCPAq6ds9HFtfV4539mmo1eRHADXTh/ovjteMYqXz7eNQGshTPBh+rxB9zT+kdk7dqfiuidQettVtMa1qtCv2BTp/m5VWENe+IB+5s8UbB7/AK6bKsZlqHeYwAAAABJRU5ErkJggg=="/> -->
                                 <!-- <p id="password-id">{{ password.id }}</p> -->
                                 {% localtime on %}
                                 <p id="password-date">{{ password.most_recent|date:"Y-m-d H:i"|localtime }}</p>
@@ -76,10 +76,7 @@
                         </div>
                         {% endfor %}
                     </form>
-                </div>
-                
-                
-                
+                </div>               
 			</section>
 		</section>
 
@@ -160,12 +157,12 @@
             <label for="update-password">Password</label>
             <input type="password" id="update-password" name="password" value="{{ password.password }}" />
             <!-- Button to toggle password visibility -->
-            <button type="button" id="toggle-update-password" class="toggle-password toggle-button">
-                <i class="fa-solid fa-eye"></i> <!-- Eye icon to show/hide the password -->
-            </button>
             <!-- Button to copy the password to the clipboard -->
             <button type="button" id="copy-update-password" name="copy-button" class="">
                 <i class="fa-solid fa-copy"></i>
+            </button>
+            <button type="button" id="toggle-update-password" class="toggle-password toggle-button">
+                <i class="fa-solid fa-eye"></i> <!-- Eye icon to show/hide the password -->
             </button>
         </div>
     
